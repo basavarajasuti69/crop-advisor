@@ -76,8 +76,8 @@ def test_classifier_fallback():
 
 
 def test_classifier_loads_no_model():
-    model, classes = _load_classifier()
-    assert classes == ["healthy", "leaf_blight"]
+    with pytest.raises(ModelUnavailable, match="classifier model file missing"):
+        _load_classifier()
 
 
 @patch("agents.graph._predict_image")
