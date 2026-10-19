@@ -7,9 +7,9 @@ resource "aws_ecr_repository" "api" {
 }
 
 resource "aws_cloudwatch_log_group" "api" {
-  name = "/aws/ecs/${local.name_prefix}-api"
+  name              = "/aws/ecs/${local.name_prefix}-api"
   retention_in_days = 30
-  tags = local.tags
+  tags              = local.tags
 }
 
 output "api_repository_url" {

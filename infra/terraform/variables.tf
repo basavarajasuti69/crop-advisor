@@ -1,6 +1,6 @@
 variable "region" {
-  type    = string
-  default = "ap-south-1"
+  type        = string
+  default     = "ap-south-1"
   description = "AWS region"
 }
 
@@ -10,8 +10,8 @@ variable "project" {
 }
 
 variable "environment" {
-  type    = string
-  default = "dev"
+  type        = string
+  default     = "dev"
   description = "dev | prod"
 }
 
@@ -31,7 +31,7 @@ variable "private_subnet_cidrs" {
 }
 
 variable "api_image" {
-  type    = string
+  type        = string
   description = "ECR image URI for the API"
 }
 

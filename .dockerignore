@@ -1,0 +1,43 @@
+# Keep the build context small and the image free of dev artifacts.
+.git
+.github
+.gitignore
+.dockerignore
+
+# Node / Next.js
+apps/web/node_modules
+apps/web/.next
+apps/web/package-lock.json
+
+# Python
+__pycache__
+**/__pycache__
+*.pyc
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.venv
+venv
+
+# Local config and secrets
+.env
+.env.*
+!.env.example
+
+# Model artifacts and datasets are not baked into the image: the classifier
+# is served from SageMaker (CA_SAGEMAKER_ENDPOINT).
+ml/data/
+ml/training/artifacts/
+ml/export_edge/artifacts/
+*.pt
+*.pth
+*.onnx
+
+# Terraform state
+infra/terraform/.terraform
+*.tfstate
+*.tfstate.backup
+
+# Docs and local data
+README.md
+evals/

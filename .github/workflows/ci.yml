@@ -46,7 +46,10 @@ jobs:
       - name: Build and push API image
         uses: docker/build-push-action@v6
         with:
-          context: apps/api
+          # The image needs agents/, rag/, speech/ and strings/, so the build
+          # context is the repository root.
+          context: .
+          file: apps/api/Dockerfile
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/crop-advisor-api:latest
     env:

@@ -10,6 +10,8 @@ sys.path.insert(0, ".")
 
 import pytest  # noqa: E402
 
+ROOT = Path(__file__).resolve().parent.parent
+
 # Expected letter ranges per language code.
 EXPECTED_SCRIPT = {
     "kn": ([(0x0C80, 0x0CFF)], "Kannada"),
@@ -44,7 +46,7 @@ def _iter_glossary_values(module):
 
 def _glossary_modules():
     mods = []
-    for path in sorted(Path("rag/glossary").glob("*.py")):
+    for path in sorted((ROOT / "rag/glossary").glob("*.py")):
         if path.name == "__init__.py":
             continue
         mods.append((path.stem, importlib.import_module(f"rag.glossary.{path.stem}")))
@@ -69,14 +71,14 @@ def test_glossary_values_match_script(lang_key, mod):
 
 
 def _string_values():
-    for path in sorted(Path("strings").glob("*.json")):
+    for path in sorted((ROOT / "strings").glob("*.json")):
         lang = path.stem
         data = json.loads(path.read_text(encoding="utf-8"))
         for k, v in data.items():
             yield path.name, lang, k, v
 
 
-@pytest.mark.parametrize("fname,lang,key,val", _string_values())
+@pytest.mark.parametrize("fname,lang,key,val", list(_string_values()))
 def test_strings_values_match_script(fname, lang, key, val):
     if val is None:
         pytest.skip(f"{fname}:{key} is null (NEEDS NATIVE REVIEW)")

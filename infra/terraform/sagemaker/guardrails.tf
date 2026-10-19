@@ -45,7 +45,7 @@ resource "aws_bedrock_guardrail" "crop_advisor_safety" {
 }
 
 output "guardrail_id" {
-  value = aws_bedrock_guardrail.crop_advisor_safety.id
+  value = aws_bedrock_guardrail.crop_advisor_safety.guardrail_id
 }
 
 output "guardrail_arn" {

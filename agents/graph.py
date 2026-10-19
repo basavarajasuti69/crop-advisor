@@ -56,8 +56,11 @@ def _load_classifier(weights_path: str | None = None, metrics_path: str | None =
     global _CLASSIFIER, _CLASSES
     if weights_path is None and metrics_path is None and _CLASSIFIER is not None:
         return _CLASSIFIER, _CLASSES
-    w = Path(weights_path if weights_path is not None else "ml/training/artifacts/model.pt")
-    m = Path(metrics_path if metrics_path is not None else "ml/training/artifacts/metrics.json")
+    # Resolve from the repo root, not the CWD: the API may be started from
+    # anywhere (and in Docker the CWD is the image WORKDIR).
+    root = Path(__file__).resolve().parent.parent
+    w = Path(weights_path) if weights_path else root / "ml/training/artifacts/model.pt"
+    m = Path(metrics_path) if metrics_path else root / "ml/training/artifacts/metrics.json"
     if not (w.exists() and m.exists()):
         raise ModelUnavailable("classifier model file missing")
     classes = json.loads(m.read_text())["classes"]

@@ -1,8 +1,8 @@
 # SageMaker Model Package Group (Model Registry)
 resource "aws_sagemaker_model_package_group" "classifier" {
-  model_package_group_name = "${local.name_prefix}-classifier"
+  model_package_group_name        = "${local.name_prefix}-classifier"
   model_package_group_description = "Crop disease classifier model registry"
-  tags = local.tags
+  tags                            = local.tags
 }
 
 # IAM role for SageMaker Pipeline

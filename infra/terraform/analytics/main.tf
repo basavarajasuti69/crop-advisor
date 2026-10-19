@@ -16,7 +16,7 @@ variable "environment" {
 }
 
 variable "analytics_bucket" {
-  type    = string
+  type        = string
   description = "S3 bucket for Athena query results and case data"
 }
 
@@ -48,21 +48,21 @@ provider "aws" {
 locals {
   name_prefix = "${var.project}-${var.environment}"
   tags = {
-    project = var.project
+    project     = var.project
     environment = var.environment
-    managed_by = "terraform"
+    managed_by  = "terraform"
   }
 }
 
 # S3 bucket for analytics data + Athena query results
 resource "aws_s3_bucket" "analytics" {
   bucket = var.analytics_bucket
-  tags = local.tags
+  tags   = local.tags
 }
 
 resource "aws_s3_bucket_public_access_block" "analytics" {
-  bucket = aws_s3_bucket.analytics.id
-  block_public_acls = true
+  bucket              = aws_s3_bucket.analytics.id
+  block_public_acls   = true
   block_public_policy = true
 }
 
@@ -74,8 +74,8 @@ resource "aws_glue_catalog_database" "analytics" {
 
 # Glue crawler for cases table (scans S3 case data)
 resource "aws_glue_crawler" "cases" {
-  name     = "${local.name_prefix}-cases-crawler"
-  role_arn = aws_iam_role.glue.arn
+  name          = "${local.name_prefix}-cases-crawler"
+  role_arn      = aws_iam_role.glue.arn
   database_name = aws_glue_catalog_database.analytics.name
   targets {
     s3_targets {
@@ -83,7 +83,7 @@ resource "aws_glue_crawler" "cases" {
     }
   }
   schedule {
-    schedule_expression = "cron(0 */6 * * ? *)"  # every 6 hours
+    schedule_expression = "cron(0 */6 * * ? *)" # every 6 hours
   }
   tags = local.tags
 }
@@ -95,9 +95,9 @@ resource "aws_iam_role" "glue" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow"
+        Effect    = "Allow"
         Principal = { Service = "glue.amazonaws.com" }
-        Action = "sts:AssumeRole"
+        Action    = "sts:AssumeRole"
       },
     ]
   })
@@ -116,7 +116,7 @@ resource "aws_iam_role_policy_attachment" "glue_s3" {
 
 # Athena workgroup
 resource "aws_athena_workgroup" "analytics" {
-  name = "${local.name_prefix}-analytics"
+  name        = "${local.name_prefix}-analytics"
   description = "Outbreak analytics workgroup for crop disease advisor"
 
   configuration {
@@ -127,7 +127,7 @@ resource "aws_athena_workgroup" "analytics" {
       }
     }
     enforce_workgroup_configuration = true
-    publish_cloudwatch_metrics = true
+    publish_cloudwatch_metrics      = true
   }
   tags = local.tags
 }
