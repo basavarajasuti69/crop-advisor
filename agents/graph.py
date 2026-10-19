@@ -285,6 +285,14 @@ async def triage(state: AgentState) -> AgentState:
         state.quality_ok = False
         state.quality_issue = "no image provided"
         state.retake_requested = True
+        state.safe = False
+        state.escalate = True
+        state.escalate_reason = "no_image"
+        strings = load_strings(state.language)
+        # NEEDS NATIVE REVIEW: no_photo is null for hi/kn
+        state.answer = strings.get("no_photo") or strings.get(
+            "cannot_read", "Cannot read this photo. Please retake it."
+        )
         return state
     # Placeholder quality model; real implementation runs blur/leaf/lit checks.
     state.quality_ok = True

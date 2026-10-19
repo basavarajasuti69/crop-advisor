@@ -57,6 +57,28 @@ def test_advice_image_endpoint_accepts_multipart_upload():
     assert "Cannot read this photo" not in response.json()["advice"]
 
 
+def test_advice_endpoint_without_image_returns_readable_message():
+    """No photo at all must not produce an empty advice string."""
+    response = client.post("/advice", json={"crop": "rice", "language": "en"})
+    assert response.status_code == 200
+    body = response.json()
+    assert body["advice"], "advice must not be empty"
+    assert "upload" in body["advice"].lower()
+    assert body["safe"] is False
+    assert body["escalate"] is True
+    assert body["diagnosis"]["quality_issue"] == "no image provided"
+
+
+def test_advice_endpoint_without_image_is_localized():
+    for language, marker in (("hi", "फोटो"), ("kn", "ಫೋಟೊ")):
+        response = client.post("/advice", json={"crop": "rice", "language": language})
+        assert response.status_code == 200
+        advice = response.json()["advice"]
+        assert advice, f"{language} advice must not be empty"
+        assert marker in advice
+        assert not any(c.isascii() and c.isalpha() for c in advice)
+
+
 def test_speak_reports_configured_providers_when_unavailable():
     response = client.post("/speak", json={"text": "hello", "language": "kn"})
     assert response.status_code == 503

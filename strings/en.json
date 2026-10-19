@@ -7,6 +7,7 @@
   "retake": "Please retake the photo. I am not sure. Top possibilities: {possibilities}.",
   "neutral_crop": "your crop",
   "cannot_read": "Cannot read this photo. Please retake it.",
+  "no_photo": "Please upload a clear photo of the affected leaf.",
   "service_problem": "Service problem, please try again later.",
   "disease_unknown": "unknown disease"
 }
