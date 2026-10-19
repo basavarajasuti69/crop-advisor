@@ -1,4 +1,5 @@
 .env*
+!.env.example
 *.pem
 node_modules
 venv

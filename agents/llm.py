@@ -6,6 +6,8 @@ Never sends the leaf image or the farmer's location to the model.
 
 from __future__ import annotations
 
+import base64
+import io
 import json
 import os
 import re
@@ -13,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 import httpx
+from PIL import Image
 
 STRINGS_DIR = Path(__file__).resolve().parent.parent / "strings"
 
@@ -53,6 +56,11 @@ def load_strings(language: str) -> dict[str, str]:
         except (json.JSONDecodeError, OSError):
             return {}
     return {}
+
+
+def llm_configured() -> bool:
+    """True when BASE_URL, API_KEY and MODEL_NAME are all set."""
+    return bool(BASE_URL and API_KEY and MODEL_NAME)
 
 
 def _plain_template(disease_label: str, chunks: list[Any], language: str) -> str:
@@ -123,7 +131,7 @@ def _reject_dose_chemical(text: str, chunks: list[Any], language: str = "en") ->
     return False, ""
 
 
-def _build_prompt(disease_label: str, chunks: list[Any], language: str) -> list[dict[str, str]]:
+def _build_prompt(disease_label: str, chunks: list[Any], language: str) -> list[dict[str, Any]]:
     chunk_text = "\n".join(
         c.get("text", str(c)) if isinstance(c, dict) else str(c) for c in chunks
     )
@@ -140,7 +148,7 @@ def _build_prompt(disease_label: str, chunks: list[Any], language: str) -> list[
     ]
 
 
-def _llm_chat(messages: list[dict[str, str]]) -> str:
+def _llm_chat(messages: list[dict[str, Any]]) -> str:
     headers = {"Content-Type": "application/json"}
     if API_KEY:
         headers["Authorization"] = f"Bearer {API_KEY}"
@@ -155,6 +163,54 @@ def _llm_chat(messages: list[dict[str, str]]) -> str:
         resp.raise_for_status()
         data = resp.json()
     return data["choices"][0]["message"]["content"]
+
+
+def _strip_exif_and_resize(image_bytes: bytes, max_px: int = 512) -> bytes:
+    """Strip EXIF/GPS metadata and resize so the longest side is at most max_px."""
+    img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+    img.thumbnail((max_px, max_px))
+    buf = io.BytesIO()
+    img.save(buf, format="JPEG", quality=85)
+    return buf.getvalue()
+
+
+def vision_opinion(image_bytes: bytes, class_list: list[str], language: str = "en") -> dict[str, Any] | None:
+    """Ask the vision model to describe symptoms and name up to 3 diseases from class_list.
+
+    Sends only the image (EXIF/GPS stripped, resized to 512px). Never sends
+    the farmer's location. Returns None if the model is not configured or the
+    call fails.
+    """
+    if not BASE_URL or not API_KEY or not MODEL_NAME:
+        return None
+    if not class_list:
+        return None
+    try:
+        prepared = _strip_exif_and_resize(image_bytes)
+        b64 = base64.b64encode(prepared).decode()
+        data_uri = f"data:image/jpeg;base64,{b64}"
+        classes_str = ", ".join(class_list)
+        system = (
+            "You are a careful agricultural vision assistant. Inspect the leaf image and "
+            f"describe visible symptoms. Name up to 3 possible diseases from this allowed "
+            f"class list: {classes_str}. Respond ONLY with JSON: "
+            '{"symptoms": "...", "diseases": ["label1", "label2", ...]}. '
+            "Do not add anything outside JSON."
+        )
+        messages: list[dict[str, Any]] = [
+            {"role": "system", "content": system},
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": "Analyze this leaf image."},
+                    {"type": "image_url", "image_url": {"url": data_uri}},
+                ],
+            },
+        ]
+        content = _llm_chat(messages)
+        return json.loads(content)
+    except Exception:
+        return None
 
 
 def explain(disease_label: str, chunks: list[Any], language: str) -> str:

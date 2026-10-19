@@ -7,9 +7,11 @@ critic (dose verification) -> follow-up (reminders + escalation).
 
 from __future__ import annotations
 
+import asyncio
 import importlib
 import io
 import json
+import os
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -26,6 +28,8 @@ from rag.glossary import hi as glossary_hi  # noqa: E402
 from rag.glossary import kn as glossary_kn  # noqa: E402
 
 from apps.api.config import settings  # noqa: E402
+
+from agents.llm import explain, llm_configured, vision_opinion  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Classifier: SageMaker endpoint first, local PyTorch fallback
@@ -47,18 +51,19 @@ _CLASSIFIER = None
 _CLASSES = None
 
 
-def _load_classifier():
+def _load_classifier(weights_path: str | None = None, metrics_path: str | None = None):
+    """Load the classifier. Paths are injectable so tests can simulate a missing model."""
     global _CLASSIFIER, _CLASSES
-    if _CLASSIFIER is not None:
+    if weights_path is None and metrics_path is None and _CLASSIFIER is not None:
         return _CLASSIFIER, _CLASSES
-    weights_path = Path("ml/training/artifacts/model.pt")
-    metrics_path = Path("ml/training/artifacts/metrics.json")
-    if not (weights_path.exists() and metrics_path.exists()):
+    w = Path(weights_path if weights_path is not None else "ml/training/artifacts/model.pt")
+    m = Path(metrics_path if metrics_path is not None else "ml/training/artifacts/metrics.json")
+    if not (w.exists() and m.exists()):
         raise ModelUnavailable("classifier model file missing")
-    classes = json.loads(metrics_path.read_text())["classes"]
+    classes = json.loads(m.read_text())["classes"]
     model = models.efficientnet_b0(weights=None)
     model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, len(classes))
-    model.load_state_dict(torch.load(weights_path, map_location="cpu"))
+    model.load_state_dict(torch.load(w, map_location="cpu"))
     model.eval()
     _CLASSIFIER = model
     _CLASSES = classes
@@ -93,6 +98,7 @@ CONFIDENCE_MIN = 0.70   # "not sure" threshold; below it -> retake photo
 HEALTHY_MIN = 0.85      # a "healthy" result below this is treated as not sure
 FOLLOW_UP_MIN = 0.80    # below it -> schedule follow-up
 VISION_DISAGREE_MIN = 0.70   # classifier/vision disagreement retake threshold
+VISION_ENABLED = os.getenv("CA_VISION_SECOND_OPINION", "false").lower() == "true"
 
 
 def _predict_image(image_bytes: bytes, top_k: int = 3, model=None, classes=None) -> list[dict[str, Any]]:
@@ -245,6 +251,7 @@ class AgentState(BaseModel):
     answer: str | None = None
     citations: list[str] = Field(default_factory=list)
     confidence: float = 0.0
+    llm_explained: bool = False
 
     # context (weather MCP)
     weather: dict[str, Any] | None = None
@@ -345,13 +352,39 @@ async def classify(state: AgentState) -> AgentState:
 
 
 async def vision_second_opinion(state: AgentState) -> AgentState:
-    """Vision LLM cross-check; returns no opinion until a real model is connected."""
+    """Vision LLM cross-check; enabled only when CA_VISION_SECOND_OPINION=true.
+
+    Strips EXIF/GPS, resizes to 512px, sends only the image to the model,
+    asks for symptoms + up to 3 diseases (JSON), and compares by label match.
+    Disagreement below the threshold requests a retake.
+    """
     state.step = "vision_second_opinion"
     if state.error:
         return state
-    # No real vision model connected yet; record no opinion.
-    state.vision_llm_opinion = None
-    state.agreed = False
+    if not VISION_ENABLED:
+        state.vision_llm_opinion = None
+        state.agreed = None
+        return state
+    image_bytes = state.image_bytes
+    if image_bytes is None:
+        state.vision_llm_opinion = None
+        state.agreed = None
+        return state
+    class_list = _CLASSES or [p["label"] for p in state.predictions]
+    try:
+        opinion = await asyncio.to_thread(vision_opinion, image_bytes, class_list, state.language)
+    except Exception:
+        opinion = None
+    state.vision_llm_opinion = opinion
+    if not opinion:
+        state.agreed = None
+        return state
+    vision_diseases = opinion.get("diseases", []) or []
+    classifier_label = state.predictions[0]["label"] if state.predictions else None
+    state.agreed = bool(classifier_label) and classifier_label in vision_diseases
+    if not state.agreed and state.confidence < VISION_DISAGREE_MIN:
+        state.retake_requested = True
+        state.quality_issue = "Classifier and vision LLM disagree; please retake photo."
     return state
 
 
@@ -441,6 +474,30 @@ async def localize_advice(state: AgentState) -> AgentState:
         state.answer = f"{intro} {confirm}"
     else:
         state.answer = state.answer or ""
+    return state
+
+
+async def llm_explain(state: AgentState) -> AgentState:
+    """LLM-written farmer explanation in the target language.
+
+    Sends only the disease label and the top 2 retrieved chunks - never the
+    image, never the location. No-op when the LLM is not configured, so the
+    plain template from localize_advice is used instead.
+    """
+    state.step = "llm_explain"
+    if state.error:
+        return state
+    if not llm_configured():
+        return state
+    label = state.predictions[0]["label"] if state.predictions else "healthy"
+    chunks = state.passages[:2]
+    try:
+        answer = await asyncio.to_thread(explain, label, chunks, state.language)
+    except Exception:
+        return state
+    if answer:
+        state.answer = answer
+        state.llm_explained = True
     return state
 
 
@@ -569,7 +626,7 @@ async def follow_up(state: AgentState) -> AgentState:
             for o in state.officer
         )
         state.answer = (state.answer or "") + " " + officer_text
-    else:
+    elif helpline and helpline not in (state.answer or ""):
         state.answer = (state.answer or "") + " " + helpline
     return state
 
@@ -630,6 +687,7 @@ def build_graph() -> StateGraph:
     builder.add_node("retrieve", retrieve)
     builder.add_node("draft_advice", draft_advice)
     builder.add_node("localize_advice", localize_advice)
+    builder.add_node("llm_explain", llm_explain)
     builder.add_node("critic_safety", critic_safety)
     builder.add_node("find_officer", find_officer)
     builder.add_node("follow_up", follow_up)
@@ -641,7 +699,8 @@ def build_graph() -> StateGraph:
     builder.add_edge("context_weather", "retrieve")
     builder.add_edge("retrieve", "draft_advice")
     builder.add_edge("draft_advice", "localize_advice")
-    builder.add_edge("localize_advice", "critic_safety")
+    builder.add_edge("localize_advice", "llm_explain")
+    builder.add_edge("llm_explain", "critic_safety")
     builder.add_conditional_edges(
         "critic_safety",
         lambda s: "find_officer" if s.escalate else END,

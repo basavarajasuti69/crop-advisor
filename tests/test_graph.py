@@ -77,7 +77,7 @@ def test_classifier_fallback():
 
 def test_classifier_loads_no_model():
     with pytest.raises(ModelUnavailable, match="classifier model file missing"):
-        _load_classifier()
+        _load_classifier(weights_path="ml/training/artifacts/does-not-exist.pt")
 
 
 @patch("agents.graph._predict_image")
@@ -226,6 +226,102 @@ def test_high_confidence_no_retake(mock_predict):
     s = run_advice_sync(Req(image_bytes=b"x", crop="rice", language="en"))
     assert "retake" not in s.answer.lower()
     assert s.ood is False
+
+
+# ---------- Vision second opinion ----------
+def _vision_state(image_bytes=b"x", predictions=None, confidence=0.9, error=None):
+    return AgentState(
+        case_id="x",
+        language="en",
+        image_bytes=image_bytes,
+        predictions=predictions or [{"label": "healthy", "score": confidence}],
+        confidence=confidence,
+        error=error,
+    )
+
+
+@patch("agents.graph.vision_opinion")
+@patch.object(graph_agent, "VISION_ENABLED", False)
+def test_vision_disabled_by_default(mock_vision):
+    state = _vision_state()
+    asyncio.run(graph_agent.vision_second_opinion(state))
+    assert state.vision_llm_opinion is None
+    assert state.agreed is None
+    mock_vision.assert_not_called()
+
+
+@patch("agents.graph.vision_opinion")
+@patch.object(graph_agent, "VISION_ENABLED", True)
+def test_vision_agree(mock_vision):
+    mock_vision.return_value = {"symptoms": "uniform green leaves", "diseases": ["healthy"]}
+    state = _vision_state(confidence=0.9)
+    asyncio.run(graph_agent.vision_second_opinion(state))
+    assert state.agreed is True
+    assert state.retake_requested is False
+
+
+@patch("agents.graph.vision_opinion")
+@patch.object(graph_agent, "VISION_ENABLED", True)
+def test_vision_disagree_low_confidence_retake(mock_vision):
+    mock_vision.return_value = {"symptoms": "blight spots", "diseases": ["leaf_blight"]}
+    state = _vision_state(confidence=0.6)
+    asyncio.run(graph_agent.vision_second_opinion(state))
+    assert state.agreed is False
+    assert state.retake_requested is True
+    assert "disagree" in state.quality_issue
+
+
+@patch("agents.graph.vision_opinion")
+@patch.object(graph_agent, "VISION_ENABLED", True)
+def test_vision_api_error_no_crash(mock_vision):
+    mock_vision.side_effect = Exception("down")
+    state = _vision_state(confidence=0.9)
+    asyncio.run(graph_agent.vision_second_opinion(state))
+    assert state.vision_llm_opinion is None
+    assert state.agreed is None
+    assert state.retake_requested is False
+
+
+# ---------- LLM explanation step ----------
+
+@patch("agents.graph.llm_configured", return_value=True)
+@patch("agents.graph.explain")
+@patch("agents.graph._predict_image")
+def test_llm_explain_used_in_graph(mock_predict, mock_explain, mock_configured):
+    mock_predict.return_value = [{"label": "leaf_blight", "score": 0.9}]
+    mock_explain.return_value = "LLM generated farmer advice."
+    s = run_advice_sync(Req(image_bytes=_make_image_bytes(), crop="rice", language="en"))
+    assert s.llm_explained is True
+    assert "LLM generated farmer advice." in s.answer
+    mock_explain.assert_called_once()
+    # only label, chunks and language are sent - no image, no location
+    args, _kwargs = mock_explain.call_args
+    assert len(args) == 3
+    assert args[0] == "leaf_blight"
+    assert isinstance(args[1], list)
+    assert args[2] == "en"
+
+
+@patch("agents.graph.llm_configured", return_value=False)
+@patch("agents.graph.explain")
+@patch("agents.graph._predict_image")
+def test_llm_not_used_when_not_configured(mock_predict, mock_explain, mock_configured):
+    mock_predict.return_value = [{"label": "leaf_blight", "score": 0.9}]
+    s = run_advice_sync(Req(image_bytes=_make_image_bytes(), crop="rice", language="en"))
+    assert s.llm_explained is False
+    mock_explain.assert_not_called()
+    assert s.answer is not None
+
+
+@patch("agents.graph.llm_configured", return_value=True)
+@patch("agents.graph.explain")
+@patch("agents.graph._predict_image")
+def test_llm_answer_helpline_not_duplicated(mock_predict, mock_explain, mock_configured):
+    mock_predict.return_value = [{"label": "leaf_blight", "score": 0.9}]
+    helpline = graph_agent.load_strings("en")["helpline"]
+    mock_explain.return_value = f"LLM advice. {helpline}"
+    s = run_advice_sync(Req(image_bytes=_make_image_bytes(), crop="rice", language="en"))
+    assert s.answer.count(helpline) == 1
 
 
 def _make_officer_mock(officer_result):
