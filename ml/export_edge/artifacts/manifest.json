@@ -1,0 +1,14 @@
+{
+  "model": "efficientnet_b0",
+  "num_classes": 2,
+  "classes": [
+    "healthy",
+    "leaf_blight"
+  ],
+  "input_size": [
+    224,
+    224
+  ],
+  "format": "onnx",
+  "opset": 13
+}

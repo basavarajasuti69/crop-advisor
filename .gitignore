@@ -1,0 +1,17 @@
+.env*
+*.pem
+node_modules
+venv
+.venv
+__pycache__
+*.pyc
+.terraform
+*.tfstate
+ml/data/
+*.pt
+*.pth
+*.onnx
+.next/
+*.tfstate.backup
+.env.local
+.env.*.local
