@@ -3,8 +3,8 @@
   "short_name": "CropAdvisor",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#22c55e",
+  "background_color": "#181818",
+  "theme_color": "#9cba90",
   "orientation": "portrait",
   "icons": [
     {
