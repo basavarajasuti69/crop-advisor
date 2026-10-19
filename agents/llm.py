@@ -17,6 +17,9 @@ from typing import Any
 import httpx
 from PIL import Image
 
+from rag.glossary import hi as glossary_hi
+from rag.glossary import kn as glossary_kn
+
 STRINGS_DIR = Path(__file__).resolve().parent.parent / "strings"
 
 BASE_URL = os.getenv("CA_LLM_BASE_URL", "").rstrip("/")
@@ -63,11 +66,29 @@ def llm_configured() -> bool:
     return bool(BASE_URL and API_KEY and MODEL_NAME)
 
 
+def _localized_disease(disease_label: str, strings: dict[str, str], language: str) -> str:
+    """Localize the disease class name so no English leaks into a kn/hi answer."""
+    if language == "kn":
+        name = glossary_kn.DISEASE_NAMES.get(disease_label)
+        if name is None:
+            # NEEDS NATIVE REVIEW: disease_unknown is null for kn
+            name = strings.get("disease_unknown") or strings.get("neutral_crop", "ನಿಮ್ಮ ಬೆಳೆ")
+        return name
+    if language == "hi":
+        name = glossary_hi.DISEASE_NAMES.get(disease_label)
+        if name is None:
+            # NEEDS NATIVE REVIEW: disease_unknown is null for hi
+            name = strings.get("disease_unknown") or strings.get("neutral_crop", "आपकी फसल")
+        return name
+    return disease_label
+
+
 def _plain_template(disease_label: str, chunks: list[Any], language: str) -> str:
+    """Plain fallback text. The safety line and helpline are appended by the caller."""
     strings = load_strings(language)
     crop = strings.get("neutral_crop", "your crop")
-    intro = strings.get("intro", "Your {crop} leaf shows {label}.").format(crop=crop, label=disease_label)
-    confirm = strings.get("confirm", "")
+    label = _localized_disease(disease_label, strings, language)
+    intro = strings.get("intro", "Your {crop} leaf shows {label}.").format(crop=crop, label=label)
     guidance = ""
     if language == "en" and chunks:
         first = chunks[0]
@@ -75,7 +96,7 @@ def _plain_template(disease_label: str, chunks: list[Any], language: str) -> str
         guidance = first_text[:200]
     elif language == "en":
         guidance = strings.get("no_guidance", "")
-    return " ".join(p for p in (intro, guidance, confirm) if p).strip()
+    return " ".join(p for p in (intro, guidance) if p).strip()
 
 
 def _script_fraction(text: str, ranges: list[tuple[int, int]]) -> bool:
