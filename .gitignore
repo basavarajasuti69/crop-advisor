@@ -15,3 +15,5 @@ ml/data/
 *.tfstate.backup
 .env.local
 .env.*.local
+tests/*.webp
+tests/*.jpg
