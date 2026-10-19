@@ -10,12 +10,11 @@ Run:
 from __future__ import annotations
 
 import json
-import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
@@ -83,7 +82,7 @@ async def dashboard() -> str:
 
 @app.get("/cases", response_model=list[CaseReview])
 async def list_cases() -> list[CaseReview]:
-    return _load_cases()
+    return [CaseReview.model_validate(case) for case in _load_cases()]
 
 
 @app.get("/review/{case_id}", response_class=HTMLResponse)
@@ -184,4 +183,4 @@ def ingest_case(case: dict[str, Any]) -> None:
 @app.post("/ingest")
 async def ingest(case: dict[str, Any]) -> dict[str, str]:
     ingest_case(case)
-    return {"status": "ingested", "case_id": case.get("case_id")}
+    return {"status": "ingested", "case_id": str(case.get("case_id", ""))}

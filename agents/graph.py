@@ -13,10 +13,10 @@ import json
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, cast
 
 from langgraph.graph import StateGraph, END
-from mcp.types import CallToolRequest
+from mcp.types import CallToolRequest, CallToolRequestParams
 from PIL import Image
 from pydantic import BaseModel, Field
 import torch
@@ -141,7 +141,6 @@ def _predict_sagemaker(image_bytes: bytes) -> list[dict[str, Any]]:
 # MCP client (imports local MCP server modules directly)
 # ---------------------------------------------------------------------------
 
-import importlib
 
 MCP_SERVER_MODULES = {
     "weather": "mcp_servers.weather.server",
@@ -170,7 +169,10 @@ async def mcp_call(server_name: str, tool: str, arguments: dict[str, Any]) -> di
         return {"error": f"No server object in {server_name}"}
     try:
         handler = server_obj.request_handlers[CallToolRequest]
-        req = CallToolRequest(method="tools/call", params={"name": tool, "arguments": arguments})
+        req = CallToolRequest(
+            method="tools/call",
+            params=CallToolRequestParams(name=tool, arguments=arguments),
+        )
         result = await handler(req)
         # result is ServerResult wrapping CallToolResult
         call_result = getattr(result, "root", result)
@@ -208,7 +210,6 @@ def _validate_kannada(text: str) -> bool:
     if not letters:
         return True
     kannada = [ch for ch in letters if "\u0c80" <= ch <= "\u0cff"]
-    ascii_letters = [ch for ch in letters if ch.isascii()]
     other_indian = [ch for ch in letters if not ch.isascii() and not ("\u0c80" <= ch <= "\u0cff")]
     if other_indian:
         return False
@@ -662,7 +663,7 @@ async def run_advice(req: Any) -> AgentState:
         language=getattr(req, "language", "en"),
         location=getattr(req, "location", None),
     )
-    result = await graph.ainvoke(state)
+    result = await graph.ainvoke(cast(Any, state))
     if isinstance(result, dict):
         return AgentState(**result)
     return result

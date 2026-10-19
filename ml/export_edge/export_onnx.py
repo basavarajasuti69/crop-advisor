@@ -36,7 +36,7 @@ def export_onnx(weights: Path, metrics: Path, output: Path) -> None:
     dummy_input = torch.randn(1, 3, 224, 224)
     torch.onnx.export(
         model,
-        dummy_input,
+        (dummy_input,),
         str(output / "classifier.onnx"),
         export_params=True,
         opset_version=13,

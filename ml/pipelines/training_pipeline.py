@@ -15,21 +15,18 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-import boto3
-from sagemaker import Parameter, Session, image_uris
+from sagemaker import image_uris
 from sagemaker.inputs import TrainingInput
 from sagemaker.pipeline import Pipeline
-from sagemaker.processing import ProcessingInput, ProcessingOutput, ScriptProcessor
+from sagemaker.processing import ProcessingInput, ProcessingOutput
 from sagemaker.sklearn.processing import SKLearnProcessor
-from sagemaker.workflow.conditions import ConditionLessThanOrEqualTo
+from sagemaker.workflow.conditions import ConditionGreaterThanOrEqualTo
 from sagemaker.workflow.condition_step import ConditionStep
 from sagemaker.workflow.functions import JsonGet
-from sagemaker.workflow.parameters import ParameterFloat, ParameterInteger, ParameterString
+from sagemaker.workflow.parameters import ParameterFloat, ParameterString
 from sagemaker.workflow.pipeline_context import PipelineSession
 from sagemaker.workflow.properties import PropertyFile
 from sagemaker.workflow.steps import ProcessingStep, TrainingStep
-from sagemaker.workflow.model_step import ModelStep
-from sagemaker.model import Model
 from sagemaker.workflow.step_collections import RegisterModel
 
 
@@ -43,7 +40,6 @@ def parse_args() -> argparse.Namespace:
 
 
 def build_pipeline(role_arn: str, bucket: str, region: str, instance_type: str) -> Pipeline:
-    sess = Session()
     pipeline_session = PipelineSession()
 
     # Parameters
@@ -131,6 +127,11 @@ def build_pipeline(role_arn: str, bucket: str, region: str, instance_type: str) 
     )
 
     eval_code = Path("ml/pipelines/evaluate_model.py")
+    evaluation_report_property_file = PropertyFile(
+        name="evaluation_report",
+        output_name="evaluation_report",
+        path="evaluation_report.json",
+    )
     eval_step = ProcessingStep(
         name="EvaluateModel",
         processor=eval_processor,
@@ -151,22 +152,14 @@ def build_pipeline(role_arn: str, bucket: str, region: str, instance_type: str) 
             )
         ],
         code=str(eval_code),
-        property_files=[
-            PropertyFile(
-                name="evaluation_report",
-                output_name="evaluation_report",
-                path="evaluation_report.json",
-            )
-        ],
+        property_files=[evaluation_report_property_file],
     )
 
     # --- Condition: gate on accuracy ---
-    accuracy_gte_threshold = ConditionLessThanOrEqualTo(
+    accuracy_gte_threshold = ConditionGreaterThanOrEqualTo(
         left=JsonGet(
             step_name=eval_step.name,
-            property_file=evaluation_report_property_file := eval_step.property_files[
-                "evaluation_report"
-            ],
+            property_file=evaluation_report_property_file,
             json_path="metrics.field_photo_accuracy",
         ),
         right=model_approval_threshold,

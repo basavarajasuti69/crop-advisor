@@ -7,7 +7,6 @@ with field_photo_accuracy metric used by the approval gate.
 from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 
 import torch

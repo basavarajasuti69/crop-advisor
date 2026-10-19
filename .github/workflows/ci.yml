@@ -21,11 +21,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r apps/api/requirements.txt
-          pip install pytest pytest-asyncio httpx ruff mypy
+          pip install pytest pytest-asyncio httpx ruff==0.9.0 mypy==1.13.0
       - name: Ruff lint
         run: ruff check apps agents ml rag speech safety evals
       - name: Type check
-        run: mypy apps agents ml rag speech safety
+        run: mypy --explicit-package-bases --ignore-missing-imports apps agents ml rag speech safety
       - name: Run tests
         run: pytest tests -q
     env:
