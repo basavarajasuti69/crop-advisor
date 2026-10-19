@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+import base64
 import os
 import sys
 from typing import Any
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
@@ -18,6 +20,17 @@ APP_NAME = "crop-advisor"
 REGION = os.getenv("AWS_REGION", "ap-south-1")
 
 app = FastAPI(title=APP_NAME, version="0.1.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        origin.strip()
+        for origin in os.getenv("CA_CORS_ORIGINS", "http://localhost:3000").split(",")
+        if origin.strip()
+    ],
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 
 class AdviceRequest(BaseModel):
@@ -26,6 +39,21 @@ class AdviceRequest(BaseModel):
     crop: str | None = None
     language: str = "en"
     location: str | None = None
+
+    @field_validator("image_bytes", mode="before")
+    @classmethod
+    def _decode_base64_image(cls, value: Any) -> Any:
+        """Pydantic v2 encodes a JSON string into bytes as UTF-8, not base64.
+
+        Clients send the image base64-encoded, so decode it here; otherwise the
+        bytes arrive as garbage and the image cannot be opened.
+        """
+        if isinstance(value, str):
+            try:
+                return base64.b64decode(value, validate=True)
+            except (ValueError, TypeError):
+                return value
+        return value
 
 
 class AdviceResponse(BaseModel):
@@ -76,7 +104,11 @@ async def speak(req: SpeakRequest):
     """Synthesize text to speech audio (MP3). Falls across Polly -> Sarvam -> Google."""
     audio = tts_adapter.synthesize(req.text, req.language)
     if audio is None:
-        raise HTTPException(status_code=503, detail="TTS unavailable")
+        providers = ", ".join(tts_adapter.configured_providers(req.language)) or "none configured"
+        raise HTTPException(
+            status_code=503,
+            detail=f"TTS unavailable: no speech provider could serve '{req.language}' ({providers}).",
+        )
     return Response(content=audio, media_type="audio/mpeg")
 
 
@@ -95,10 +127,15 @@ async def transcribe(req: TranscribeRequest):
     if text is None:
         raise HTTPException(status_code=503, detail="STT unavailable")
     return {"text": text, "language": req.language}
-async def advice_image(file: UploadFile = File(...), language: str = "en") -> AdviceResponse:
+@app.post("/advice/image", response_model=AdviceResponse)
+async def advice_image(
+    file: UploadFile = File(...),
+    language: str = Form("en"),
+    crop: str = Form("rice"),
+) -> AdviceResponse:
     contents = await file.read()
     state = await run_advice(
-        AdviceRequest(image_url=file.filename, image_bytes=contents, language=language)
+        AdviceRequest(image_url=file.filename, image_bytes=contents, language=language, crop=crop)
     )
     return AdviceResponse(
         case_id=state.case_id,

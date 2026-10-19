@@ -11,10 +11,26 @@ from apps.api.config import settings  # noqa: E402
 class TTSAdapter:
     """Speak text in the farmer's language, falling across providers."""
 
-    # Language -> Polly voice mapping (neural voices where available)
+    # Language -> Polly voice mapping (neural voices where available).
+    # Polly has no Kannada voice, so "kn" is deliberately absent: sending
+    # Kannada text to Polly would read it out with an English voice.
     POLLY_VOICES = {
         "en": "Joanna",
         "hi": "Aditi",
+    }
+
+    # Language -> Sarvam target_language_code (Indian-language provider).
+    SARVAM_LANGUAGES = {
+        "en": "en-IN",
+        "hi": "hi-IN",
+        "kn": "kn-IN",
+    }
+
+    # Language -> Google Cloud TTS language_code.
+    GOOGLE_LANGUAGES = {
+        "en": "en-IN",
+        "hi": "hi-IN",
+        "kn": "kn-IN",
     }
 
     def __init__(self) -> None:
@@ -25,27 +41,40 @@ class TTSAdapter:
     def _polly_client(self):
         if self._polly is None:
             import boto3
-            self._polly = boto3.client("polly", region_name=settings.region)
+            self._polly = boto3.client("polly", region=settings.region)
         return self._polly
+
+    def configured_providers(self, language: str = "en") -> list[str]:
+        """Speech providers that can serve this language and have credentials."""
+        providers = []
+        if language in self.POLLY_VOICES:
+            providers.append("aws_polly")
+        if self._sarvam_key and language in self.SARVAM_LANGUAGES:
+            providers.append("sarvam")
+        if self._google_creds and language in self.GOOGLE_LANGUAGES:
+            providers.append("google")
+        return providers
 
     def synthesize(self, text: str, language: str = "en") -> Optional[bytes]:
         """Return MP3 audio bytes, or None if all providers fail."""
-        # 1. Amazon Polly
-        try:
-            client = self._polly_client()
-            voice = self.POLLY_VOICES.get(language, "Joanna")
-            resp = client.synthesize_speech(
-                Text=text,
-                OutputFormat="mp3",
-                VoiceId=voice,
-                Engine="neural",
-            )
-            return resp["AudioStream"].read()
-        except Exception:
-            pass
+        # 1. Amazon Polly (skipped for languages Polly cannot speak)
+        voice = self.POLLY_VOICES.get(language)
+        if voice:
+            try:
+                client = self._polly_client()
+                resp = client.synthesize_speech(
+                    Text=text,
+                    OutputFormat="mp3",
+                    VoiceId=voice,
+                    Engine="neural",
+                )
+                return resp["AudioStream"].read()
+            except Exception:
+                pass
 
         # 2. Sarvam (Indian-language focused)
-        if self._sarvam_key:
+        target_language = self.SARVAM_LANGUAGES.get(language)
+        if self._sarvam_key and target_language:
             try:
                 import httpx
                 resp = httpx.post(
@@ -53,7 +82,7 @@ class TTSAdapter:
                     headers={"api-subscription-key": self._sarvam_key},
                     json={
                         "inputs": [text],
-                        "target_language_code": language,
+                        "target_language_code": target_language,
                         "speaker": "meera",
                         "pitch": 0,
                         "pace": 1.0,
@@ -72,13 +101,14 @@ class TTSAdapter:
                 pass
 
         # 3. Google Cloud TTS
-        if self._google_creds:
+        google_language = self.GOOGLE_LANGUAGES.get(language)
+        if self._google_creds and google_language:
             try:
                 from google.cloud import texttospeech
                 client = texttospeech.TextToSpeechClient()
                 synthesis_input = texttospeech.SynthesisInput(text=text)
                 voice = texttospeech.VoiceSelectionParams(
-                    language_code=language,
+                    language_code=google_language,
                     ssml_gender=texttospeech.SsmlVoiceGender.FEMALE,
                 )
                 audio_config = texttospeech.AudioConfig(
