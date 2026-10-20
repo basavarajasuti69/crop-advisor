@@ -26,6 +26,15 @@ class TTSAdapter:
         "kn": "kn-IN",
     }
 
+    # Language -> Sarvam speaker. The API only accepts documented speaker
+    # names and "meera" is not one of them, so every call was rejected.
+    # shubh and ishita cover all 11 Sarvam languages, Kannada included.
+    SARVAM_SPEAKERS = {
+        "en": "shubh",
+        "hi": "ishita",
+        "kn": "ishita",
+    }
+
     # Language -> Google Cloud TTS language_code.
     GOOGLE_LANGUAGES = {
         "en": "en-IN",
@@ -74,7 +83,8 @@ class TTSAdapter:
 
         # 2. Sarvam (Indian-language focused)
         target_language = self.SARVAM_LANGUAGES.get(language)
-        if self._sarvam_key and target_language:
+        speaker = self.SARVAM_SPEAKERS.get(language)
+        if self._sarvam_key and target_language and speaker:
             try:
                 import httpx
                 resp = httpx.post(
@@ -83,13 +93,12 @@ class TTSAdapter:
                     json={
                         "inputs": [text],
                         "target_language_code": target_language,
-                        "speaker": "meera",
-                        "pitch": 0,
+                        "speaker": speaker,
                         "pace": 1.0,
-                        "loudness": 1.0,
                         "speech_sample_rate": 22050,
                         "enable_preprocessing": True,
-                        "model": "bulbul:v1",
+                        # Only bulbul:v2, bulbul:v3 and bulbul:v4-flash exist.
+                        "model": "bulbul:v3",
                     },
                     timeout=15,
                 )

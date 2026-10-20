@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -66,11 +67,32 @@ async def call_tool(name: str, arguments: dict[str, Any]) -> list[TextContent]:
     raise ValueError(f"Unknown tool: {name}")
 
 
+def _query_tokens(query: str) -> list[str]:
+    """Split a query into the tokens that must be found in a chunk.
+
+    The knowledge base is headed "<Crop> - <Disease>", but the graph asks
+    for "<disease> <crop>" (for example "leaf blight rice"). A plain
+    substring test never matches, so every token has to be found
+    separately.
+    """
+    tokens = [token for token in re.split(r"[\s_]+", query.lower()) if token]
+    return list(dict.fromkeys(tokens))
+
+
+def _matches_token(text: str, token: str) -> bool:
+    """Whole-word match, so "leaf" does not match "leaves"."""
+    return re.search(rf"\b{re.escape(token)}\b", text) is not None
+
+
 async def _search_knowledge(args: dict[str, Any]) -> list[TextContent]:
     query = args["query"].lower().replace("_", " ")
     crop = args.get("crop", "").lower()
+    tokens = _query_tokens(query)
+    # The crop is usually part of the query already; the rest identify the
+    # disease.
+    disease_tokens = [token for token in tokens if token != crop] or tokens
     docs = _load_index()
-    chunks = []
+    scored: list[tuple[bool, int, int, dict[str, Any]]] = []
     for doc in docs:
         text = doc.get("text", "")
         for part in text.split("## "):
@@ -78,18 +100,30 @@ async def _search_knowledge(args: dict[str, Any]) -> list[TextContent]:
             if not part:
                 continue
             low = part.lower().replace("_", " ")
-            if query not in low:
+            if crop and not _matches_token(low, crop):
                 continue
-            if crop and crop not in low:
+            positions = [
+                match.start()
+                for token in disease_tokens
+                for match in [re.search(rf"\b{re.escape(token)}\b", low)]
+                if match is not None
+            ]
+            if not positions:
                 continue
-            chunks.append(
-                {
-                    "text": part,
-                    "source": doc.get("source", ""),
-                    "chunk": doc.get("chunk", 0),
-                }
-            )
-    return [TextContent(type="text", text=json.dumps(chunks[:5], indent=2))]
+            hits = len(positions)
+            entry = {
+                "text": part,
+                "source": doc.get("source", ""),
+                "chunk": doc.get("chunk", 0),
+            }
+            # Chunks that match every token win; then the most matches; then
+            # the one where the disease word appears earliest, because the
+            # heading comes first ("Wheat - Rust ..." beats a description
+            # that merely mentions rust pustules).
+            scored.append((hits == len(disease_tokens), hits, -min(positions), entry))
+    scored.sort(key=lambda item: (item[0], item[1], item[2]), reverse=True)
+    chunks = [entry for _all, _hits, _pos, entry in scored[:5]]
+    return [TextContent(type="text", text=json.dumps(chunks, indent=2))]
 
 
 async def _get_crop_diseases(args: dict[str, Any]) -> list[TextContent]:
