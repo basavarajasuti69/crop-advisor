@@ -99,6 +99,20 @@ drift apart.
 ### 4. Check the confidence on real photos
 
 ```bash
+python ml/pipelines/evaluate_model.py \
+    --onnx ml/export_edge/artifacts/classifier.onnx \
+    --data ml/data/test
+```
+
+The report gives overall and per-class accuracy, a confusion matrix, and
+`would_diagnose_rate` - the share of images the API would actually
+answer for instead of asking for a retake. That last number is the one
+to watch: on the model that is in the repository today it is **0.0**,
+because the model was trained on solid-colour squares.
+
+A quick look at the same thing without the tool:
+
+```bash
 python - <<'PY'
 from agents.graph import _predict_image
 for photo in ("tests/rice.jpg", "tests/maize.webp"):

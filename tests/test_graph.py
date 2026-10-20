@@ -121,6 +121,53 @@ def test_predict_image_prefers_onnx_when_available():
     assert preds[0]["label"] in ("healthy", "leaf_blight")
 
 
+# ---------- model evaluation tool ----------
+
+def test_evaluate_model_reports_what_the_api_would_do(tmp_path, monkeypatch, capsys):
+    """The evaluation tool must use the same preprocessing as the API and
+    report the share of images that would actually be answered."""
+    import importlib.util
+    import json
+    from pathlib import Path
+
+    script = Path(__file__).resolve().parent.parent / "ml/pipelines/evaluate_model.py"
+    spec = importlib.util.spec_from_file_location("evaluate_model", script)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    # A tiny dataset: one image per class.
+    data = tmp_path / "test"
+    for name in ("healthy", "leaf_blight"):
+        (data / name).mkdir(parents=True)
+        (data / name / "a.png").write_bytes(_make_image_bytes())
+
+    onnx = (
+        Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts/classifier.onnx"
+    )
+    if not onnx.exists():
+        pytest.skip("the ONNX export is a build artifact and is not in git")
+
+    report_path = tmp_path / "report.json"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "evaluate_model.py",
+            "--onnx", str(onnx),
+            "--data", str(data),
+            "--output", str(report_path),
+        ],
+    )
+    module.main()
+    report = json.loads(report_path.read_text())
+
+    assert report["classes"] == ["healthy", "leaf_blight"]
+    assert report["metrics"]["total_images"] == 2
+    assert set(report["confusion_matrix"]) == {"healthy", "leaf_blight"}
+    # The share the API would answer for rather than ask for a retake.
+    assert 0.0 <= report["metrics"]["would_diagnose_rate"] <= 1.0
+
+
 @patch("agents.graph._predict_image")
 def test_hindi_localization(mock_predict):
     mock_predict.return_value = [{"label": "healthy", "score": 0.9}]
