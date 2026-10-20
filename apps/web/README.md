@@ -56,3 +56,22 @@ Steps:
 Set the variable before the first deploy - it is baked into the bundle,
 so a later change needs a rebuild (Netlify: **Triggers -> Clear build
 cache and deploy site**).
+
+## The free API sleeps
+
+A free API service goes to sleep after about 15 minutes of inactivity.
+The first request after that has to wake it up, which can take up to
+about a minute. The page shows a short "Waking up the server, this can
+take up to a minute." message after 5 seconds of waiting, in the
+language that is selected (the text lives in `strings/*.json`, shared
+with the API).
+
+The "Listen to advice" button is disabled with a clear label after the
+API reports that no speech provider is configured, so it does not look
+broken.
+
+## Note for local development
+
+`next dev` and `next build` share the `.next` directory. Stop the dev
+server before running a build, or the build can fail with a
+`PageNotFoundError` while the dev server rewrites the same files.

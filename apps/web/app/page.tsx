@@ -1,6 +1,9 @@
 "use client"
 
 import { useRef, useState } from "react"
+import enStrings from "../../../strings/en.json"
+import hiStrings from "../../../strings/hi.json"
+import knStrings from "../../../strings/kn.json"
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
 const LANGUAGES = [
@@ -9,6 +12,16 @@ const LANGUAGES = [
   { code: "kn", name: "ಕನ್ನಡ" },
 ]
 const CROPS = ["rice", "wheat", "cotton", "maize", "tomato"]
+
+// The same strings the API uses, so the UI and the advice speak one language.
+const STRINGS: Record<string, Record<string, string | null>> = {
+  en: enStrings,
+  hi: hiStrings,
+  kn: knStrings,
+}
+
+// A free API sleeps after a while, so the first request can be slow.
+const WAKE_UP_DELAY_MS = 5000
 
 type Prediction = { label: string; score: number }
 type Diagnosis = {
@@ -29,15 +42,23 @@ export default function Home() {
   const [language, setLanguage] = useState("en")
   const [crop, setCrop] = useState("rice")
   const [loading, setLoading] = useState(false)
+  const [slowLoading, setSlowLoading] = useState(false)
+  const [audioUnavailable, setAudioUnavailable] = useState(false)
   const [result, setResult] = useState<Diagnosis | null>(null)
   const [error, setError] = useState<string | null>(null)
   const fileInput = useRef<HTMLInputElement>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
+  const t = (key: string): string => {
+    const table = STRINGS[language] ?? STRINGS.en
+    return table[key] || STRINGS.en[key] || key
+  }
+
   const handleFile = (selected?: File) => {
     if (!selected) return
     setError(null)
     setResult(null)
+    setAudioUnavailable(false)
     setFile(selected)
     setImage(URL.createObjectURL(selected))
   }
@@ -46,6 +67,9 @@ export default function Home() {
     if (!file) return
     setLoading(true)
     setError(null)
+    setSlowLoading(false)
+    // If the free API is asleep the request can take up to a minute.
+    const wakeUpTimer = setTimeout(() => setSlowLoading(true), WAKE_UP_DELAY_MS)
     try {
       const form = new FormData()
       form.append("file", file)
@@ -60,6 +84,8 @@ export default function Home() {
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Connection failed. Check that the advisor service is running.")
     } finally {
+      clearTimeout(wakeUpTimer)
+      setSlowLoading(false)
       setLoading(false)
     }
   }
@@ -72,13 +98,18 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: result.advice, language: result.language }),
       })
-      if (!response.ok) throw new Error("Audio is not available right now.")
+      if (response.status === 503) {
+        // No speech provider is configured. Stop offering audio.
+        setAudioUnavailable(true)
+        return
+      }
+      if (!response.ok) throw new Error(t("audio_unavailable"))
       const audioUrl = URL.createObjectURL(await response.blob())
       if (audioRef.current) audioRef.current.src = audioUrl
       else audioRef.current = new Audio(audioUrl)
       await audioRef.current.play()
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Audio is not available right now.")
+      setError(cause instanceof Error ? cause.message : t("audio_unavailable"))
     }
   }
 
@@ -157,6 +188,7 @@ export default function Home() {
             <button className="button button-primary diagnose-button" onClick={submit} disabled={!file || loading}>
               {loading ? "READING YOUR PHOTO…" : "ANALYZE PHOTO"}<span aria-hidden="true">↗</span>
             </button>
+            {loading && slowLoading && <p className="notice notice-slow" role="status">{t("waking_up")}</p>}
             <p className="privacy-note">Your photo is used to prepare this diagnosis.</p>
 
             {error && <div className="notice notice-error" role="alert">{error}</div>}
@@ -170,7 +202,11 @@ export default function Home() {
                 ) : <p className="result-muted">{result.diagnosis.quality_issue || "No clear result yet. Try a closer, brighter photo."}</p>}
                 <div className="result-advice"><p className="eyebrow"><span /> NEXT STEP</p><p>{result.advice}</p></div>
                 {result.citations.length > 0 && <p className="citation-line">GUIDANCE: {result.citations.join(" · ")}</p>}
-                <button className="button button-outline" onClick={speak}>LISTEN TO ADVICE <span aria-hidden="true">↗</span></button>
+                {audioUnavailable ? (
+                  <button className="button button-outline" disabled>{t("audio_unavailable")}</button>
+                ) : (
+                  <button className="button button-outline" onClick={speak}>LISTEN TO ADVICE <span aria-hidden="true">↗</span></button>
+                )}
               </div>
             )}
           </div>

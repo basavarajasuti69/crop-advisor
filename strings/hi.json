@@ -9,5 +9,7 @@
   "cannot_read": "यह फोटो पढ़ा नहीं जा सका। कृपया फिर से लें।",
   "no_photo": null,
   "service_problem": "सेवा समस्या है, कृपया बाद में पुनः प्रयास करें।",
-  "disease_unknown": null
+  "disease_unknown": null,
+  "waking_up": "सर्वर जाग रहा है, इसमें एक मिनट तक लग सकता है।",
+  "audio_unavailable": "ऑडियो अभी उपलब्ध नहीं है।"
 }

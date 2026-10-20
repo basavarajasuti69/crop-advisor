@@ -9,5 +9,7 @@
   "cannot_read": "Cannot read this photo. Please retake it.",
   "no_photo": "Please upload a clear photo of the affected leaf.",
   "service_problem": "Service problem, please try again later.",
-  "disease_unknown": "unknown disease"
+  "disease_unknown": "unknown disease",
+  "waking_up": "Waking up the server, this can take up to a minute.",
+  "audio_unavailable": "Audio is not available right now."
 }

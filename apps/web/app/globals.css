@@ -110,6 +110,7 @@ button:focus-visible, a:focus-visible, select:focus-visible { outline: 2px solid
 .diagnose-button { width: 100%; margin-top: 22px; }
 .privacy-note { margin: 13px 0 0; color: var(--muted); font-size: 10px; letter-spacing: .1px; font-weight: 400; text-align: center; }
 .notice { margin-top: 18px; padding: 12px 14px; border-left: 2px solid var(--red); background: #29201f; color: #f0c4c0; font-size: 13px; }
+.notice-slow { border-left-color: var(--green); background: #1d231c; color: var(--green); text-align: center; }
 .result-card { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); }
 .result-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 9px; }
 .status-safe { color: var(--green); }
