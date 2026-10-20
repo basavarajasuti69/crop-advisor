@@ -1,0 +1,24 @@
+# Netlify configuration for the crop-advisor web app.
+#
+# The app is a Next.js 14 static export. The build runs in apps/web and
+# publishes the exported "out" directory.
+#
+# REQUIRED environment variable - set it in Netlify under
+# Site settings -> Environment variables -> NEXT_PUBLIC_API_URL:
+#
+#   NEXT_PUBLIC_API_URL = https://<your-hf-space>.hf.space
+#
+# It is a NEXT_PUBLIC_* variable, so it is inlined into the JavaScript
+# bundle at BUILD time. Changing it requires a new deploy, not just a
+# restart.
+#
+# There is no SPA rewrite: the app is a single page that uses anchors,
+# and the Next.js export ships its own 404.html.
+
+[build]
+  base = "apps/web"
+  command = "npm ci && NEXT_OUTPUT=export npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "20"

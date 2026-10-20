@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Deploy the crop-advisor API to Azure App Service (Linux).
+# LEGACY: Azure App Service deployment.
+#
+# The deployment target is now Hugging Face Spaces (see the "Deploy
+# (free)" section of README.md). This script is kept for reference only.
 #
 #   APP_NAME=crop-advisor-yourname-api RESOURCE_GROUP=crop-advisor-yourname-api \
 #     ./scripts/deploy_azure.sh

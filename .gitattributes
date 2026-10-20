@@ -1,0 +1,13 @@
+# Git LFS for the ONNX classifier.
+#
+# ml/export_edge/artifacts/classifier.onnx is ~16 MB, over GitHub's 10 MB
+# limit for regular files, so it has to be stored with LFS.
+*.onnx filter=lfs diff=lfs merge=lfs -text
+
+# Keep binary assets out of text diffs.
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.pt binary
+*.pth binary

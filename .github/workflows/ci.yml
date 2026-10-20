@@ -32,6 +32,9 @@ jobs:
       AWS_REGION: ap-south-1
       CA_REGION: ap-south-1
 
+  # LEGACY: pushes the image to AWS ECR. The deployment target is now
+  # Hugging Face Spaces (see the "Deploy (free)" section of README.md).
+  # This job is skipped unless AWS credentials are configured.
   build-and-push:
     needs: lint-and-test
     runs-on: ubuntu-latest

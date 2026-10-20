@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Build the Python environment for Azure App Service on Linux.
+# LEGACY: build the Python environment for Azure App Service on Linux.
+#
+# The deployment target is now Hugging Face Spaces (see the "Deploy
+# (free)" section of README.md). This script is kept for reference only.
 #
 # The Free F1 plan gives 60 CPU minutes a day, and an Oryx build on the
 # instance (pip installing onnxruntime, numpy, langgraph ...) burns most of

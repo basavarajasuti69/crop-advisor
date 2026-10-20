@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-# Deploy the web app to Azure Static Web Apps.
+# LEGACY: Azure Static Web Apps deployment.
+#
+# The deployment target is now Netlify (see netlify.toml and the
+# "Deploy (free)" section of README.md). This script is kept for
+# reference only.
 #
 # Needs a deployment token from the Azure portal:
 #   Static Web Apps > crop-advisor-web > Overview > Manage deployment token

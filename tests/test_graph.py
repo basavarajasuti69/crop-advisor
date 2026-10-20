@@ -93,10 +93,12 @@ def test_onnx_preprocess_matches_torch_transform():
     assert np.abs(expected - actual).max() < 1e-6
 
 
+@pytest.mark.skipif(
+    not (Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts/classifier.onnx").exists(),
+    reason="the ONNX export is a build artifact and is not in git",
+)
 def test_onnx_backend_matches_torch_backend():
     """ONNX Runtime and PyTorch must give the same prediction for the same photo."""
-    from PIL import Image as PILImage
-
     raw = _make_image_bytes()
     onnx_preds = graph_agent._predict_onnx(raw)
     assert onnx_preds
@@ -107,6 +109,10 @@ def test_onnx_backend_matches_torch_backend():
     assert scores == sorted(scores, reverse=True)
 
 
+@pytest.mark.skipif(
+    not (Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts/classifier.onnx").exists(),
+    reason="the ONNX export is a build artifact and is not in git",
+)
 def test_predict_image_prefers_onnx_when_available():
     """_predict_image uses the ONNX backend when the export is present."""
     raw = _make_image_bytes()

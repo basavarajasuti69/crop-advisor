@@ -1,6 +1,18 @@
+---
+title: Crop Disease Advisor API
+emoji: 🌾
+colorFrom: green
+colorTo: lime
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # Crop Disease Advisor
 
-AI crop-disease advisor on AWS — Phase 1 defaults: **English + Hindi**, crops **rice, wheat, cotton, maize, tomato**, region **ap-south-1**.
+AI crop-disease advisor — languages **English, Hindi, Kannada**, crops **rice, wheat, cotton, maize, tomato**.
+
+This repository is the API for a **Hugging Face Space** (`sdk: docker`, port 7860). The web app is deployed separately to Netlify.
 
 ```
 crop-advisor/
@@ -40,3 +52,104 @@ cd infra/terraform
 terraform init
 terraform plan -var region=ap-south-1
 ```
+
+## Deploy (free)
+
+Both parts run on free tiers with no credit card:
+
+| Piece | Where | Cost |
+|---|---|---|
+| API (FastAPI + ONNX classifier) | Hugging Face Spaces (`sdk: docker`, port 7860) | free CPU |
+| Web app (Next.js static export) | Netlify | free tier |
+
+The API image is CPU-only: no torch, the classifier runs on ONNX Runtime
+(~50MB instead of ~2.5GB of CUDA wheels).
+
+### 1. API on Hugging Face Spaces
+
+The Space uses the **root `Dockerfile`** in this repository, so this repo
+is the Space repo. It listens on `$PORT` (default 7860) and runs as
+UID 1000.
+
+The ONNX classifier must be in the repo at
+`ml/export_edge/artifacts/classifier.onnx` - it is stored with Git LFS
+(`.gitattributes`) because it is ~16MB.
+
+```bash
+# once, if LFS is not installed
+brew install git-lfs && git lfs install
+
+# the model is a build artifact, so it is not in git history yet
+git lfs track "*.onnx"
+git add .gitattributes .gitignore ml/export_edge/artifacts/classifier.onnx
+git commit -m "feat: add the ONNX classifier for the Space"
+```
+
+Then create the Space and push:
+
+```bash
+huggingface-cli login
+huggingface-cli repo create <your-user>/<space-name> --repo-type space --space-sdk docker --private
+git remote add space https://huggingface.co/spaces/<your-user>/<space-name>
+git push space main
+```
+
+The Space's README front matter (already in this README) sets
+`sdk: docker` and `app_port: 7860`.
+
+Check it: `https://<your-user>-<space-name>.hf.space/health`
+
+**Space environment variables**
+
+| Name | Required | Default | What it does |
+|---|---|---|---|
+| `CA_CORS_ORIGINS` | for the browser | `http://localhost:3000` | comma-separated allowed origins. Set it to your Netlify URL. |
+| `CA_REGION` | no | `ap-south-1` | region label reported by `/health` |
+| `PORT` | no | `7860` | port the app listens on (set by Spaces) |
+| `CA_LLM_BASE_URL` | no | empty | OpenAI-compatible LLM endpoint. If any LLM variable is missing the model is never called and the plain template is used. |
+| `CA_LLM_API_KEY` | no | empty | LLM API key |
+| `CA_LLM_MODEL_NAME` | no | empty | LLM model name |
+| `CA_VISION_SECOND_OPINION` | no | `false` | sends the image to the vision model. Leave off. |
+| `CA_SARVAM_API_KEY` | no | empty | text-to-speech (Hindi, Kannada). Without it `/speak` returns 503 and the web app shows "Audio is not available right now." |
+| `GOOGLE_APPLICATION_CREDENTIALS` | no | empty | Google Cloud TTS / STT fallback |
+| `CA_SAGEMAKER_ENDPOINT` | no | empty | serve the classifier from SageMaker instead of the bundled ONNX model |
+
+No secret is required: with none of these set the API is fully
+self-contained (ONNX + the local knowledge base + the local MCP servers)
+and makes no outbound paid calls.
+
+### 2. Web app on Netlify
+
+`netlify.toml` at the repository root has the build settings. Import the
+repository in Netlify, then set the environment variable
+**before** the first deploy:
+
+| Key | Value |
+|---|---|
+| `NEXT_PUBLIC_API_URL` | `https://<your-user>-<space-name>.hf.space` |
+
+`NEXT_PUBLIC_*` is inlined into the bundle at **build** time, so changing
+it needs a rebuild (Netlify: Triggers -> Clear build cache and deploy).
+
+### Order of steps
+
+1. Commit the ONNX model (with LFS) and push to GitHub.
+2. Create the Space, push this repo to it, confirm `/health` responds.
+3. Set `CA_CORS_ORIGINS` to your Netlify URL in the Space settings and
+   restart the Space.
+4. Import the repo in Netlify, set `NEXT_PUBLIC_API_URL`, deploy.
+5. Test both sample photos in English, Hindi and Kannada.
+6. Only then delete the old Azure resources.
+
+## Legacy
+
+The Azure and AWS deployment paths are kept for reference but are no
+longer the target:
+
+- `scripts/deploy_azure_web.sh` - legacy (Azure Static Web Apps)
+- `scripts/deploy_azure.sh`, `scripts/package_azure.sh`,
+  `scripts/build_azure_venv.sh` - legacy (Azure App Service)
+- `apps/api/Dockerfile.azure` - legacy (Azure Container Apps)
+- `.github/workflows/azure-deploy.yml` - legacy
+- the `build-and-push` job in `.github/workflows/ci.yml` - legacy (AWS ECR)
+- `infra/terraform/` - legacy (AWS)

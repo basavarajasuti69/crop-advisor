@@ -1,4 +1,7 @@
-# Azure Container Apps image for the crop-advisor API.
+# LEGACY: Azure Container Apps image for the crop-advisor API.
+#
+# The deployment target is now Hugging Face Spaces - use the root
+# Dockerfile. This file is kept for reference only.
 #
 # Build context is the repository root:
 #   docker build --platform linux/amd64 -f apps/api/Dockerfile.azure -t crop-advisor-api:azure .

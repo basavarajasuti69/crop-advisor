@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# LEGACY: build the Azure App Service deployment package.
+#
+# The deployment target is now Hugging Face Spaces (see the "Deploy
+# (free)" section of README.md). This script is kept for reference only.
+#
 # Build the Azure App Service deployment package for the crop-advisor API.
 #
 # The package is a zip that Oryx builds on the server:

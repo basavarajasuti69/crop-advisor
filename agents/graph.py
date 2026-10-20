@@ -114,7 +114,7 @@ def _onnx_preprocess(img: Image.Image):
         new_w, new_h = 256, int(256 * height / width)
     else:
         new_h, new_w = 256, int(256 * width / height)
-    resized = img.resize((new_w, new_h), Image.BILINEAR)
+    resized = img.resize((new_w, new_h), Image.Resampling.BILINEAR)
     left = int(round((new_w - 224) / 2.0))
     top = int(round((new_h - 224) / 2.0))
     cropped = resized.crop((left, top, left + 224, top + 224))

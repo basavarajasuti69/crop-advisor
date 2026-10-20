@@ -1,3 +1,7 @@
+# LEGACY: Azure Container Apps deployment.
+#
+# The deployment target is now Hugging Face Spaces (see the "Deploy
+# (free)" section of README.md). This workflow is kept for reference.
 name: Azure Deploy
 
 on:
