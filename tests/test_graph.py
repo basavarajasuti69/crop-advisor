@@ -244,6 +244,45 @@ def test_validate_kannada_rejects_other_indian_script():
     assert graph_agent._validate_kannada("ನಿಮ್ಮ ಅक्कಿ अक्कಿ ಎಲೆ") is False
 
 
+def test_validate_hindi_script():
+    """A Hindi answer must not carry a letter from another Indian script.
+
+    Latin letters are ignored (product names and units are allowed), so a
+    pure-English answer passes this check - the LLM path catches that
+    separately in agents/llm.py.
+    """
+    assert graph_agent._validate_hindi("आपके चावल पत्ते पर पत्ती झुलसा दिखाई दे रहा है।") is True
+    # Latin words are allowed.
+    assert graph_agent._validate_hindi("आपके चावल पत्ते पर mancozeb डालें।") is True
+    # A Kannada word in a Hindi answer is another Indian script.
+    assert graph_agent._validate_hindi("ನಿಮ್ಮ ಎಲೆಯಲ್ಲಿ ಎಲೆ ಕಲುಷ ಕಾಣಿಸುತ್ತಿದೆ.") is False
+    # A markdown heading is rejected.
+    assert graph_agent._validate_hindi("आपके चावल #शीर्षक") is False
+
+
+def test_llm_rejects_a_pure_english_answer_for_a_localised_request():
+    """The LLM path has its own leak check for text that is entirely Latin."""
+    from agents import llm as llm_mod
+
+    rejected, reason = llm_mod._reject_dose_chemical(
+        "Your rice leaf shows leaf blight.", [{"text": "Leaf blight."}], "kn"
+    )
+    assert rejected is True
+    assert reason == "english leak"
+
+
+@patch("agents.graph._predict_image")
+def test_hindi_and_kannada_answers_have_no_english(mock_predict):
+    """Neither language may fall back to the English passage."""
+    mock_predict.return_value = [{"label": "leaf_blight", "score": 0.92}]
+    for language in ("hi", "kn"):
+        state = run_advice_sync(Req(image_bytes=b"x", crop="rice", language=language))
+        assert state.answer
+        assert not any(ch.isascii() and ch.isalpha() for ch in state.answer), (
+            f"{language} answer leaked English: {state.answer!r}"
+        )
+
+
 # ---------- Part 4: 0.70 threshold -> retake-photo response ----------
 
 @patch("agents.graph._predict_image")

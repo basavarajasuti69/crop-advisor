@@ -300,22 +300,51 @@ def load_strings(language: str) -> dict[str, str]:
     return {}
 
 
-def _validate_kannada(text: str) -> bool:
-    """Return True if text is at least 90% Kannada letters, has no '#' headings,
-    and contains no letter from another Indian script."""
+# The Unicode range of the script each language is written in.
+_SCRIPT_RANGES = {
+    "kn": (0x0C80, 0x0CFF),  # Kannada
+    "hi": (0x0900, 0x097F),  # Devanagari
+}
+
+
+def _validate_script(text: str, language: str) -> bool:
+    """Return True if the text is in the right script for the language.
+
+    At least 90% of the letters must be in the target script, there must be
+    no '#' headings, and no letter from another Indian script. Latin
+    letters (product names, units) are ignored in the ratio.
+    """
+    ranges = _SCRIPT_RANGES.get(language)
+    if ranges is None:
+        return True
     if "#" in text:
         return False
     letters = [ch for ch in text if ch.isalpha()]
     if not letters:
         return True
-    kannada = [ch for ch in letters if "\u0c80" <= ch <= "\u0cff"]
-    other_indian = [ch for ch in letters if not ch.isascii() and not ("\u0c80" <= ch <= "\u0cff")]
+    low, high = ranges
+    in_script = [ch for ch in letters if low <= ord(ch) <= high]
+    other_indian = [
+        ch for ch in letters if not ch.isascii() and not (low <= ord(ch) <= high)
+    ]
     if other_indian:
         return False
     meaningful = [ch for ch in letters if not ch.isascii()]
     if not meaningful:
         return True
-    return len(kannada) / len(meaningful) >= 0.90
+    return len(in_script) / len(meaningful) >= 0.90
+
+
+def _validate_kannada(text: str) -> bool:
+    """True if the text is at least 90% Kannada, with no '#' headings and no
+    letter from another Indian script."""
+    return _validate_script(text, "kn")
+
+
+def _validate_hindi(text: str) -> bool:
+    """True if the text is at least 90% Devanagari, with no '#' headings and no
+    letter from another Indian script."""
+    return _validate_script(text, "hi")
 
 
 # ---------------------------------------------------------------------------
@@ -546,30 +575,32 @@ async def localize_advice(state: AgentState) -> AgentState:
     state.step = "localize_advice"
     label = state.predictions[0]["label"] if state.predictions else "healthy"
     crop = state.crop or "rice"
-    passage = state.passages[0]["text"] if state.passages else ""
 
     if state.language == "hi":
+        # Never put English passage text into a Hindi answer either: the
+        # language model writes the explanation in Hindi from the English
+        # chunks when one is configured.
         strings = load_strings("hi")
         crop_local = glossary_hi.CROP_NAMES.get(crop)
         if crop_local is None:
-            crop_local = strings.get("neutral_crop", "आपकी फसल")
+            crop_local = strings.get("neutral_crop", "फसल")
         disease_local = glossary_hi.DISEASE_NAMES.get(label)
         if disease_local is None:
             # NEEDS NATIVE REVIEW: disease_unknown is null for hi
-            disease_local = strings.get("disease_unknown") or strings.get("neutral_crop", "आपकी फसल")
+            disease_local = strings.get("disease_unknown") or strings.get("neutral_crop", "फसल")
         intro = strings.get("intro", "").format(crop=crop_local, label=disease_local)
         confirm = strings.get("confirm", "")
-        state.answer = f"{intro} {passage} {confirm}"
+        state.answer = f"{intro} {confirm}"
     elif state.language == "kn":
         # Never put English passage text into a Kannada answer.
         strings = load_strings("kn")
         crop_local = glossary_kn.CROP_NAMES.get(crop)
         if crop_local is None:
-            crop_local = strings.get("neutral_crop", "ನಿಮ್ಮ ಬೆಳೆ")
+            crop_local = strings.get("neutral_crop", "ಬೆಳೆ")
         disease_local = glossary_kn.DISEASE_NAMES.get(label)
         if disease_local is None:
             # NEEDS NATIVE REVIEW: disease_unknown is null for kn
-            disease_local = strings.get("disease_unknown") or strings.get("neutral_crop", "ನಿಮ್ಮ ಬೆಳೆ")
+            disease_local = strings.get("disease_unknown") or strings.get("neutral_crop", "ಬೆಳೆ")
         intro = strings.get("intro", "").format(crop=crop_local, label=disease_local)
         confirm = strings.get("confirm", "")
         state.answer = f"{intro} {confirm}"
@@ -649,14 +680,26 @@ async def critic_safety(state: AgentState) -> AgentState:
             state.escalate_reason = "unverified_dose"
             break
 
-    # Kannada validator: >= 90% Kannada letters, no markdown headings, no other Indian script
-    if state.language == "kn" and state.answer and not _validate_kannada(state.answer):
+    # Script validator: >= 90% letters in the target script, no markdown
+    # headings, no letter from another Indian script.
+    if state.language in ("kn", "hi") and state.answer and not _validate_script(
+        state.answer, state.language
+    ):
         state.safe = False
         state.escalate = True
         state.escalate_reason = "language_mismatch"
-        strings = load_strings("kn")
-        crop_local = glossary_kn.CROP_NAMES.get(state.crop or "rice", state.crop or "rice")
-        disease_local = glossary_kn.DISEASE_NAMES.get(label, label)
+        if state.language == "kn":
+            strings = load_strings("kn")
+            crop_local = glossary_kn.CROP_NAMES.get(state.crop or "rice")
+            disease_local = glossary_kn.DISEASE_NAMES.get(label)
+        else:
+            strings = load_strings("hi")
+            crop_local = glossary_hi.CROP_NAMES.get(state.crop or "rice")
+            disease_local = glossary_hi.DISEASE_NAMES.get(label)
+        if crop_local is None:
+            crop_local = strings.get("neutral_crop", "")
+        if disease_local is None:
+            disease_local = strings.get("disease_unknown") or strings.get("neutral_crop", "")
         intro = strings.get("intro", "").format(crop=crop_local, label=disease_local)
         confirm = strings.get("confirm", "")
         state.answer = f"{intro} {confirm}"

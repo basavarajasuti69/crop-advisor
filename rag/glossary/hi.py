@@ -2,7 +2,7 @@
 # Used by the Localizer agent to write farmer-friendly answers in Hindi.
 
 CROP_NAMES = {
-    "rice": "चावल (चावल)",
+    "rice": "चावल",
     "wheat": "गेहूं",
     "cotton": "कपास",
     "maize": "मक्का",
