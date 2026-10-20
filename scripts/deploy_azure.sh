@@ -44,7 +44,7 @@ az webapp config appsettings set \
     PYTHONUNBUFFERED=1 \
     CA_REGION="${CA_REGION:-ap-south-1}" \
     AWS_REGION="${AWS_REGION:-ap-south-1}" \
-    CA_CORS_ORIGINS="${CA_CORS_ORIGINS:-http://localhost:3000}"
+    CA_CORS_ORIGINS="${CA_CORS_ORIGINS:-http://localhost:3000,https://zealous-smoke-014b04200.3.azurestaticapps.net}"
 
 echo "==> Deploying"
 az webapp deploy \
