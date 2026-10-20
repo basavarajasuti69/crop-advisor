@@ -20,3 +20,5 @@ tests/*.webp
 tests/*.jpg
 .deploy/
 .swa-deploy/
+apps/web/out/
+apps/web/.swa-deploy/

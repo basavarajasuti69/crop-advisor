@@ -38,12 +38,28 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
+      # The AWS image push needs credentials. The deployment target is Azure
+      # Container Apps; this job only runs when AWS credentials are configured.
+      - name: Check for AWS credentials
+        id: aws
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        run: |
+          if [ -n "${AWS_ACCESS_KEY_ID}" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::AWS credentials are not configured - skipping the ECR image push."
+          fi
       - name: Set up Docker Buildx
+        if: steps.aws.outputs.available == 'true'
         uses: docker/setup-buildx-action@v3
       - name: Login to Amazon ECR
+        if: steps.aws.outputs.available == 'true'
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
       - name: Build and push API image
+        if: steps.aws.outputs.available == 'true'
         uses: docker/build-push-action@v6
         with:
           # The image needs agents/, rag/, speech/ and strings/, so the build
