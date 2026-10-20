@@ -19,14 +19,27 @@ from speech.stt import stt_adapter
 APP_NAME = "crop-advisor"
 REGION = os.getenv("AWS_REGION", "ap-south-1")
 
+
+def _cors_origins(raw: str | None = None) -> list[str]:
+    """Parse CA_CORS_ORIGINS into a list of allowed origins.
+
+    Whitespace and trailing slashes are removed. A browser sends the
+    Origin header without a trailing slash, so a configured
+    "https://x.netlify.app/" would never match and CORS would fail.
+    """
+    value = os.getenv("CA_CORS_ORIGINS", "http://localhost:3000") if raw is None else raw
+    origins: list[str] = []
+    for entry in value.split(","):
+        origin = entry.strip().rstrip("/")
+        if origin:
+            origins.append(origin)
+    return origins
+
+
 app = FastAPI(title=APP_NAME, version="0.1.0")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        origin.strip()
-        for origin in os.getenv("CA_CORS_ORIGINS", "http://localhost:3000").split(",")
-        if origin.strip()
-    ],
+    allow_origins=_cors_origins(),
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],

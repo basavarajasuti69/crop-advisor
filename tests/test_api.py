@@ -7,7 +7,7 @@ from unittest.mock import patch
 from fastapi.testclient import TestClient
 from PIL import Image
 
-from apps.api.main import AdviceRequest, app
+from apps.api.main import AdviceRequest, _cors_origins, app
 
 client = TestClient(app)
 
@@ -109,3 +109,33 @@ def test_speak_reports_configured_providers_when_unavailable():
     response = client.post("/speak", json={"text": "hello", "language": "kn"})
     assert response.status_code == 503
     assert "TTS unavailable" in response.json()["detail"]
+
+
+def test_cors_origins_drop_trailing_slash():
+    """A browser sends the Origin header without a trailing slash."""
+    assert _cors_origins("https://x.netlify.app/") == ["https://x.netlify.app"]
+
+
+def test_cors_origins_strip_whitespace_and_trailing_slashes():
+    assert _cors_origins("  http://localhost:3000 ,  https://x.netlify.app//  ") == [
+        "http://localhost:3000",
+        "https://x.netlify.app",
+    ]
+
+
+def test_cors_origins_ignore_empty_entries():
+    assert _cors_origins("") == []
+    assert _cors_origins(" , , ") == []
+
+
+def test_app_cors_origins_have_no_trailing_slash():
+    """Whatever CA_CORS_ORIGINS was, the configured origins are normalised."""
+    from starlette.middleware.cors import CORSMiddleware
+
+    for middleware in app.user_middleware:
+        if middleware.cls is CORSMiddleware:
+            origins = middleware.kwargs["allow_origins"]
+            assert origins
+            assert all(origin == origin.strip().rstrip("/") for origin in origins)
+            return
+    raise AssertionError("CORSMiddleware is not configured on the app")
