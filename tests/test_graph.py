@@ -168,6 +168,99 @@ def test_evaluate_model_reports_what_the_api_would_do(tmp_path, monkeypatch, cap
     assert 0.0 <= report["metrics"]["would_diagnose_rate"] <= 1.0
 
 
+def _evaluation_report(tmp_path, monkeypatch, truth, predicted, scores):
+    """Run the evaluation tool with a stubbed predictor and return the report."""
+    import importlib.util
+    import json
+    from pathlib import Path
+
+    script = Path(__file__).resolve().parent.parent / "ml/pipelines/evaluate_model.py"
+    spec = importlib.util.spec_from_file_location("evaluate_model", script)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    data = tmp_path / "test"
+    for name in set(truth) | set(predicted):
+        (data / name).mkdir(parents=True, exist_ok=True)
+    for name in set(truth) | set(predicted):
+        (data / name / "a.png").write_bytes(_make_image_bytes())
+
+    classes = sorted(set(truth) | set(predicted))
+    index = {name: number for number, name in enumerate(classes)}
+
+    monkeypatch.setattr(
+        module,
+        "_predict_onnx",
+        lambda *a, **k: ([str(index[name]) for name in predicted], list(scores)),
+    )
+    report_path = tmp_path / "report.json"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "evaluate_model.py",
+            "--onnx", "fake.onnx",
+            "--data", str(data),
+            "--output", str(report_path),
+        ],
+    )
+    # The tool reads the class list from classes.json next to the model.
+    classes_path = Path("ml/export_edge/artifacts/classes.json")
+    if not classes_path.exists():
+        pytest.skip("the ONNX export is a build artifact and is not in git")
+    monkeypatch.setattr(
+        module, "_classes_from_onnx", lambda path: json.loads(classes_path.read_text())["classes"]
+    )
+    module.main()
+    return json.loads(report_path.read_text())
+
+
+def test_evaluation_separates_correct_answers_from_all_answers(tmp_path, monkeypatch):
+    """would_diagnose counts every answer the API would give; the other
+    metric only counts the correct ones."""
+    report = _evaluation_report(
+        tmp_path,
+        monkeypatch,
+        truth=["healthy", "leaf_blight"],
+        predicted=["healthy", "leaf_blight"],
+        scores=[0.86, 0.72],
+    )
+    metrics = report["metrics"]
+    assert metrics["correct_and_above_threshold"] == 2
+    assert metrics["would_diagnose"] == 2
+    assert metrics["would_diagnose_rate"] == 1.0
+
+
+def test_evaluation_counts_wrong_answers_in_would_diagnose(tmp_path, monkeypatch):
+    """A confidently wrong prediction is still something the API would say."""
+    report = _evaluation_report(
+        tmp_path,
+        monkeypatch,
+        truth=["healthy", "leaf_blight"],
+        predicted=["leaf_blight", "healthy"],
+        scores=[0.72, 0.86],
+    )
+    metrics = report["metrics"]
+    assert metrics["correct"] == 0
+    assert metrics["correct_and_above_threshold"] == 0
+    # The API would still answer for both.
+    assert metrics["would_diagnose"] == 2
+
+
+def test_evaluation_applies_the_stricter_threshold_to_healthy(tmp_path, monkeypatch):
+    """A healthy result needs HEALTHY_MIN (0.85), not the 0.70 threshold."""
+    report = _evaluation_report(
+        tmp_path,
+        monkeypatch,
+        truth=["healthy"],
+        predicted=["healthy"],
+        scores=[0.80],
+    )
+    metrics = report["metrics"]
+    assert metrics["correct_and_above_threshold"] == 0
+    assert metrics["would_diagnose"] == 0
+
+
 @patch("agents.graph._predict_image")
 def test_hindi_localization(mock_predict):
     mock_predict.return_value = [{"label": "healthy", "score": 0.9}]

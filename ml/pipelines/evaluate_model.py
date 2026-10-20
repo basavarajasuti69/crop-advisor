@@ -164,10 +164,25 @@ def main() -> None:
     total = len(truth)
     correct = sum(1 for want, got in zip(truth, predicted) if want == got)
     above = sum(1 for score in scores if score >= args.threshold)
+
+    def meets_api_threshold(label: str, score: float) -> bool:
+        threshold = (
+            HEALTHY_MIN
+            if label == "healthy" or label.endswith("_healthy")
+            else args.threshold
+        )
+        return score >= threshold
+
     diagnosed = sum(
         1
         for want, got, score in zip(truth, predicted, scores)
-        if want == got and score >= args.threshold
+        if want == got and meets_api_threshold(got, score)
+    )
+
+    would_diagnose = sum(
+        1
+        for got, score in zip(predicted, scores)
+        if meets_api_threshold(got, score)
     )
 
     per_class: dict[str, dict[str, float]] = {}
@@ -205,14 +220,19 @@ def main() -> None:
             "above_threshold": above,
             "above_threshold_rate": round(above / total, 4) if total else 0.0,
             "correct_and_above_threshold": diagnosed,
-            "would_diagnose_rate": round(diagnosed / total, 4) if total else 0.0,
+            "would_diagnose": would_diagnose,
+            "would_diagnose_rate": (
+                round(would_diagnose / total, 4) if total else 0.0
+            ),
         },
         "per_class": per_class,
         "confusion_matrix": matrix,
         "notes": (
-            "would_diagnose_rate is the share of images the API would answer "
-            f"for rather than ask for a retake (threshold {args.threshold}, "
-            f"healthy results also need {HEALTHY_MIN})."
+            "correct_and_above_threshold counts correct predictions that pass "
+            f"the threshold (threshold {args.threshold}, healthy results also "
+            f"need {HEALTHY_MIN}). would_diagnose_rate is the share of ALL "
+            "predictions the API would answer for rather than ask for a retake, "
+            "whether they are correct or not."
         ),
     }
 
