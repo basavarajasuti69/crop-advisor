@@ -1,12 +1,11 @@
-# Hugging Face Spaces (sdk: docker) image for the crop-advisor API.
+# Docker image for the crop-advisor API.
 #
 # Build from the repository root:
-#   docker build -t crop-advisor-api:hf .
+#   docker build -t crop-advisor-local .
 #
 # The image needs the shared packages (agents, mcp_servers, rag, speech,
 # strings) and the ONNX classifier, so the build context is the repo root
-# and the Dockerfile lives at the root - which is also what a Docker Space
-# expects.
+# and the Dockerfile lives at the root.
 #
 # CPU only: no torch. The classifier runs on ONNX Runtime (~50MB instead
 # of ~2.5GB of CUDA wheels) and starts in seconds.
@@ -14,9 +13,8 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# CPU-only dependency set. requirements-azure.txt is the no-torch list;
-# it is copied under a neutral name so this image is not Azure specific.
-COPY apps/api/requirements-azure.txt ./requirements-cpu.txt
+# CPU-only dependency set: the classifier runs on ONNX Runtime.
+COPY apps/api/requirements-cpu.txt ./requirements-cpu.txt
 RUN pip install --no-cache-dir -r requirements-cpu.txt
 
 # Application code.
@@ -40,9 +38,9 @@ USER 1000:1000
 
 ENV PYTHONPATH=/app \
     PYTHONUNBUFFERED=1 \
-    CA_REGION=ap-south-1 \
-    PORT=7860
+    CA_REGION=ap-south-1
 
-# Spaces sets $PORT; the default keeps a local `docker run` working.
-EXPOSE 7860
-CMD uvicorn apps.api.main:app --host 0.0.0.0 --port ${PORT:-7860}
+# The host sets $PORT (Render uses 10000); the default keeps a local
+# `docker run -p 10000:10000` working.
+EXPOSE 10000
+CMD uvicorn apps.api.main:app --host 0.0.0.0 --port ${PORT:-10000}

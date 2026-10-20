@@ -173,20 +173,13 @@ it needs a rebuild (Netlify: Triggers -> Clear build cache and deploy).
    restart the Space.
 4. Import the repo in Netlify, set `NEXT_PUBLIC_API_URL`, deploy.
 5. Test both sample photos in English, Hindi and Kannada.
-6. Only then delete the old Azure resources.
 
 The Space is public on purpose - the browser has to call it. It is
 stateless: photos are processed in memory and nothing is stored.
 
 ## Legacy
 
-The Azure and AWS deployment paths are kept for reference but are no
-longer the target:
+The AWS deployment path is kept for reference but is no longer the
+target:
 
-- `scripts/deploy_azure_web.sh` - legacy (Azure Static Web Apps)
-- `scripts/deploy_azure.sh`, `scripts/package_azure.sh`,
-  `scripts/build_azure_venv.sh` - legacy (Azure App Service)
-- `apps/api/Dockerfile.azure` - legacy (Azure Container Apps)
-- `.github/workflows/azure-deploy.yml` - legacy
-- the `build-and-push` job in `.github/workflows/ci.yml` - legacy (AWS ECR)
 - `infra/terraform/` - legacy (AWS)

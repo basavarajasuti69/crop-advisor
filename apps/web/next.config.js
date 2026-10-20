@@ -5,7 +5,7 @@ const nextConfig = {
     domains: [],
     remotePatterns: [],
   },
-  // Static export for static hosting (Netlify, Azure Static Web Apps).
+  // Static export for static hosting (Netlify).
   // Set NEXT_OUTPUT=export for the deploy build; the default build is
   // unchanged.
   ...(process.env.NEXT_OUTPUT === "export" ? { output: "export" } : {}),

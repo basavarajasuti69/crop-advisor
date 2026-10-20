@@ -1,7 +1,7 @@
-# Azure App Service (Linux) requirements.
+# CPU-only runtime requirements.
 #
 # No torch/torchvision: the classifier runs through ONNX Runtime, which is
-# ~50MB instead of ~2.5GB and fits the 1GB memory of a Free F1 plan.
+# ~50MB instead of ~2.5GB and starts in seconds on a free CPU service.
 fastapi==0.115.0
 python-multipart==0.0.20
 uvicorn[standard]==0.34.0
