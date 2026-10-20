@@ -11,14 +11,16 @@ crop-advisor/
 ├── apps/          api/ (FastAPI) · web/ (Next.js PWA) · expert-review/
 ├── agents/        LangGraph state + node definitions
 ├── mcp_servers/   crop_knowledge, weather, officer_directory
-├── ml/            data, training, evaluation, export_edge, pipelines
+├── ml/            training, evaluation, export_edge (ONNX)
 ├── rag/           ingest, retriever, glossary
 ├── speech/        stt, tts_adapter
-├── safety/        guardrails, ood, policies
-├── evals/         vision, rag, language, safety test suites
-├── infra/         Terraform (legacy AWS path: network, ecs, sagemaker, data)
+├── apps/api/      FastAPI service
+├── apps/web/      Next.js PWA (static export)
+├── apps/expert-review/  human review queue
+├── strings/       en / hi / kn farmer-facing strings
+├── archive/aws/   the old AWS deployment path (not used)
 ├── .github/       CI/CD workflows
-└── docs/          architecture, cost-report, failure-cases
+└── docs/          architecture, outbreak dashboard
 ```
 
 ## Phase plan
@@ -27,8 +29,8 @@ crop-advisor/
 | 1: Core | 1–2 | Classifier, quality check, English advice with RAG, CI/CD |
 | 2: Voice & language | 3–4 | Hindi answers, TTS, audio-first PWA, glossary |
 | 3: Agents & MCP | 5–6 | LangGraph, weather MCP, critic, follow-up reminders |
-| 4: MLOps & safety | 7–8 | SageMaker Pipeline, registry, drift monitor, guardrails, eval gates |
-| 5: Extras | 9+ | Expert review queue, offline edge model, outbreak dashboard |
+| 4: MLOps & safety | 7–8 | ONNX export, drift monitor, guardrails, eval gates |
+| 5: Extras | 9+ | Expert review queue, Kannada, outbreak dashboard |
 
 ## Getting started
 ```bash
@@ -44,13 +46,8 @@ cd apps/web
 npm install && npm run dev
 ```
 
-The legacy AWS infrastructure is not installed in this environment.
-Install Terraform if you want to look at it:
-```bash
-cd infra/terraform
-terraform init
-terraform plan -var region=ap-south-1
-```
+The old AWS infrastructure is archived in `archive/aws/` and is not
+installed here. See [archive/aws/README.md](archive/aws/README.md).
 
 ## Architecture
 
@@ -235,7 +232,15 @@ export the ONNX model and commit it.
 
 ## Legacy
 
-The AWS deployment path is kept for reference but is no longer the
-target:
+The AWS deployment path is archived in [`archive/aws/`](archive/aws/)
+and is no longer the target:
 
-- `infra/terraform/` - legacy (AWS)
+- `archive/aws/terraform/` - ECS, ECR, VPC, SageMaker, Bedrock, Athena
+- `archive/aws/ml/` - the SageMaker training pipeline and the S3 export
+- `archive/aws/workflows/ml-pipeline.yml` - the workflow that ran it
+
+The AWS code paths in the application itself are still there, guarded by
+environment variables (`CA_SAGEMAKER_ENDPOINT`, `CA_GUARDRAIL_ID`,
+`CA_SARVAM_API_KEY`), so they can be switched on again without a
+rewrite.
+

@@ -1,6 +1,11 @@
 # Outbreak Dashboard (Athena + QuickSight)
 #
-# Infrastructure: infra/terraform/analytics/
+# ARCHIVED: this dashboard needs the AWS analytics stack, which is no
+# longer deployed. The infrastructure is in archive/aws/terraform/analytics/
+# and the data export in archive/aws/ml/analytics/export_to_s3.py.
+# See archive/aws/README.md for how to bring it back.
+#
+# Infrastructure: archive/aws/terraform/analytics/
 #   - S3 bucket for case data + Athena results
 #   - Glue database + crawler (cases table)
 #   - Athena workgroup
@@ -17,4 +22,4 @@
 #      - Daily diagnosis trend (line chart)
 #      - Confidence distribution (pie chart)
 #
-# Data export: python ml/analytics/export_to_s3.py --bucket <bucket>
+# Data export: python archive/aws/ml/analytics/export_to_s3.py --bucket <bucket>

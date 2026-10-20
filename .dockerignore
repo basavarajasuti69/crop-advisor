@@ -32,7 +32,7 @@ ml/training/artifacts/
 *.pth
 
 # Terraform state
-infra/terraform/.terraform
+archive/aws/terraform/.terraform
 *.tfstate
 *.tfstate.backup
 
