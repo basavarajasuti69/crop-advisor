@@ -1,0 +1,24 @@
+# Render blueprint for the crop-advisor API.
+#
+# Create the service with:  New -> Blueprint -> point at this repository.
+# Render reads this file, builds the root Dockerfile and serves the API.
+#
+# The free plan sleeps after 15 minutes of inactivity, so the first
+# request after a pause can take up to about a minute to wake it up.
+services:
+  - type: web
+    name: crop-advisor-api
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    # PORT is not defined on purpose: Render sets it (10000) for the service.
+    envVars:
+      # Comma-separated, no trailing slashes. Set the value in the Render
+      # dashboard: http://localhost:3000,https://crop-adviser.netlify.app
+      - key: CA_CORS_ORIGINS
+        sync: false
+      - key: CA_REGION
+        value: ap-south-1
