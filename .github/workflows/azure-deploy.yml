@@ -3,12 +3,10 @@ name: Azure Deploy
 on:
   workflow_dispatch:
     inputs:
-      app_name:
-        description: "App Service name"
-        required: true
-      resource_group:
-        description: "Resource group"
+      image_tag:
+        description: "Image tag to deploy"
         required: false
+        default: "latest"
   push:
     branches: [main]
     paths:
@@ -33,10 +31,25 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Log in to the container registry
+        uses: azure/login@v2
+        with:
+          registry: ${{ vars.AZURE_ACR_NAME }}
+
+      # The ONNX model is a build artifact and is not in git. It is fetched
+      # from blob storage before the image is built.
       - name: Fetch the ONNX model
-        # The model is a build artifact and is not in git. It is fetched from
-        # blob storage (AZURE_MODEL_URL) and placed where the packaging
-        # script expects it.
         env:
           AZURE_MODEL_URL: ${{ secrets.AZURE_MODEL_URL }}
         run: |
@@ -44,33 +57,28 @@ jobs:
           mkdir -p ml/export_edge/artifacts
           if [ -n "${AZURE_MODEL_URL}" ]; then
             curl -fsSL "${AZURE_MODEL_URL}" -o ml/export_edge/artifacts/classifier.onnx
-            curl -fsSL "${AZURE_MODEL_URL%.onnx}-classes.json" -o ml/export_edge/artifacts/classes.json \
-              || curl -fsSL "${AZURE_MODEL_URL}.classes.json" -o ml/export_edge/artifacts/classes.json
+            curl -fsSL "${AZURE_MODEL_URL%.onnx}-classes.json" \
+              -o ml/export_edge/artifacts/classes.json \
+              || curl -fsSL "${AZURE_MODEL_URL}.classes.json" \
+                   -o ml/export_edge/artifacts/classes.json
           else
-            echo "::warning::AZURE_MODEL_URL is not set - the deploy will not have a model."
+            echo "::warning::AZURE_MODEL_URL is not set - the image will have no model."
           fi
 
-      - name: Build the deployment package
-        run: ./scripts/package_azure.sh
-
-      - name: Azure login
-        uses: azure/login@v2
+      - name: Build and push the image
+        uses: docker/build-push-action@v6
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          context: .
+          file: apps/api/Dockerfile.azure
+          platforms: linux/amd64
+          push: true
+          tags: ${{ vars.AZURE_ACR_NAME }}.azurecr.io/crop-advisor-api:${{ inputs.image_tag || 'latest' }}
 
-      - name: Deploy to App Service
-        uses: azure/webapps-deploy@v3
+      - name: Deploy to Container Apps
+        uses: azure/CLI@v2
         with:
-          app-name: ${{ inputs.app_name || vars.AZURE_APP_NAME }}
-          resource-group-name: ${{ inputs.resource_group || vars.AZURE_RESOURCE_GROUP }}
-          package: .deploy/crop-advisor-api.zip
-          startup-command: >-
-            /home/site/wwwroot/venv/bin/python -m uvicorn apps.api.main:app
-            --host 0.0.0.0 --port 8000
-          app-settings: >-
-            SCM_DO_BUILD_DURING_DEPLOYMENT=true
-            ENABLE_ORYX_BUILD=true
-            PYTHONUNBUFFERED=1
-            CA_REGION=ap-south-1
-            AWS_REGION=ap-south-1
-            CA_CORS_ORIGINS=${{ vars.AZURE_CORS_ORIGINS }}
+          inlineScript: |
+            az containerapp update \
+              --name ${{ vars.AZURE_CONTAINER_APP }} \
+              --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} \
+              --image ${{ vars.AZURE_ACR_NAME }}.azurecr.io/crop-advisor-api:${{ inputs.image_tag || 'latest' }}

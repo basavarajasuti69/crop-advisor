@@ -24,14 +24,12 @@ venv
 .env.*
 !.env.example
 
-# Model artifacts and datasets are not baked into the image: the classifier
+# Model artifacts are not baked into the image: the classifier
 # is served from SageMaker (CA_SAGEMAKER_ENDPOINT).
 ml/data/
 ml/training/artifacts/
-ml/export_edge/artifacts/
 *.pt
 *.pth
-*.onnx
 
 # Terraform state
 infra/terraform/.terraform

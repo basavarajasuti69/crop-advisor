@@ -38,6 +38,55 @@ cp "$ONNX_DIR/classifier.onnx" "$ONNX_DIR/classes.json" "$STAGE/ml/export_edge/a
 # Azure dependency set
 cp "$ROOT/apps/api/requirements-azure.txt" "$STAGE/requirements.txt"
 
+# App Service runs the app from the package root, so expose the ASGI app in a
+# top-level module for the Oryx default startup command.
+cat > "$STAGE/application.py" <<'PY'
+"""App Service entry point: the default Linux startup command runs
+'gunicorn ... application:app'."""
+
+from apps.api.main import app
+
+__all__ = ["app"]
+PY
+
+# Startup script: run the app with whichever Python is available - the
+# pre-built venv we shipped, or the one Oryx built on the instance.
+cat > "$STAGE/startup.sh" <<'SH'
+#!/bin/bash
+cd /home/site/wwwroot || exit 1
+
+if [ -x /home/site/wwwroot/venv/bin/python ]; then
+    # Pre-built venv shipped in the package.
+    export LD_LIBRARY_PATH=/home/site/wwwroot/venv/lib:$LD_LIBRARY_PATH
+    PY=/home/site/wwwroot/venv/bin/python
+elif [ -x /usr/local/bin/python3.12 ]; then
+    # Oryx built the environment on the instance.
+    PY=/usr/local/bin/python3.12
+elif [ -x /usr/local/bin/python ]; then
+    PY=/usr/local/bin/python
+else
+    PY=$(command -v python3)
+fi
+
+echo "Starting with $PY"
+exec "$PY" -m uvicorn application:app --host 0.0.0.0 --port 8000
+SH
+chmod +x "$STAGE/startup.sh"
+
+# Pre-built Linux venv (see scripts/build_azure_venv.sh). Shipping it means
+# App Service does not build the environment on the instance, which burns the
+# Free tier's 60 CPU minutes a day. It also makes the upload ~176MB, which is
+# slow on a Free instance, so it is opt-in:
+#   INCLUDE_VENV=1 ./scripts/package_azure.sh
+if [ "${INCLUDE_VENV:-0}" = "1" ] && [ -d "$ROOT/.deploy/venv/venv" ]; then
+  echo "Including the pre-built venv"
+  rm -rf "$STAGE/venv"
+  cp -a "$ROOT/.deploy/venv/venv" "$STAGE/venv"
+else
+  echo "Not including a pre-built venv - App Service will build the" \
+       "environment on the instance (set INCLUDE_VENV=1 to ship one)."
+fi
+
 # Drop caches and anything that must not ship
 find "$STAGE" -name '__pycache__' -type d -prune -exec rm -rf {} + 2>/dev/null || true
 find "$STAGE" -name '*.pyc' -delete 2>/dev/null || true

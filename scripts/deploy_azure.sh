@@ -10,7 +10,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 APP_NAME="${APP_NAME:-crop-advisor-yourname-api}"
 RESOURCE_GROUP="${RESOURCE_GROUP:-$APP_NAME}"
-STARTUP_COMMAND="${STARTUP_COMMAND:-/home/site/wwwroot/venv/bin/python -m uvicorn apps.api.main:app --host 0.0.0.0 --port 8000}"
+STARTUP_FILE="${STARTUP_FILE:-application.py}"
 
 if ! az account show >/dev/null 2>&1; then
   echo "ERROR: not logged in. Run 'az login'." >&2
@@ -24,16 +24,23 @@ echo "==> Configuring app settings"
 az webapp config set \
   --name "$APP_NAME" \
   --resource-group "$RESOURCE_GROUP" \
-  --startup-command "$STARTUP_COMMAND" \
+  --startup-file "startup.sh" \
   --output none
+
+# With a pre-built venv in the package the instance does not need to run pip.
+if [ "${INCLUDE_VENV:-0}" = "1" ]; then
+  BUILD_ON_INSTANCE=false
+else
+  BUILD_ON_INSTANCE=true
+fi
 
 az webapp config appsettings set \
   --name "$APP_NAME" \
   --resource-group "$RESOURCE_GROUP" \
   --output none \
   --settings \
-    SCM_DO_BUILD_DURING_DEPLOYMENT=true \
-    ENABLE_ORYX_BUILD=true \
+    SCM_DO_BUILD_DURING_DEPLOYMENT=$BUILD_ON_INSTANCE \
+    ENABLE_ORYX_BUILD=$BUILD_ON_INSTANCE \
     PYTHONUNBUFFERED=1 \
     CA_REGION="${CA_REGION:-ap-south-1}" \
     AWS_REGION="${AWS_REGION:-ap-south-1}" \
