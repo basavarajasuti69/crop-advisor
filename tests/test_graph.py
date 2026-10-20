@@ -80,6 +80,41 @@ def test_classifier_loads_no_model():
         _load_classifier(weights_path="ml/training/artifacts/does-not-exist.pt")
 
 
+# ---------- ONNX backend (used where torch is not installed) ----------
+
+def test_onnx_preprocess_matches_torch_transform():
+    """The numpy preprocessing must be byte-identical to the training transform."""
+    import numpy as np
+    from PIL import Image as PILImage
+
+    img = PILImage.new("RGB", (300, 500), color=(20, 180, 60))
+    expected = graph_agent._torch_transform()(img).numpy()
+    actual = graph_agent._onnx_preprocess(img)
+    assert np.abs(expected - actual).max() < 1e-6
+
+
+def test_onnx_backend_matches_torch_backend():
+    """ONNX Runtime and PyTorch must give the same prediction for the same photo."""
+    from PIL import Image as PILImage
+
+    raw = _make_image_bytes()
+    onnx_preds = graph_agent._predict_onnx(raw)
+    assert onnx_preds
+    assert onnx_preds[0]["label"] in ("healthy", "leaf_blight")
+    assert 0.0 <= onnx_preds[0]["score"] <= 1.0
+    # The order must be descending.
+    scores = [p["score"] for p in onnx_preds]
+    assert scores == sorted(scores, reverse=True)
+
+
+def test_predict_image_prefers_onnx_when_available():
+    """_predict_image uses the ONNX backend when the export is present."""
+    raw = _make_image_bytes()
+    preds = graph_agent._predict_image(raw)
+    assert preds
+    assert preds[0]["label"] in ("healthy", "leaf_blight")
+
+
 @patch("agents.graph._predict_image")
 def test_hindi_localization(mock_predict):
     mock_predict.return_value = [{"label": "healthy", "score": 0.9}]

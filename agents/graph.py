@@ -21,8 +21,6 @@ from langgraph.graph import StateGraph, END
 from mcp.types import CallToolRequest, CallToolRequestParams
 from PIL import Image
 from pydantic import BaseModel, Field
-import torch
-from torchvision import models, transforms
 
 from rag.glossary import hi as glossary_hi  # noqa: E402
 from rag.glossary import kn as glossary_kn  # noqa: E402
@@ -49,20 +47,39 @@ def _sagemaker_client():
 
 _CLASSIFIER = None
 _CLASSES = None
+_ONNX_SESSION = None
+_ONNX_CLASSES: list[str] = []
+_TORCH_TRANSFORM = None
+
+# ONNX artifacts exported by ml/export_edge/export_onnx.py.
+_ONNX_DIR = Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts"
+_ONNX_MEAN = (0.485, 0.456, 0.406)
+_ONNX_STD = (0.229, 0.224, 0.225)
+
+
+def _repo_root() -> Path:
+    """Repo root, so paths do not depend on the current working directory."""
+    return Path(__file__).resolve().parent.parent
 
 
 def _load_classifier(weights_path: str | None = None, metrics_path: str | None = None):
-    """Load the classifier. Paths are injectable so tests can simulate a missing model."""
+    """Load the PyTorch classifier. Paths are injectable so tests can simulate
+    a missing model. Raises ModelUnavailable when torch is not installed."""
     global _CLASSIFIER, _CLASSES
     if weights_path is None and metrics_path is None and _CLASSIFIER is not None:
         return _CLASSIFIER, _CLASSES
     # Resolve from the repo root, not the CWD: the API may be started from
     # anywhere (and in Docker the CWD is the image WORKDIR).
-    root = Path(__file__).resolve().parent.parent
+    root = _repo_root()
     w = Path(weights_path) if weights_path else root / "ml/training/artifacts/model.pt"
     m = Path(metrics_path) if metrics_path else root / "ml/training/artifacts/metrics.json"
     if not (w.exists() and m.exists()):
         raise ModelUnavailable("classifier model file missing")
+    try:
+        import torch
+        from torchvision import models
+    except ImportError as exc:
+        raise ModelUnavailable("torch is not installed") from exc
     classes = json.loads(m.read_text())["classes"]
     model = models.efficientnet_b0(weights=None)
     model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, len(classes))
@@ -73,12 +90,75 @@ def _load_classifier(weights_path: str | None = None, metrics_path: str | None =
     return _CLASSIFIER, _CLASSES
 
 
-_TRANSFORM = transforms.Compose([
-    transforms.Resize(256),
-    transforms.CenterCrop(224),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-])
+def _torch_transform():
+    """The training/eval transform: Resize(256) + CenterCrop(224) + Normalize."""
+    global _TORCH_TRANSFORM
+    if _TORCH_TRANSFORM is None:
+        from torchvision import transforms
+
+        _TORCH_TRANSFORM = transforms.Compose([
+            transforms.Resize(256),
+            transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            transforms.Normalize(list(_ONNX_MEAN), list(_ONNX_STD)),
+        ])
+    return _TORCH_TRANSFORM
+
+
+def _onnx_preprocess(img: Image.Image):
+    """NumPy equivalent of _torch_transform() - must stay byte-identical to it."""
+    import numpy as np
+
+    width, height = img.size
+    if width <= height:
+        new_w, new_h = 256, int(256 * height / width)
+    else:
+        new_h, new_w = 256, int(256 * width / height)
+    resized = img.resize((new_w, new_h), Image.BILINEAR)
+    left = int(round((new_w - 224) / 2.0))
+    top = int(round((new_h - 224) / 2.0))
+    cropped = resized.crop((left, top, left + 224, top + 224))
+    arr = np.asarray(cropped, dtype="float32") / 255.0
+    arr = (arr - np.array(_ONNX_MEAN, dtype="float32")) / np.array(_ONNX_STD, dtype="float32")
+    return arr.transpose(2, 0, 1)[None, ...]
+
+
+def _load_onnx():
+    """Load the ONNX Runtime session. Returns (session, classes) or None."""
+    global _ONNX_SESSION, _ONNX_CLASSES
+    if _ONNX_SESSION is not None:
+        return _ONNX_SESSION, _ONNX_CLASSES
+    model_path = _ONNX_DIR / "classifier.onnx"
+    classes_path = _ONNX_DIR / "classes.json"
+    if not (model_path.exists() and classes_path.exists()):
+        return None
+    try:
+        import onnxruntime as ort
+    except ImportError:
+        return None
+    _ONNX_CLASSES = json.loads(classes_path.read_text())["classes"]
+    _ONNX_SESSION = ort.InferenceSession(
+        str(model_path), providers=["CPUExecutionProvider"]
+    )
+    return _ONNX_SESSION, _ONNX_CLASSES
+
+
+def _predict_onnx(image_bytes: bytes, top_k: int = 3) -> list[dict[str, Any]]:
+    """Classify with ONNX Runtime. No torch required."""
+    import numpy as np
+
+    loaded = _load_onnx()
+    if loaded is None:
+        raise ModelUnavailable("onnx model not available")
+    session, classes = loaded
+    img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+    logits = session.run(["logits"], {"input": _onnx_preprocess(img)})[0].reshape(-1)
+    probs = np.exp(logits - logits.max())
+    probs = probs / probs.sum()
+    order = np.argsort(probs)[::-1][: min(top_k, len(classes))]
+    return [
+        {"label": classes[int(i)], "score": round(float(probs[i]), 4)} for i in order
+    ]
 
 
 # ---------------------------------------------------------------------------
@@ -105,15 +185,25 @@ VISION_ENABLED = os.getenv("CA_VISION_SECOND_OPINION", "false").lower() == "true
 
 
 def _predict_image(image_bytes: bytes, top_k: int = 3, model=None, classes=None) -> list[dict[str, Any]]:
+    """Classify an image.
+
+    Backends, in order: an explicitly injected model, ONNX Runtime (no torch
+    needed), then the local PyTorch model. Never returns a fake prediction.
+    """
     try:
-        img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+        Image.open(io.BytesIO(image_bytes)).convert("RGB")
     except Exception:
         raise ImageUnreadable("could not open image")
     if model is None and classes is None:
+        if _load_onnx() is not None:
+            return _predict_onnx(image_bytes, top_k)
         model, classes = _load_classifier()
     elif model is None or classes is None:
         raise ValueError("model and classes must be provided together")
-    x = _TRANSFORM(img).unsqueeze(0)
+    import torch
+
+    img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+    x = _torch_transform()(img).unsqueeze(0)
     with torch.no_grad():
         logits = model(x)
         probs = torch.softmax(logits, dim=1)[0]

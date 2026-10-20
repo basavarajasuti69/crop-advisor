@@ -18,3 +18,4 @@ ml/data/
 .env.*.local
 tests/*.webp
 tests/*.jpg
+.deploy/

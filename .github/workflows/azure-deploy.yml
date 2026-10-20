@@ -1,0 +1,76 @@
+name: Azure Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_name:
+        description: "App Service name"
+        required: true
+      resource_group:
+        description: "Resource group"
+        required: false
+  push:
+    branches: [main]
+    paths:
+      - 'agents/**'
+      - 'apps/api/**'
+      - 'mcp_servers/**'
+      - 'rag/**'
+      - 'speech/**'
+      - 'strings/**'
+      - 'scripts/**'
+      - '.github/workflows/azure-deploy.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: azure
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch the ONNX model
+        # The model is a build artifact and is not in git. It is fetched from
+        # blob storage (AZURE_MODEL_URL) and placed where the packaging
+        # script expects it.
+        env:
+          AZURE_MODEL_URL: ${{ secrets.AZURE_MODEL_URL }}
+        run: |
+          set -euo pipefail
+          mkdir -p ml/export_edge/artifacts
+          if [ -n "${AZURE_MODEL_URL}" ]; then
+            curl -fsSL "${AZURE_MODEL_URL}" -o ml/export_edge/artifacts/classifier.onnx
+            curl -fsSL "${AZURE_MODEL_URL%.onnx}-classes.json" -o ml/export_edge/artifacts/classes.json \
+              || curl -fsSL "${AZURE_MODEL_URL}.classes.json" -o ml/export_edge/artifacts/classes.json
+          else
+            echo "::warning::AZURE_MODEL_URL is not set - the deploy will not have a model."
+          fi
+
+      - name: Build the deployment package
+        run: ./scripts/package_azure.sh
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ inputs.app_name || vars.AZURE_APP_NAME }}
+          resource-group-name: ${{ inputs.resource_group || vars.AZURE_RESOURCE_GROUP }}
+          package: .deploy/crop-advisor-api.zip
+          startup-command: >-
+            /home/site/wwwroot/venv/bin/python -m uvicorn apps.api.main:app
+            --host 0.0.0.0 --port 8000
+          app-settings: >-
+            SCM_DO_BUILD_DURING_DEPLOYMENT=true
+            ENABLE_ORYX_BUILD=true
+            PYTHONUNBUFFERED=1
+            CA_REGION=ap-south-1
+            AWS_REGION=ap-south-1
+            CA_CORS_ORIGINS=${{ vars.AZURE_CORS_ORIGINS }}
