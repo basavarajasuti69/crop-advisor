@@ -154,6 +154,7 @@ def main() -> None:
     truth = [label for _, label in labelled]
 
     scores: list[float] = []
+
     if args.onnx:
         predicted_idx, scores = _predict_onnx(Path(args.onnx), images)
         predicted = [classes[int(i)] for i in predicted_idx]
@@ -162,8 +163,14 @@ def main() -> None:
         predicted = [classes[int(i)] for i in predicted_idx]
 
     total = len(truth)
-    correct = sum(1 for want, got in zip(truth, predicted) if want == got)
-    above = sum(1 for score in scores if score >= args.threshold)
+
+    correct = sum(
+        1 for want, got in zip(truth, predicted) if want == got
+    )
+
+    above = sum(
+        1 for score in scores if score >= args.threshold
+    )
 
     def meets_api_threshold(label: str, score: float) -> bool:
         threshold = (
@@ -181,25 +188,34 @@ def main() -> None:
 
     would_diagnose = sum(
         1
-        for got, score in zip(predicted, scores)
-        if meets_api_threshold(got, score)
+        for label, score in zip(predicted, scores)
+        if meets_api_threshold(label, score)
     )
 
     per_class: dict[str, dict[str, float]] = {}
+
     for name in classes:
-        wanted = [i for i, label in enumerate(truth) if label == name]
+        wanted = [
+            i for i, label in enumerate(truth) if label == name
+        ]
+
         if not wanted:
             per_class[name] = {"support": 0, "accuracy": 0.0}
             continue
-        hits = sum(1 for i in wanted if predicted[i] == name)
+
+        hits = sum(
+            1 for i in wanted if predicted[i] == name
+        )
+
         per_class[name] = {
             "support": len(wanted),
             "accuracy": round(hits / len(wanted), 4),
         }
 
     matrix: dict[str, dict[str, int]] = {}
+
     for name in classes:
-        row = {
+        matrix[name] = {
             other: sum(
                 1
                 for i, label in enumerate(truth)
@@ -207,7 +223,6 @@ def main() -> None:
             )
             for other in classes
         }
-        matrix[name] = row
 
     report = {
         "data": str(args.data),
@@ -218,7 +233,9 @@ def main() -> None:
             "correct": correct,
             "total_images": total,
             "above_threshold": above,
-            "above_threshold_rate": round(above / total, 4) if total else 0.0,
+            "above_threshold_rate": (
+                round(above / total, 4) if total else 0.0
+            ),
             "correct_and_above_threshold": diagnosed,
             "would_diagnose": would_diagnose,
             "would_diagnose_rate": (
@@ -228,11 +245,11 @@ def main() -> None:
         "per_class": per_class,
         "confusion_matrix": matrix,
         "notes": (
-            "correct_and_above_threshold counts correct predictions that pass "
-            f"the threshold (threshold {args.threshold}, healthy results also "
-            f"need {HEALTHY_MIN}). would_diagnose_rate is the share of ALL "
-            "predictions the API would answer for rather than ask for a retake, "
-            "whether they are correct or not."
+            "correct_and_above_threshold counts correct predictions that "
+            "pass the applicable threshold. would_diagnose counts predictions "
+            "that pass the applicable threshold, whether correct or incorrect. "
+            f"The default disease threshold is {args.threshold}; "
+            f"healthy predictions also require {HEALTHY_MIN}."
         ),
     }
 
