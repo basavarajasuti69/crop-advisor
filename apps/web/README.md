@@ -49,7 +49,7 @@ Steps:
 
    | Key | Value |
    |---|---|
-   | `NEXT_PUBLIC_API_URL` | `https://<your-hf-space>.hf.space` |
+   | `NEXT_PUBLIC_API_URL` | `https://your-api-host` |
 
 4. **Deploy site.**
 

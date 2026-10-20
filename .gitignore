@@ -13,7 +13,7 @@ ml/data/
 *.pth
 *.onnx
 # The ONNX classifier is the one model that must be in the repo: the
-# Hugging Face Space image is built from it. Stored with Git LFS.
+# deployed API image is built from it. Stored with Git LFS.
 !ml/export_edge/artifacts/classifier.onnx
 .next/
 *.tfstate.backup

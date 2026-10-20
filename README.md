@@ -1,18 +1,10 @@
----
-title: Crop Disease Advisor API
-emoji: 🌾
-colorFrom: green
-colorTo: lime
-sdk: docker
-app_port: 7860
-pinned: false
----
-
 # Crop Disease Advisor
 
 AI crop-disease advisor — languages **English, Hindi, Kannada**, crops **rice, wheat, cotton, maize, tomato**.
 
-This repository is the API for a **Hugging Face Space** (`sdk: docker`, port 7860). The web app is deployed separately to Netlify.
+This repository holds the API (a Docker image built from the root
+`Dockerfile`) and the web app. The API is deployed to Render and the web
+app to Netlify.
 
 ```
 crop-advisor/
@@ -59,17 +51,17 @@ Both parts run on free tiers with no credit card:
 
 | Piece | Where | Cost |
 |---|---|---|
-| API (FastAPI + ONNX classifier) | Hugging Face Spaces (`sdk: docker`, port 7860) | free CPU |
+| API (FastAPI + ONNX classifier) | Render (Docker, free web service) | free CPU |
 | Web app (Next.js static export) | Netlify | free tier |
 
 The API image is CPU-only: no torch, the classifier runs on ONNX Runtime
 (~50MB instead of ~2.5GB of CUDA wheels).
 
-### 1. API on Hugging Face Spaces
+### 1. The API
 
-The Space uses the **root `Dockerfile`** in this repository, so this repo
-is the Space repo. It listens on `$PORT` (default 7860) and runs as
-UID 1000.
+The API is built from the **root `Dockerfile`** in this repository, so
+the build context is the repository root. It listens on `$PORT` and runs
+as UID 1000.
 
 The ONNX classifier must be in the repo at
 `ml/export_edge/artifacts/classifier.onnx` - it is stored with Git LFS
@@ -82,57 +74,11 @@ brew install git-lfs && git lfs install
 # the model is a build artifact, so it is not in git history yet
 git lfs track "*.onnx"          # .gitattributes already has this line
 git add .gitattributes .gitignore ml/export_edge/artifacts/classifier.onnx
-git commit -m "feat: add the ONNX classifier for the Space"
+git commit -m "feat: add the ONNX classifier"
 git push origin main
 ```
 
-Then create the Space and push:
-
-```bash
-hf auth login
-# The Space must be PUBLIC: the Netlify frontend calls it from the browser,
-# so a private Space would be rejected by CORS.
-hf repo create <your-user>/<space-name> --repo-type space --space-sdk docker
-git remote add space https://huggingface.co/spaces/<your-user>/<space-name>
-git push space main              # the LFS file goes with it
-```
-
-The Space's README front matter (already in this README) sets
-`sdk: docker` and `app_port: 7860`.
-
-> **If the push is rejected with "contains files larger than 10 MiB"**
->
-> Hugging Face runs a pre-receive hook that rejects any pushed commit
-> holding a file over 10 MiB that is **not** stored with LFS. The model is
-> 16 MB, so it must be an LFS object.
->
-> - *If the model has never been committed* (it has not been - the
->   history is clean): install LFS, `git lfs track "*.onnx"`, then
->   `git add` / `git commit` / `git push` the model. The pointer file
->   that goes into git is a few hundred bytes, and the real file is
->   uploaded to the LFS store. `git lfs ls-files` should list
->   `ml/export_edge/artifacts/classifier.onnx`.
-> - *If the model is already in the history as a raw blob*:
->   `git rm --cached` does **not** help - it only affects future
->   commits, and the old blob is still in the history, so the hook
->   still rejects the push. The fix is to rewrite the history so the
->   blob becomes an LFS pointer:
->
->   ```bash
->   git lfs install
->   git lfs migrate import --include="ml/export_edge/artifacts/classifier.onnx" --everything
->   git push --force origin main
->   ```
->
->   That rewrites history and force-pushes, so run it only if you are
->   sure - it changes every commit hash.
->
-> For a Space, `hf lfs-enable-largefiles .` also enables the large-file
-> support on the Hub side (needed for files over 5 GB).
-
-Check it: `https://<your-user>-<space-name>.hf.space/health`
-
-**Space environment variables**
+**Environment variables**
 
 | Name | Required | Default | What it does |
 |---|---|---|---|
@@ -159,7 +105,7 @@ repository in Netlify, then set the environment variable
 
 | Key | Value |
 |---|---|
-| `NEXT_PUBLIC_API_URL` | `https://<your-user>-<space-name>.hf.space` |
+| `NEXT_PUBLIC_API_URL` | `https://<your-api-host>` |
 
 `NEXT_PUBLIC_*` is inlined into the bundle at **build** time, so changing
 it needs a rebuild (Netlify: Triggers -> Clear build cache and deploy).
@@ -167,15 +113,14 @@ it needs a rebuild (Netlify: Triggers -> Clear build cache and deploy).
 ### Order of steps
 
 1. Commit the ONNX model (with LFS) and push to GitHub.
-2. Create the **public** Space, push this repo to it, confirm `/health`
-   responds.
-3. Set `CA_CORS_ORIGINS` to your Netlify URL in the Space settings and
-   restart the Space.
+2. Deploy the API, confirm `/health` responds.
+3. Set `CA_CORS_ORIGINS` to your Netlify URL in the API settings and
+   restart it.
 4. Import the repo in Netlify, set `NEXT_PUBLIC_API_URL`, deploy.
 5. Test both sample photos in English, Hindi and Kannada.
 
-The Space is public on purpose - the browser has to call it. It is
-stateless: photos are processed in memory and nothing is stored.
+The API is stateless: photos are processed in memory and nothing is
+stored.
 
 ## Legacy
 
