@@ -157,15 +157,71 @@ it needs a rebuild (Netlify: Triggers -> Clear build cache and deploy).
 6. Test both sample photos in English, Hindi and Kannada, and check the
    browser console for CORS errors.
 
+## Making the answers better
+
+Two things decide how good the answer is: **the classifier** (which
+disease it thinks it is) and **the explanation** (how it says it). Both
+can be improved without touching the code.
+
+### 1. Turn on the written explanation (free)
+
+The API can hand the retrieved guidance to a language model and write a
+far better farmer-facing explanation than the template. It speaks to
+any OpenAI-compatible endpoint, so a free key is enough - no code
+change, no new dependency.
+
+Google AI Studio gives a free Gemini key with no credit card and an
+OpenAI-compatible endpoint:
+
+| Variable | Value |
+|---|---|
+| `CA_LLM_BASE_URL` | `https://generativelanguage.googleapis.com/v1beta/openai/` |
+| `CA_LLM_API_KEY` | your key from https://aistudio.google.com |
+| `CA_LLM_MODEL_NAME` | `gemini-2.5-flash` |
+
+Set them in Render (Environment) and the next request uses the model.
+If any of the three is missing the model is never called and the plain
+template is used, so nothing breaks.
+
+The model is only ever sent the disease label, the retrieved chunks and
+the target language - never the photo and never the location. Its
+output is then checked: it must be in the right script, must not use
+markdown headings, must not invent a dose or a chemical that is not in
+the chunks, and the fixed safety line and helpline are appended by the
+code, not written by the model. If any check fails, the plain template
+is used instead.
+
+### 2. Turn on speech (free tier)
+
+`/speak` needs a text-to-speech provider. Sarvam AI covers Hindi and
+Kannada with natural voices and gives free credits on signup, no card:
+
+| Variable | Value |
+|---|---|
+| `CA_SARVAM_API_KEY` | your key from https://sarvam.ai |
+
+Without it `/speak` returns 503 and the web app disables the "Listen to
+advice" button with a clear label rather than looking broken.
+
+### 3. Retrain the classifier (the real fix)
+
+This is the one that matters most: the model in the repo was trained on
+40 solid-colour squares, so a real photo never reaches the 0.70
+confidence threshold and the app always answers "retake the photo".
+**[ml/training/DATASETS.md](ml/training/DATASETS.md)** has the plan -
+the ten classes to train, the free datasets to use, and the steps to
+export the ONNX model and commit it.
+
 ## Known limitations
 
 - **The model is weak.** It was trained on a small synthetic set (40
-  images, two classes: `healthy` and `leaf_blight`). Real photos often
-  score below the 0.70 confidence threshold, so the app answers "retake
-  the photo" instead of naming a disease. That is the intended
-  behaviour for a low-confidence result, not a crash - but it means the
-  app mostly asks for a better photo until the model is retrained on
-  real field data.
+  solid-colour squares, two classes: `healthy` and `leaf_blight`). Real
+  photos often score below the 0.70 confidence threshold, so the app
+  answers "retake the photo" instead of naming a disease. That is the
+  intended behaviour for a low-confidence result, not a crash - but it
+  means the app mostly asks for a better photo until the model is
+  retrained on real field data. See
+  [ml/training/DATASETS.md](ml/training/DATASETS.md).
 - **The free API sleeps.** Render's free plan sleeps after 15 minutes
   of inactivity, so the first request after a pause can take up to about
   a minute to wake up. The web app shows a "Waking up the server" note
