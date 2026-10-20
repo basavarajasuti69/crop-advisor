@@ -16,7 +16,7 @@ crop-advisor/
 ├── speech/        stt, tts_adapter
 ├── safety/        guardrails, ood, policies
 ├── evals/         vision, rag, language, safety test suites
-├── infra/         Terraform (network, ecs, sagemaker, data, monitoring)
+├── infra/         Terraform (legacy AWS path: network, ecs, sagemaker, data)
 ├── .github/       CI/CD workflows
 └── docs/          architecture, cost-report, failure-cases
 ```
@@ -38,12 +38,30 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-Terraform is not installed in this environment. Install it, then:
+The web app:
+```bash
+cd apps/web
+npm install && npm run dev
+```
+
+The legacy AWS infrastructure is not installed in this environment.
+Install Terraform if you want to look at it:
 ```bash
 cd infra/terraform
 terraform init
 terraform plan -var region=ap-south-1
 ```
+
+## Architecture
+
+```
+Next.js (static export)  ->  FastAPI  ->  ONNX classifier
+   on Netlify               on Render      + RAG (rag/index.jsonl)
+                                            + MCP servers (weather, crop_knowledge, officer_directory)
+```
+
+The browser talks to the API directly. The API is stateless: photos are
+processed in memory and nothing is stored.
 
 ## Deploy (free)
 
@@ -57,34 +75,41 @@ Both parts run on free tiers with no credit card:
 The API image is CPU-only: no torch, the classifier runs on ONNX Runtime
 (~50MB instead of ~2.5GB of CUDA wheels).
 
-### 1. The API
+### 1. Deploy the API on Render
 
-The API is built from the **root `Dockerfile`** in this repository, so
-the build context is the repository root. It listens on `$PORT` and runs
+`render.yaml` at the repository root declares the service: one Docker
+web service on the free plan in Singapore, with `/health` as the health
+check.
+
+1. Commit the ONNX model (with LFS) and push to GitHub:
+
+   ```bash
+   # once, if LFS is not installed
+   brew install git-lfs && git lfs install
+
+   # the model is a build artifact, so it is not in git history yet
+   git lfs track "*.onnx"          # .gitattributes already has this line
+   git add .gitattributes .gitignore ml/export_edge/artifacts/classifier.onnx
+   git commit -m "feat: add the ONNX classifier"
+   git push origin main
+   ```
+
+2. In Render: **New -> Blueprint**, point it at this repository and
+   accept the service from `render.yaml`.
+
+3. Check it: `https://crop-advisor-rkat.onrender.com/health` should
+   return `{"status":"ok","region":"ap-south-1"}`.
+
+The API is built from the **root `Dockerfile`**, so the build context
+is the repository root. It listens on `$PORT` (Render sets it) and runs
 as UID 1000.
-
-The ONNX classifier must be in the repo at
-`ml/export_edge/artifacts/classifier.onnx` - it is stored with Git LFS
-(`.gitattributes`) because it is ~16MB.
-
-```bash
-# once, if LFS is not installed
-brew install git-lfs && git lfs install
-
-# the model is a build artifact, so it is not in git history yet
-git lfs track "*.onnx"          # .gitattributes already has this line
-git add .gitattributes .gitignore ml/export_edge/artifacts/classifier.onnx
-git commit -m "feat: add the ONNX classifier"
-git push origin main
-```
 
 **Environment variables**
 
 | Name | Required | Default | What it does |
 |---|---|---|---|
-| `CA_CORS_ORIGINS` | for the browser | `http://localhost:3000` | comma-separated allowed origins. Set it to your Netlify URL. |
+| `CA_CORS_ORIGINS` | for the browser | `http://localhost:3000` | comma-separated allowed origins, **no trailing slashes**. Set it to your Netlify URL. |
 | `CA_REGION` | no | `ap-south-1` | region label reported by `/health` |
-| `PORT` | no | `7860` | port the app listens on (set by Spaces) |
 | `CA_LLM_BASE_URL` | no | empty | OpenAI-compatible LLM endpoint. If any LLM variable is missing the model is never called and the plain template is used. |
 | `CA_LLM_API_KEY` | no | empty | LLM API key |
 | `CA_LLM_MODEL_NAME` | no | empty | LLM model name |
@@ -97,7 +122,7 @@ No secret is required: with none of these set the API is fully
 self-contained (ONNX + the local knowledge base + the local MCP servers)
 and makes no outbound paid calls.
 
-### 2. Web app on Netlify
+### 2. Deploy the web app on Netlify
 
 `netlify.toml` at the repository root has the build settings. Import the
 repository in Netlify, then set the environment variable
@@ -105,7 +130,7 @@ repository in Netlify, then set the environment variable
 
 | Key | Value |
 |---|---|
-| `NEXT_PUBLIC_API_URL` | `https://<your-api-host>` |
+| `NEXT_PUBLIC_API_URL` | `https://crop-advisor-rkat.onrender.com` |
 
 `NEXT_PUBLIC_*` is inlined into the bundle at **build** time, so changing
 it needs a rebuild (Netlify: Triggers -> Clear build cache and deploy).
@@ -113,14 +138,44 @@ it needs a rebuild (Netlify: Triggers -> Clear build cache and deploy).
 ### Order of steps
 
 1. Commit the ONNX model (with LFS) and push to GitHub.
-2. Deploy the API, confirm `/health` responds.
-3. Set `CA_CORS_ORIGINS` to your Netlify URL in the API settings and
-   restart it.
-4. Import the repo in Netlify, set `NEXT_PUBLIC_API_URL`, deploy.
-5. Test both sample photos in English, Hindi and Kannada.
+2. **Deploy the API on Render.** Wait for the build, then confirm
+   `https://crop-advisor-rkat.onrender.com/health` responds.
+3. **Set `CA_CORS_ORIGINS` on Render** (Render: Environment ->
+   CA_CORS_ORIGINS). Comma-separated, **no trailing slash**:
 
-The API is stateless: photos are processed in memory and nothing is
-stored.
+   ```
+   http://localhost:3000,https://crop-adviser.netlify.app
+   ```
+
+   Save it - Render restarts the service automatically.
+4. **Set `NEXT_PUBLIC_API_URL` in Netlify** (Site settings ->
+   Environment variables):
+   `https://crop-advisor-rkat.onrender.com`
+5. **Clear the Netlify build cache and redeploy** (Triggers -> Clear
+   build cache and deploy site). The variable is baked into the
+   bundle, so the first build after setting it is what matters.
+6. Test both sample photos in English, Hindi and Kannada, and check the
+   browser console for CORS errors.
+
+## Known limitations
+
+- **The model is weak.** It was trained on a small synthetic set (40
+  images, two classes: `healthy` and `leaf_blight`). Real photos often
+  score below the 0.70 confidence threshold, so the app answers "retake
+  the photo" instead of naming a disease. That is the intended
+  behaviour for a low-confidence result, not a crash - but it means the
+  app mostly asks for a better photo until the model is retrained on
+  real field data.
+- **The free API sleeps.** Render's free plan sleeps after 15 minutes
+  of inactivity, so the first request after a pause can take up to about
+  a minute to wake up. The web app shows a "Waking up the server" note
+  after 5 seconds.
+- **Audio needs a key.** `/speak` returns 503 until a TTS provider is
+  configured (`CA_SARVAM_API_KEY` for Hindi and Kannada). The web app
+  disables the "Listen to advice" button with a clear label when that
+  happens.
+- **Only three languages and five crops** are wired up: English, Hindi
+  and Kannada; rice, wheat, cotton, maize and tomato.
 
 ## Legacy
 
