@@ -97,10 +97,17 @@ def _predict_torch(model_path: Path, images: list[Path]) -> tuple[list[str], lis
     from agents.graph import _torch_transform
 
     checkpoint = torch.load(model_path, map_location="cpu")
-    num_classes = len(checkpoint.get("classes", [])) or 2
+
+    if isinstance(checkpoint, dict) and "state_dict" in checkpoint:
+        state_dict = checkpoint["state_dict"]
+    else:
+        state_dict = checkpoint
+
+    num_classes = state_dict["classifier.1.weight"].shape[0]
+
     model = models.efficientnet_b0(weights=None)
     model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, num_classes)
-    model.load_state_dict(checkpoint.get("state_dict", checkpoint))
+    model.load_state_dict(state_dict)
     model.eval()
 
     transform = _torch_transform()
