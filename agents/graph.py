@@ -56,6 +56,34 @@ _ONNX_DIR = Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts"
 _ONNX_MEAN = (0.485, 0.456, 0.406)
 _ONNX_STD = (0.229, 0.224, 0.225)
 
+# Crop-specific classifier labels supported by the model.
+SUPPORTED_CROPS = {"rice", "wheat", "cotton", "maize", "tomato"}
+
+
+def crop_from_label(label: str) -> str | None:
+    """Return the crop encoded in a crop-specific model label."""
+    prefix, separator, _disease = label.partition("_")
+
+    if separator and prefix in SUPPORTED_CROPS:
+        return prefix
+
+    return None
+
+
+def disease_from_label(label: str) -> str:
+    """Normalize a classifier label for retrieval and localization."""
+    crop = crop_from_label(label)
+
+    if crop is None:
+        return label
+
+    return label[len(crop) + 1:]
+
+
+def is_healthy_label(label: str) -> bool:
+    """Recognize both legacy and crop-specific healthy labels."""
+    return label == "healthy" or disease_from_label(label) == "healthy"
+
 
 def _repo_root() -> Path:
     """Repo root, so paths do not depend on the current working directory."""
@@ -476,8 +504,14 @@ async def classify(state: AgentState) -> AgentState:
         state.answer = strings.get("service_problem", "Service problem, please try again later.")
         return state
     state.predictions = predictions
-    state.crop = state.crop or "rice"
-    state.confidence = predictions[0]["score"] if predictions else 0.0
+
+    predicted_crop = crop_from_label(predictions[0]["label"])
+    if predicted_crop:
+        state.crop = predicted_crop
+    else:
+        state.crop = state.crop or "rice"
+
+    state.confidence = predictions[0]["score"]
     return state
 
 
@@ -534,25 +568,43 @@ async def context_weather(state: AgentState) -> AgentState:
 
 
 async def retrieve(state: AgentState) -> AgentState:
-    """RAG retrieval via crop_knowledge MCP server."""
+    """RAG retrieval using the crop_knowledge MCP server."""
     state.step = "retrieve"
+
     label = state.predictions[0]["label"] if state.predictions else "healthy"
-    crop = state.crop or "rice"
+    detected_crop = crop_from_label(label)
+    crop = detected_crop or state.crop or "rice"
+    disease = disease_from_label(label)
+
+    # Keep the crop consistent with the classifier's crop-specific label.
+    state.crop = crop
+
     kb = await mcp_call(
-        "crop_knowledge", "search_knowledge", {"query": f"{label} {crop}", "crop": crop}
+        "crop_knowledge",
+        "search_knowledge",
+        {
+            "query": f"{disease} {crop}",
+            "crop": crop,
+        },
     )
+
     if "error" not in kb and isinstance(kb, list) and kb:
         state.passages = kb
         state.citations = ["crop_knowledge_mcp"]
     else:
         state.passages = [
             {
-                "text": f"{label} guidance for {crop}: remove affected leaves and apply approved fungicide.",
+                "text": (
+                    f"{disease} guidance for {crop}: "
+                    "consult a local agriculture officer for "
+                    "crop-specific treatment recommendations."
+                ),
                 "source": "crop_knowledge_base",
                 "dose": "as per label",
             }
         ]
         state.citations = ["crop_knowledge_base"]
+
     return state
 
 
@@ -561,9 +613,10 @@ async def draft_advice(state: AgentState) -> AgentState:
     state.step = "draft_advice"
     label = state.predictions[0]["label"] if state.predictions else "healthy"
     crop = state.crop or "rice"
+    disease = disease_from_label(label)
     passage = state.passages[0]["text"] if state.passages else ""
     strings = load_strings("en")
-    intro = strings.get("intro", "Your {crop} leaf shows {label}.").format(crop=crop, label=label)
+    intro = strings.get("intro", "Your {crop} leaf shows {label}.").format(crop=crop, label=disease)
     confirm = strings.get("confirm", "Confirm with your local agriculture officer before spraying.")
     state.answer = f"{intro} {passage} {confirm}"
     state.citations = state.citations or ["crop_knowledge_base"]
@@ -571,10 +624,15 @@ async def draft_advice(state: AgentState) -> AgentState:
 
 
 async def localize_advice(state: AgentState) -> AgentState:
-    """Translate the drafted advice into the farmer's language (Phase 2: Hindi; Phase 5: Kannada)."""
+    """Translate the drafted advice into the farmer's language."""
     state.step = "localize_advice"
+
     label = state.predictions[0]["label"] if state.predictions else "healthy"
-    crop = state.crop or "rice"
+    detected_crop = crop_from_label(label)
+    crop = detected_crop or state.crop or "rice"
+    disease = disease_from_label(label)
+
+    state.crop = crop
 
     if state.language == "hi":
         # Never put English passage text into a Hindi answer either: the
@@ -584,7 +642,7 @@ async def localize_advice(state: AgentState) -> AgentState:
         crop_local = glossary_hi.CROP_NAMES.get(crop)
         if crop_local is None:
             crop_local = strings.get("neutral_crop", "फसल")
-        disease_local = glossary_hi.DISEASE_NAMES.get(label)
+        disease_local = glossary_hi.DISEASE_NAMES.get(disease)
         if disease_local is None:
             # NEEDS NATIVE REVIEW: disease_unknown is null for hi
             disease_local = strings.get("disease_unknown") or strings.get("neutral_crop", "फसल")
@@ -597,7 +655,7 @@ async def localize_advice(state: AgentState) -> AgentState:
         crop_local = glossary_kn.CROP_NAMES.get(crop)
         if crop_local is None:
             crop_local = strings.get("neutral_crop", "ಬೆಳೆ")
-        disease_local = glossary_kn.DISEASE_NAMES.get(label)
+        disease_local = glossary_kn.DISEASE_NAMES.get(disease)
         if disease_local is None:
             # NEEDS NATIVE REVIEW: disease_unknown is null for kn
             disease_local = strings.get("disease_unknown") or strings.get("neutral_crop", "ಬೆಳೆ")
@@ -622,9 +680,10 @@ async def llm_explain(state: AgentState) -> AgentState:
     if not llm_configured():
         return state
     label = state.predictions[0]["label"] if state.predictions else "healthy"
+    disease = disease_from_label(label)
     chunks = state.passages[:2]
     try:
-        answer = await asyncio.to_thread(explain, label, chunks, state.language)
+        answer = await asyncio.to_thread(explain, disease, chunks, state.language)
     except Exception:
         return state
     if answer:
@@ -654,7 +713,7 @@ async def critic_safety(state: AgentState) -> AgentState:
         return state
 
     # Healthy-but-unsure check: a "healthy" result below HEALTHY_MIN is not sure
-    if label == "healthy" and state.confidence < HEALTHY_MIN:
+    if is_healthy_label(label) and state.confidence < HEALTHY_MIN:
         state.ood = True
         state.escalate = True
         state.escalate_reason = "low_confidence"
@@ -688,14 +747,18 @@ async def critic_safety(state: AgentState) -> AgentState:
         state.safe = False
         state.escalate = True
         state.escalate_reason = "language_mismatch"
+        detected_crop = crop_from_label(label)
+        crop = detected_crop or state.crop or "rice"
+        disease = disease_from_label(label)
+        state.crop = crop
         if state.language == "kn":
             strings = load_strings("kn")
-            crop_local = glossary_kn.CROP_NAMES.get(state.crop or "rice")
-            disease_local = glossary_kn.DISEASE_NAMES.get(label)
+            crop_local = glossary_kn.CROP_NAMES.get(crop)
+            disease_local = glossary_kn.DISEASE_NAMES.get(disease)
         else:
             strings = load_strings("hi")
-            crop_local = glossary_hi.CROP_NAMES.get(state.crop or "rice")
-            disease_local = glossary_hi.DISEASE_NAMES.get(label)
+            crop_local = glossary_hi.CROP_NAMES.get(crop)
+            disease_local = glossary_hi.DISEASE_NAMES.get(disease)
         if crop_local is None:
             crop_local = strings.get("neutral_crop", "")
         if disease_local is None:

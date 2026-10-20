@@ -514,3 +514,69 @@ def run_advice_sync(req: Req):
     import asyncio as _a
 
     return _a.run(run_advice(req))
+
+
+# ---------- crop-specific classifier labels ----------
+
+def test_crop_and_disease_from_label():
+    assert graph_agent.crop_from_label("maize_leaf_blight") == "maize"
+    assert graph_agent.disease_from_label("maize_leaf_blight") == "leaf_blight"
+    assert graph_agent.crop_from_label("tomato_blight") == "tomato"
+    assert graph_agent.disease_from_label("tomato_blight") == "blight"
+    # A legacy two-class label has no crop prefix.
+    assert graph_agent.crop_from_label("leaf_blight") is None
+    assert graph_agent.disease_from_label("leaf_blight") == "leaf_blight"
+    # An unknown prefix is not a crop.
+    assert graph_agent.crop_from_label("grape_black_rot") is None
+    assert graph_agent.disease_from_label("grape_black_rot") == "grape_black_rot"
+
+
+def test_is_healthy_label_covers_crop_specific_labels():
+    assert graph_agent.is_healthy_label("healthy") is True
+    assert graph_agent.is_healthy_label("maize_healthy") is True
+    assert graph_agent.is_healthy_label("maize_leaf_blight") is False
+
+
+@patch("agents.graph._predict_image")
+def test_classify_takes_the_crop_from_a_crop_specific_label(mock_predict):
+    """The classifier's crop wins over the crop in the request."""
+    mock_predict.return_value = [{"label": "maize_leaf_blight", "score": 0.93}]
+    state = run_advice_sync(Req(image_bytes=_make_image_bytes(), crop="rice"))
+    assert state.crop == "maize"
+
+
+@patch("agents.graph._predict_image")
+def test_retrieve_uses_the_disease_and_the_detected_crop(mock_predict):
+    """maize_leaf_blight is searched as "leaf_blight maize", not as the raw label."""
+    mock_predict.return_value = [{"label": "maize_leaf_blight", "score": 0.93}]
+    seen = {}
+
+    async def fake_mcp_call(server, tool, arguments):
+        seen["query"] = arguments.get("query")
+        seen["crop"] = arguments.get("crop")
+        return [{"text": "Maize - Leaf Blight Maize leaf blight shows lesions."}]
+
+    with patch.object(graph_agent, "mcp_call", side_effect=fake_mcp_call):
+        state = run_advice_sync(Req(image_bytes=_make_image_bytes(), crop="rice"))
+    assert seen["query"] == "leaf_blight maize"
+    assert seen["crop"] == "maize"
+    assert state.crop == "maize"
+
+
+@patch("agents.graph._predict_image")
+def test_localize_uses_the_disease_for_the_glossary_lookup(mock_predict):
+    """maize_leaf_blight must use the "leaf blight" glossary entry, not the raw label."""
+    mock_predict.return_value = [{"label": "maize_leaf_blight", "score": 0.93}]
+    state = run_advice_sync(Req(image_bytes=_make_image_bytes(), crop="rice", language="kn"))
+    # The Kannada name for leaf blight, not the raw "maize_leaf_blight" label.
+    assert "ಎಲೆ ಕಲುಷ" in state.answer
+    assert "maize_leaf_blight" not in state.answer
+
+
+@patch("agents.graph._predict_image")
+def test_healthy_but_unsure_rule_applies_to_crop_specific_labels(mock_predict):
+    """maize_healthy below HEALTHY_MIN is "not sure", like the legacy label."""
+    mock_predict.return_value = [{"label": "maize_healthy", "score": 0.80}]
+    state = run_advice_sync(Req(image_bytes=_make_image_bytes(), crop="rice"))
+    assert state.escalate is True
+    assert "retake" in state.answer.lower()
