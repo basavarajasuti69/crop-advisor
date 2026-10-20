@@ -19,3 +19,4 @@ ml/data/
 tests/*.webp
 tests/*.jpg
 .deploy/
+.swa-deploy/
