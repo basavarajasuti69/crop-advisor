@@ -1,0 +1,37 @@
+{
+  "model": "efficientnet_b0",
+  "classes": [
+    "maize_healthy",
+    "maize_leaf_blight",
+    "tomato_blight",
+    "tomato_healthy"
+  ],
+  "epochs": 3,
+  "batch_size": 16,
+  "learning_rate": 0.0001,
+  "device": "mps",
+  "train_images": 5316,
+  "test_images": 1331,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.1742,
+      "test_loss": 0.0048,
+      "test_accuracy": 1.0
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.0244,
+      "test_loss": 0.0037,
+      "test_accuracy": 0.9992
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.0132,
+      "test_loss": 0.0007,
+      "test_accuracy": 1.0
+    }
+  ],
+  "final_test_accuracy": 1.0,
+  "warning": "Experimental PlantVillage results are not evidence of reliable performance on real farm photographs."
+}

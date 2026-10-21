@@ -1,0 +1,65 @@
+{
+  "data": "ml/data/field_evaluation/plantdoc_4class_test",
+  "model": "ml/training/experiments/plantvillage_4class_v2/onnx/classifier.onnx",
+  "classes": [
+    "maize_healthy",
+    "maize_leaf_blight",
+    "tomato_blight",
+    "tomato_healthy"
+  ],
+  "metrics": {
+    "accuracy": 0.7037,
+    "correct": 19,
+    "total_images": 27,
+    "above_threshold": 19,
+    "above_threshold_rate": 0.7037,
+    "correct_and_above_threshold": 16,
+    "would_diagnose": 19,
+    "would_diagnose_rate": 0.7037
+  },
+  "per_class": {
+    "maize_healthy": {
+      "support": 0,
+      "accuracy": 0.0
+    },
+    "maize_leaf_blight": {
+      "support": 0,
+      "accuracy": 0.0
+    },
+    "tomato_blight": {
+      "support": 19,
+      "accuracy": 1.0
+    },
+    "tomato_healthy": {
+      "support": 8,
+      "accuracy": 0.0
+    }
+  },
+  "confusion_matrix": {
+    "maize_healthy": {
+      "maize_healthy": 0,
+      "maize_leaf_blight": 0,
+      "tomato_blight": 0,
+      "tomato_healthy": 0
+    },
+    "maize_leaf_blight": {
+      "maize_healthy": 0,
+      "maize_leaf_blight": 0,
+      "tomato_blight": 0,
+      "tomato_healthy": 0
+    },
+    "tomato_blight": {
+      "maize_healthy": 0,
+      "maize_leaf_blight": 0,
+      "tomato_blight": 19,
+      "tomato_healthy": 0
+    },
+    "tomato_healthy": {
+      "maize_healthy": 0,
+      "maize_leaf_blight": 0,
+      "tomato_blight": 8,
+      "tomato_healthy": 0
+    }
+  },
+  "notes": "correct_and_above_threshold counts correct predictions that pass the applicable threshold. would_diagnose counts predictions that pass the applicable threshold, whether correct or incorrect. The default disease threshold is 0.7; healthy predictions also require 0.85."
+}

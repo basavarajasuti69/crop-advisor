@@ -25,3 +25,15 @@ tests/*.jpg
 .swa-deploy/
 apps/web/out/
 apps/web/.swa-deploy/
+
+# Experimental training datasets and generated image files
+ml/training/experiments/*/data/
+ml/training/experiments/*/error_images/
+ml/training/experiments/*/misclassified_contact_sheet_*.jpg
+ml/training/experiments/*/best_model.pt
+
+# Temporary local agent configuration
+.kilo/
+
+# macOS Finder metadata
+.DS_Store

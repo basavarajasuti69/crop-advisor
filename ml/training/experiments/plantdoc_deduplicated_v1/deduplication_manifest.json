@@ -1,0 +1,100 @@
+{
+  "source": "ml/data/field_evaluation/PlantDoc-Dataset",
+  "destination": "ml/training/experiments/plantdoc_deduplicated_v1/data",
+  "policy": "Exclude all exact-hash duplicates that appear in both original splits.",
+  "cross_split_duplicate_groups": 11,
+  "excluded_images": [
+    {
+      "split": "train",
+      "path": "Potato leaf late blight/backus-056-potato-blight.jpg"
+    },
+    {
+      "split": "train",
+      "path": "Corn leaf blight/IMG_42231.jpg"
+    },
+    {
+      "split": "train",
+      "path": "Tomato leaf yellow virus/tylcv-seminar-1-638.jpg"
+    },
+    {
+      "split": "train",
+      "path": "Blueberry leaf/blueberry-leaves-normal-above-and-iron-deficient-below-bgahf8.jpg"
+    },
+    {
+      "split": "train",
+      "path": "Potato leaf early blight/1421_0.jpeg?itok=FMtmgePj.jpg"
+    },
+    {
+      "split": "train",
+      "path": "Potato leaf early blight/irish-blight-symptoms-on-potato-leaves-atmf8b.jpg"
+    },
+    {
+      "split": "train",
+      "path": "Potato leaf early blight/5816740026_d42ef24413_Phytophthora-Infestans.jpg"
+    },
+    {
+      "split": "train",
+      "path": "Corn Gray leaf spot/corn-gray-leaf-spot-f4.jpg"
+    },
+    {
+      "split": "train",
+      "path": "Corn Gray leaf spot/2015070295153021.jpg"
+    },
+    {
+      "split": "train",
+      "path": "Tomato Septoria leaf spot/tomato_V8.jpg"
+    },
+    {
+      "split": "train",
+      "path": "Tomato Septoria leaf spot/early-blight-septoria-ls-fig-3.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Potato leaf late blight/1421_0.jpeg?itok=FMtmgePj.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Potato leaf late blight/irish-blight-symptoms-on-potato-leaves-atmf8b.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Potato leaf late blight/5816740026_d42ef24413_Phytophthora-Infestans.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Tomato leaf bacterial spot/tomato_V8.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Corn leaf blight/corn-gray-leaf-spot-f4.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Corn leaf blight/2015070295153021.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Tomato leaf yellow virus/tylcv-seminar-1-638.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Blueberry leaf/blueberry-leaves-normal-above-and-iron-deficient-below-bgahf8.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Potato leaf early blight/backus-056-potato-blight.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Corn Gray leaf spot/IMG_42231.jpg"
+    },
+    {
+      "split": "test",
+      "path": "Tomato Septoria leaf spot/early-blight-septoria-ls-fig-3.jpg"
+    }
+  ],
+  "copied_images": {
+    "train": 2325,
+    "test": 225
+  }
+}

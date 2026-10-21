@@ -1,0 +1,94 @@
+image,actual_label,predicted_label,confidence,source_path
+001_actual-0_pred-24_052609%20Hartman%20Crabapple%20scab%20single%20leaf.JPG.jpg,Apple Scab Leaf,Tomato mold leaf,0.5786,ml/data/field_evaluation/PlantDoc-Dataset/test/Apple Scab Leaf/052609%20Hartman%20Crabapple%20scab%20single%20leaf.JPG.jpg
+002_actual-0_pred-11_1b321015-6e33-4f18-aade-888f4383fe92.jpeg.jpg,Apple Scab Leaf,Potato leaf early blight,0.1703,ml/data/field_evaluation/PlantDoc-Dataset/test/Apple Scab Leaf/1b321015-6e33-4f18-aade-888f4383fe92.jpeg.jpg
+003_actual-0_pred-5_apple%20scabnew.jpg,Apple Scab Leaf,Blueberry leaf,0.4227,ml/data/field_evaluation/PlantDoc-Dataset/test/Apple Scab Leaf/apple%20scabnew.jpg
+004_actual-0_pred-11_apples_apple-scab_01_zoom.jpg,Apple Scab Leaf,Potato leaf early blight,0.3434,ml/data/field_evaluation/PlantDoc-Dataset/test/Apple Scab Leaf/apples_apple-scab_01_zoom.jpg
+005_actual-0_pred-24_apples_apple-scab_10_zoom.jpg,Apple Scab Leaf,Tomato mold leaf,0.1239,ml/data/field_evaluation/PlantDoc-Dataset/test/Apple Scab Leaf/apples_apple-scab_10_zoom.jpg
+006_actual-1_pred-3_Apple-Leaf-Wallpaper-17.jpg,Apple leaf,Bell_pepper leaf,0.4629,ml/data/field_evaluation/PlantDoc-Dataset/test/Apple leaf/Apple-Leaf-Wallpaper-17.jpg
+007_actual-2_pred-0_02.-Rust-2017-207u24s.jpg,Apple rust leaf,Apple Scab Leaf,0.2044,ml/data/field_evaluation/PlantDoc-Dataset/test/Apple rust leaf/02.-Rust-2017-207u24s.jpg
+008_actual-2_pred-11_20130802_111632.jpg,Apple rust leaf,Potato leaf early blight,0.4152,ml/data/field_evaluation/PlantDoc-Dataset/test/Apple rust leaf/20130802_111632.jpg
+009_actual-3_pred-10_10148582-green-leaf-of-pepper.jpg,Bell_pepper leaf,Peach leaf,0.2584,ml/data/field_evaluation/PlantDoc-Dataset/test/Bell_pepper leaf/10148582-green-leaf-of-pepper.jpg
+010_actual-3_pred-4_GREEN%20BELL%20PLANT%20YELLOW%20LEAF.JPG.jpg,Bell_pepper leaf,Bell_pepper leaf spot,0.2198,ml/data/field_evaluation/PlantDoc-Dataset/test/Bell_pepper leaf/GREEN%20BELL%20PLANT%20YELLOW%20LEAF.JPG.jpg
+011_actual-3_pred-4_IMG_1629.JPG?1507122477.jpg,Bell_pepper leaf,Bell_pepper leaf spot,0.4131,ml/data/field_evaluation/PlantDoc-Dataset/test/Bell_pepper leaf/IMG_1629.JPG?1507122477.jpg
+012_actual-3_pred-10_RnGnC.jpg,Bell_pepper leaf,Peach leaf,0.2779,ml/data/field_evaluation/PlantDoc-Dataset/test/Bell_pepper leaf/RnGnC.jpg
+013_actual-3_pred-21_e33155.jpg,Bell_pepper leaf,Tomato leaf late blight,0.1896,ml/data/field_evaluation/PlantDoc-Dataset/test/Bell_pepper leaf/e33155.jpg
+014_actual-3_pred-4_pepper_leaf.jpg,Bell_pepper leaf,Bell_pepper leaf spot,0.2838,ml/data/field_evaluation/PlantDoc-Dataset/test/Bell_pepper leaf/pepper_leaf.jpg
+015_actual-3_pred-4_why-are-my-pepper-plants-yellow-yellow-pepper-plants-yellow-leaves-green-veins-pepper-plants-yellow-veins.jpg,Bell_pepper leaf,Bell_pepper leaf spot,0.3812,ml/data/field_evaluation/PlantDoc-Dataset/test/Bell_pepper leaf/why-are-my-pepper-plants-yellow-yellow-pepper-plants-yellow-leaves-green-veins-pepper-plants-yellow-veins.jpg
+016_actual-4_pred-9_000.jpg,Bell_pepper leaf spot,Corn rust leaf,0.1114,ml/data/field_evaluation/PlantDoc-Dataset/test/Bell_pepper leaf spot/000.jpg
+017_actual-4_pred-20_01.jpg,Bell_pepper leaf spot,Tomato leaf bacterial spot,0.1364,ml/data/field_evaluation/PlantDoc-Dataset/test/Bell_pepper leaf spot/01.jpg
+018_actual-4_pred-0_CMVpepperLeafShock-copy-50QUALITY-1ge8umw.jpg,Bell_pepper leaf spot,Apple Scab Leaf,0.1896,ml/data/field_evaluation/PlantDoc-Dataset/test/Bell_pepper leaf spot/CMVpepperLeafShock-copy-50QUALITY-1ge8umw.jpg
+019_actual-5_pred-14_leaf-blueberry-15281271.jpg,Blueberry leaf,Soyabean leaf,0.8032,ml/data/field_evaluation/PlantDoc-Dataset/test/Blueberry leaf/leaf-blueberry-15281271.jpg
+020_actual-5_pred-10_northern-highbush-blueberry-blue-huckleberry-vaccinium-corymbosum-EHNXRR.jpg,Blueberry leaf,Peach leaf,0.4218,ml/data/field_evaluation/PlantDoc-Dataset/test/Blueberry leaf/northern-highbush-blueberry-blue-huckleberry-vaccinium-corymbosum-EHNXRR.jpg
+021_actual-5_pred-14_vaccinium_angustifolium_leaf2.JPG.jpg,Blueberry leaf,Soyabean leaf,0.2644,ml/data/field_evaluation/PlantDoc-Dataset/test/Blueberry leaf/vaccinium_angustifolium_leaf2.JPG.jpg
+022_actual-6_pred-1_ed12ff77ce021883de241830dee55e2e53d2c93231699_1260x1260.jpg,Cherry leaf,Apple leaf,0.531,ml/data/field_evaluation/PlantDoc-Dataset/test/Cherry leaf/ed12ff77ce021883de241830dee55e2e53d2c93231699_1260x1260.jpg
+023_actual-6_pred-1_fc729af279e9087d00bd32d89a1552a756a3ad9de7f2b_1260x1260.jpg,Cherry leaf,Apple leaf,0.7184,ml/data/field_evaluation/PlantDoc-Dataset/test/Cherry leaf/fc729af279e9087d00bd32d89a1552a756a3ad9de7f2b_1260x1260.jpg
+024_actual-6_pred-10_five-cherry-tree-green-leaves-white-isolated-background-34493587.jpg,Cherry leaf,Peach leaf,0.6657,ml/data/field_evaluation/PlantDoc-Dataset/test/Cherry leaf/five-cherry-tree-green-leaves-white-isolated-background-34493587.jpg
+025_actual-6_pred-5_prunsero_leaf1.jpg,Cherry leaf,Blueberry leaf,0.4384,ml/data/field_evaluation/PlantDoc-Dataset/test/Cherry leaf/prunsero_leaf1.jpg
+026_actual-6_pred-1_prunsero_leaf2.jpg,Cherry leaf,Apple leaf,0.5801,ml/data/field_evaluation/PlantDoc-Dataset/test/Cherry leaf/prunsero_leaf2.jpg
+027_actual-6_pred-10_red-cherry-tree-leaf-isolated-crisp-white-background-35742030.jpg,Cherry leaf,Peach leaf,0.6092,ml/data/field_evaluation/PlantDoc-Dataset/test/Cherry leaf/red-cherry-tree-leaf-isolated-crisp-white-background-35742030.jpg
+028_actual-6_pred-5_three-vibrant-leaves-bird-cherry-tree-13905898.jpg,Cherry leaf,Blueberry leaf,0.6979,ml/data/field_evaluation/PlantDoc-Dataset/test/Cherry leaf/three-vibrant-leaves-bird-cherry-tree-13905898.jpg
+029_actual-7_pred-8_IMG_42231.jpg,Corn Gray leaf spot,Corn leaf blight,0.8281,ml/data/field_evaluation/PlantDoc-Dataset/test/Corn Gray leaf spot/IMG_42231.jpg
+030_actual-7_pred-8_rsz0803Figure6.jpg,Corn Gray leaf spot,Corn leaf blight,0.7581,ml/data/field_evaluation/PlantDoc-Dataset/test/Corn Gray leaf spot/rsz0803Figure6.jpg
+031_actual-8_pred-7_0796.20graylssymt.jpg,Corn leaf blight,Corn Gray leaf spot,0.6621,ml/data/field_evaluation/PlantDoc-Dataset/test/Corn leaf blight/0796.20graylssymt.jpg
+032_actual-8_pred-7_07c.jpg,Corn leaf blight,Corn Gray leaf spot,0.7029,ml/data/field_evaluation/PlantDoc-Dataset/test/Corn leaf blight/07c.jpg
+033_actual-8_pred-7_1321189.jpg,Corn leaf blight,Corn Gray leaf spot,0.7737,ml/data/field_evaluation/PlantDoc-Dataset/test/Corn leaf blight/1321189.jpg
+034_actual-8_pred-9_2013Corn_GrayLeafSpot_0815_0003.JPG.jpg,Corn leaf blight,Corn rust leaf,0.3675,ml/data/field_evaluation/PlantDoc-Dataset/test/Corn leaf blight/2013Corn_GrayLeafSpot_0815_0003.JPG.jpg
+035_actual-8_pred-7_corn-disease-update-fig-3-gray-leaf-spot.jpg,Corn leaf blight,Corn Gray leaf spot,0.7558,ml/data/field_evaluation/PlantDoc-Dataset/test/Corn leaf blight/corn-disease-update-fig-3-gray-leaf-spot.jpg
+036_actual-8_pred-7_corn-gray-leaf-spot-f4.jpg,Corn leaf blight,Corn Gray leaf spot,0.4983,ml/data/field_evaluation/PlantDoc-Dataset/test/Corn leaf blight/corn-gray-leaf-spot-f4.jpg
+037_actual-9_pred-7_0796.52srusttelia.jpg,Corn rust leaf,Corn Gray leaf spot,0.8247,ml/data/field_evaluation/PlantDoc-Dataset/test/Corn rust leaf/0796.52srusttelia.jpg
+038_actual-9_pred-7_80104747.jpg,Corn rust leaf,Corn Gray leaf spot,0.4129,ml/data/field_evaluation/PlantDoc-Dataset/test/Corn rust leaf/80104747.jpg
+039_actual-10_pred-1_00pe.jpg,Peach leaf,Apple leaf,0.3275,ml/data/field_evaluation/PlantDoc-Dataset/test/Peach leaf/00pe.jpg
+040_actual-10_pred-1_rose_tree_220430.jpg,Peach leaf,Apple leaf,0.365,ml/data/field_evaluation/PlantDoc-Dataset/test/Peach leaf/rose_tree_220430.jpg
+041_actual-11_pred-12_3023.jpg,Potato leaf early blight,Potato leaf late blight,0.6155,ml/data/field_evaluation/PlantDoc-Dataset/test/Potato leaf early blight/3023.jpg
+042_actual-11_pred-12_backus-056-potato-blight.jpg,Potato leaf early blight,Potato leaf late blight,0.7101,ml/data/field_evaluation/PlantDoc-Dataset/test/Potato leaf early blight/backus-056-potato-blight.jpg
+043_actual-11_pred-17_early-blight-or-target-spot-alternaria-solani-lesions-on-a-tomato-AXK6AY.jpg,Potato leaf early blight,Tomato Early blight leaf,0.3794,ml/data/field_evaluation/PlantDoc-Dataset/test/Potato leaf early blight/early-blight-or-target-spot-alternaria-solani-lesions-on-a-tomato-AXK6AY.jpg
+044_actual-12_pred-11_1421_0.jpeg?itok=FMtmgePj.jpg,Potato leaf late blight,Potato leaf early blight,0.8791,ml/data/field_evaluation/PlantDoc-Dataset/test/Potato leaf late blight/1421_0.jpeg?itok=FMtmgePj.jpg
+045_actual-12_pred-21_20090710-lateblight.jpg,Potato leaf late blight,Tomato leaf late blight,0.3432,ml/data/field_evaluation/PlantDoc-Dataset/test/Potato leaf late blight/20090710-lateblight.jpg
+046_actual-12_pred-11_5816740026_d42ef24413_Phytophthora-Infestans.jpg,Potato leaf late blight,Potato leaf early blight,0.2057,ml/data/field_evaluation/PlantDoc-Dataset/test/Potato leaf late blight/5816740026_d42ef24413_Phytophthora-Infestans.jpg
+047_actual-12_pred-11_B2750109-Late_blight_on_a_potato_plant-SPL.jpg,Potato leaf late blight,Potato leaf early blight,0.4278,ml/data/field_evaluation/PlantDoc-Dataset/test/Potato leaf late blight/B2750109-Late_blight_on_a_potato_plant-SPL.jpg
+048_actual-12_pred-11_irish-blight-symptoms-on-potato-leaves-atmf8b.jpg,Potato leaf late blight,Potato leaf early blight,0.6551,ml/data/field_evaluation/PlantDoc-Dataset/test/Potato leaf late blight/irish-blight-symptoms-on-potato-leaves-atmf8b.jpg
+049_actual-12_pred-21_potato-late-blight.jpg,Potato leaf late blight,Tomato leaf late blight,0.2196,ml/data/field_evaluation/PlantDoc-Dataset/test/Potato leaf late blight/potato-late-blight.jpg
+050_actual-14_pred-9_07feb_ma_sbr3.JPG.jpg,Soyabean leaf,Corn rust leaf,0.1155,ml/data/field_evaluation/PlantDoc-Dataset/test/Soyabean leaf/07feb_ma_sbr3.JPG.jpg
+051_actual-14_pred-10_fresh-soy-leaves-isolated-on-260nw-667193923.jpg,Soyabean leaf,Peach leaf,0.2156,ml/data/field_evaluation/PlantDoc-Dataset/test/Soyabean leaf/fresh-soy-leaves-isolated-on-260nw-667193923.jpg
+052_actual-14_pred-13_leaf-raspberry-isolated-on-a-white-stock-photography-image-10106222-1625198.jpg,Soyabean leaf,Raspberry leaf,0.4061,ml/data/field_evaluation/PlantDoc-Dataset/test/Soyabean leaf/leaf-raspberry-isolated-on-a-white-stock-photography-image-10106222-1625198.jpg
+053_actual-14_pred-5_resistance1c.jpg,Soyabean leaf,Blueberry leaf,0.1885,ml/data/field_evaluation/PlantDoc-Dataset/test/Soyabean leaf/resistance1c.jpg
+054_actual-15_pred-24_powdery-mildew-erysiphe-plantani-on-young-sycamore-leaves-b774tm.jpg,Squash Powdery mildew leaf,Tomato mold leaf,0.3621,ml/data/field_evaluation/PlantDoc-Dataset/test/Squash Powdery mildew leaf/powdery-mildew-erysiphe-plantani-on-young-sycamore-leaves-b774tm.jpg
+055_actual-17_pred-18_039b47d574bc4bb8a14259a1cd96a741.jpg,Tomato Early blight leaf,Tomato Septoria leaf spot,0.2532,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato Early blight leaf/039b47d574bc4bb8a14259a1cd96a741.jpg
+056_actual-17_pred-11_dscn3175.jpg,Tomato Early blight leaf,Potato leaf early blight,0.6369,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato Early blight leaf/dscn3175.jpg
+057_actual-17_pred-20_tomato_early-blight_01_zoom.jpg,Tomato Early blight leaf,Tomato leaf bacterial spot,0.2355,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato Early blight leaf/tomato_early-blight_01_zoom.jpg
+058_actual-18_pred-11_2septoria-tomato.jpg,Tomato Septoria leaf spot,Potato leaf early blight,0.3036,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato Septoria leaf spot/2septoria-tomato.jpg
+059_actual-18_pred-11_7-17-Photo3_Septoria-MARY.jpg,Tomato Septoria leaf spot,Potato leaf early blight,0.3941,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato Septoria leaf spot/7-17-Photo3_Septoria-MARY.jpg
+060_actual-19_pred-5_2013-08-20-06.jpg,Tomato leaf,Blueberry leaf,0.4297,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf/2013-08-20-06.jpg
+061_actual-19_pred-14_90e2c0.jpg,Tomato leaf,Soyabean leaf,0.1903,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf/90e2c0.jpg
+062_actual-19_pred-3_DSCN1015.JPG.jpg,Tomato leaf,Bell_pepper leaf,0.8766,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf/DSCN1015.JPG.jpg
+063_actual-19_pred-24_IMG_1246.jpg,Tomato leaf,Tomato mold leaf,0.2286,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf/IMG_1246.jpg
+064_actual-19_pred-8_Tomato59.JPG.jpg,Tomato leaf,Corn leaf blight,0.1142,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf/Tomato59.JPG.jpg
+065_actual-19_pred-13_Tomato_leaf.jpg,Tomato leaf,Raspberry leaf,0.2644,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf/Tomato_leaf.jpg
+066_actual-20_pred-18_%2320+Bacterial+Spot+and+Speck.jpg,Tomato leaf bacterial spot,Tomato Septoria leaf spot,0.2666,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf bacterial spot/%2320+Bacterial+Spot+and+Speck.jpg
+067_actual-20_pred-17_07.17.18-Common_Tomato_Diseases_Canker-258x300.jpg,Tomato leaf bacterial spot,Tomato Early blight leaf,0.196,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf bacterial spot/07.17.18-Common_Tomato_Diseases_Canker-258x300.jpg
+068_actual-20_pred-4_Bacterial_spots563.jpg,Tomato leaf bacterial spot,Bell_pepper leaf spot,0.3297,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf bacterial spot/Bacterial_spots563.jpg
+069_actual-20_pred-15_Tom_Bact3.jpg,Tomato leaf bacterial spot,Squash Powdery mildew leaf,0.2584,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf bacterial spot/Tom_Bact3.jpg
+070_actual-20_pred-18_Tom_Bact7.jpg,Tomato leaf bacterial spot,Tomato Septoria leaf spot,0.4531,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf bacterial spot/Tom_Bact7.jpg
+071_actual-20_pred-4_bact-spot-fig-1.jpg,Tomato leaf bacterial spot,Bell_pepper leaf spot,0.6059,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf bacterial spot/bact-spot-fig-1.jpg
+072_actual-20_pred-18_tomato_V8.jpg,Tomato leaf bacterial spot,Tomato Septoria leaf spot,0.5131,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf bacterial spot/tomato_V8.jpg
+073_actual-21_pred-11_70.jpg,Tomato leaf late blight,Potato leaf early blight,0.3733,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf late blight/70.jpg
+074_actual-21_pred-24_E%29Tomato-late-blight-foliar.jpg,Tomato leaf late blight,Tomato mold leaf,0.3085,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf late blight/E%29Tomato-late-blight-foliar.jpg
+075_actual-21_pred-20_LateBlt09_06.jpg,Tomato leaf late blight,Tomato leaf bacterial spot,0.4264,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf late blight/LateBlt09_06.jpg
+076_actual-21_pred-24_image.jpg,Tomato leaf late blight,Tomato mold leaf,0.3929,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf late blight/image.jpg
+077_actual-22_pred-24_D%29AlfMov.jpg,Tomato leaf mosaic virus,Tomato mold leaf,0.3385,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf mosaic virus/D%29AlfMov.jpg
+078_actual-22_pred-9_Tomato-Mosaic-1wdr2jx-300x225.jpg,Tomato leaf mosaic virus,Corn rust leaf,0.0922,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf mosaic virus/Tomato-Mosaic-1wdr2jx-300x225.jpg
+079_actual-22_pred-23_everystockphoto-21099455-l.jpg,Tomato leaf mosaic virus,Tomato leaf yellow virus,0.2239,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf mosaic virus/everystockphoto-21099455-l.jpg
+080_actual-22_pred-3_ill-tomato-of-tomato-mosaic-virus-DBE17N.jpg,Tomato leaf mosaic virus,Bell_pepper leaf,0.4899,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf mosaic virus/ill-tomato-of-tomato-mosaic-virus-DBE17N.jpg
+081_actual-22_pred-10_page_2.jpg,Tomato leaf mosaic virus,Peach leaf,0.1475,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf mosaic virus/page_2.jpg
+082_actual-22_pred-20_tmv-tomato-34.jpg,Tomato leaf mosaic virus,Tomato leaf bacterial spot,0.2232,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf mosaic virus/tmv-tomato-34.jpg
+083_actual-22_pred-21_tmv-tomato-9.jpg,Tomato leaf mosaic virus,Tomato leaf late blight,0.7758,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf mosaic virus/tmv-tomato-9.jpg
+084_actual-22_pred-23_toma_TMV.jpg,Tomato leaf mosaic virus,Tomato leaf yellow virus,0.4236,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf mosaic virus/toma_TMV.jpg
+085_actual-22_pred-21_tomato_virus_04_zoom.jpg,Tomato leaf mosaic virus,Tomato leaf late blight,0.271,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf mosaic virus/tomato_virus_04_zoom.jpg
+086_actual-23_pred-13_17fc47.jpg,Tomato leaf yellow virus,Raspberry leaf,0.4194,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf yellow virus/17fc47.jpg
+087_actual-23_pred-24_glyphosate.jpg,Tomato leaf yellow virus,Tomato mold leaf,0.5856,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato leaf yellow virus/glyphosate.jpg
+088_actual-24_pred-9_BIGSD.jpg,Tomato mold leaf,Corn rust leaf,0.1234,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato mold leaf/BIGSD.jpg
+089_actual-24_pred-21_black_leaf_mold_in_zina_tina.jpg,Tomato mold leaf,Tomato leaf late blight,0.2658,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato mold leaf/black_leaf_mold_in_zina_tina.jpg
+090_actual-24_pred-21_fungus-univ-of-minnesoeta.jpg,Tomato mold leaf,Tomato leaf late blight,0.3679,ml/data/field_evaluation/PlantDoc-Dataset/test/Tomato mold leaf/fungus-univ-of-minnesoeta.jpg
+091_actual-25_pred-6_DSCN7317.JPG.jpg,grape leaf,Cherry leaf,0.197,ml/data/field_evaluation/PlantDoc-Dataset/test/grape leaf/DSCN7317.JPG.jpg
+092_actual-26_pred-2_5-29black-rot-chardRR.jpg,grape leaf black rot,Apple rust leaf,0.3637,ml/data/field_evaluation/PlantDoc-Dataset/test/grape leaf black rot/5-29black-rot-chardRR.jpg
+093_actual-26_pred-18_grape_F15a.jpg,grape leaf black rot,Tomato Septoria leaf spot,0.4677,ml/data/field_evaluation/PlantDoc-Dataset/test/grape leaf black rot/grape_F15a.jpg

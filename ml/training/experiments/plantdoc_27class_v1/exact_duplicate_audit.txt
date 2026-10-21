@@ -1,0 +1,49 @@
+PLANTDOC EXACT DUPLICATE AUDIT
+
+Unique image hashes: 2560
+Cross-split duplicate groups: 11
+Unreadable images: 0
+
+Duplicate group 1:
+  [train] train/Potato leaf late blight/backus-056-potato-blight.jpg
+  [test] test/Potato leaf early blight/backus-056-potato-blight.jpg
+
+Duplicate group 2:
+  [train] train/Corn leaf blight/IMG_42231.jpg
+  [test] test/Corn Gray leaf spot/IMG_42231.jpg
+
+Duplicate group 3:
+  [train] train/Tomato leaf yellow virus/tylcv-seminar-1-638.jpg
+  [test] test/Tomato leaf yellow virus/tylcv-seminar-1-638.jpg
+
+Duplicate group 4:
+  [train] train/Blueberry leaf/blueberry-leaves-normal-above-and-iron-deficient-below-bgahf8.jpg
+  [test] test/Blueberry leaf/blueberry-leaves-normal-above-and-iron-deficient-below-bgahf8.jpg
+
+Duplicate group 5:
+  [train] train/Potato leaf early blight/1421_0.jpeg?itok=FMtmgePj.jpg
+  [test] test/Potato leaf late blight/1421_0.jpeg?itok=FMtmgePj.jpg
+
+Duplicate group 6:
+  [train] train/Potato leaf early blight/irish-blight-symptoms-on-potato-leaves-atmf8b.jpg
+  [test] test/Potato leaf late blight/irish-blight-symptoms-on-potato-leaves-atmf8b.jpg
+
+Duplicate group 7:
+  [train] train/Potato leaf early blight/5816740026_d42ef24413_Phytophthora-Infestans.jpg
+  [test] test/Potato leaf late blight/5816740026_d42ef24413_Phytophthora-Infestans.jpg
+
+Duplicate group 8:
+  [train] train/Corn Gray leaf spot/corn-gray-leaf-spot-f4.jpg
+  [test] test/Corn leaf blight/corn-gray-leaf-spot-f4.jpg
+
+Duplicate group 9:
+  [train] train/Corn Gray leaf spot/2015070295153021.jpg
+  [test] test/Corn leaf blight/2015070295153021.jpg
+
+Duplicate group 10:
+  [train] train/Tomato Septoria leaf spot/tomato_V8.jpg
+  [test] test/Tomato leaf bacterial spot/tomato_V8.jpg
+
+Duplicate group 11:
+  [train] train/Tomato Septoria leaf spot/early-blight-septoria-ls-fig-3.jpg
+  [test] test/Tomato Septoria leaf spot/early-blight-septoria-ls-fig-3.jpg

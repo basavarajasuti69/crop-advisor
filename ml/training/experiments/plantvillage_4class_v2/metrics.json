@@ -1,0 +1,53 @@
+{
+  "model": "efficientnet_b0",
+  "classes": [
+    "maize_healthy",
+    "maize_leaf_blight",
+    "tomato_blight",
+    "tomato_healthy"
+  ],
+  "epochs_requested": 5,
+  "best_epoch": 2,
+  "batch_size": 16,
+  "learning_rate": 0.0001,
+  "device": "mps",
+  "training_images": 4519,
+  "validation_images": 797,
+  "test_images": 1331,
+  "best_validation_accuracy": 1.0,
+  "final_test_loss": 0.0057,
+  "final_test_accuracy": 1.0,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.2005,
+      "validation_loss": 0.0168,
+      "validation_accuracy": 0.9987
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.0322,
+      "validation_loss": 0.0051,
+      "validation_accuracy": 1.0
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.0175,
+      "validation_loss": 0.0056,
+      "validation_accuracy": 0.9987
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.018,
+      "validation_loss": 0.0011,
+      "validation_accuracy": 1.0
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.0122,
+      "validation_loss": 0.0025,
+      "validation_accuracy": 1.0
+    }
+  ],
+  "warning": "PlantVillage results do not establish reliability on field photographs. Evaluate on independently labelled field images."
+}

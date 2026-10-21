@@ -1,0 +1,77 @@
+{
+  "model": "efficientnet_b0",
+  "dataset": "PlantDoc",
+  "classes": [
+    "Apple Scab Leaf",
+    "Apple leaf",
+    "Apple rust leaf",
+    "Bell_pepper leaf",
+    "Bell_pepper leaf spot",
+    "Blueberry leaf",
+    "Cherry leaf",
+    "Corn Gray leaf spot",
+    "Corn leaf blight",
+    "Corn rust leaf",
+    "Peach leaf",
+    "Potato leaf early blight",
+    "Potato leaf late blight",
+    "Raspberry leaf",
+    "Soyabean leaf",
+    "Squash Powdery mildew leaf",
+    "Strawberry leaf",
+    "Tomato Early blight leaf",
+    "Tomato Septoria leaf spot",
+    "Tomato leaf",
+    "Tomato leaf bacterial spot",
+    "Tomato leaf late blight",
+    "Tomato leaf mosaic virus",
+    "Tomato leaf yellow virus",
+    "Tomato mold leaf",
+    "grape leaf",
+    "grape leaf black rot"
+  ],
+  "excluded_class": "Tomato two spotted spider mites leaf",
+  "seed": 42,
+  "device": "mps",
+  "epochs_requested": 5,
+  "best_epoch": 5,
+  "training_images": 1975,
+  "validation_images": 348,
+  "test_images": 225,
+  "best_validation_accuracy": 0.6638,
+  "test_loss": 1.1245,
+  "test_accuracy": 0.6711,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 2.9123,
+      "validation_loss": 2.3507,
+      "validation_accuracy": 0.3994
+    },
+    {
+      "epoch": 2,
+      "train_loss": 2.0342,
+      "validation_loss": 1.6336,
+      "validation_accuracy": 0.5632
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.5185,
+      "validation_loss": 1.3249,
+      "validation_accuracy": 0.6149
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.2099,
+      "validation_loss": 1.1525,
+      "validation_accuracy": 0.6408
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.9793,
+      "validation_loss": 1.0629,
+      "validation_accuracy": 0.6638
+    }
+  ],
+  "warning": "PlantDoc test accuracy is not proof of field reliability. Check for duplicate or related images and evaluate on a separate, independently labelled field-photo collection."
+}

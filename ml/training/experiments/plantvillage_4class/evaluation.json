@@ -1,0 +1,64 @@
+{
+  "data": "ml/data/plantvillage_subset/test",
+  "model": "ml/training/experiments/plantvillage_4class/model.pt",
+  "classes": [
+    "maize_healthy",
+    "maize_leaf_blight",
+    "tomato_blight",
+    "tomato_healthy"
+  ],
+  "metrics": {
+    "accuracy": 1.0,
+    "correct": 1331,
+    "total_images": 1331,
+    "above_threshold": 1331,
+    "above_threshold_rate": 1.0,
+    "correct_and_above_threshold": 1331,
+    "would_diagnose_rate": 1.0
+  },
+  "per_class": {
+    "maize_healthy": {
+      "support": 233,
+      "accuracy": 1.0
+    },
+    "maize_leaf_blight": {
+      "support": 197,
+      "accuracy": 1.0
+    },
+    "tomato_blight": {
+      "support": 582,
+      "accuracy": 1.0
+    },
+    "tomato_healthy": {
+      "support": 319,
+      "accuracy": 1.0
+    }
+  },
+  "confusion_matrix": {
+    "maize_healthy": {
+      "maize_healthy": 233,
+      "maize_leaf_blight": 0,
+      "tomato_blight": 0,
+      "tomato_healthy": 0
+    },
+    "maize_leaf_blight": {
+      "maize_healthy": 0,
+      "maize_leaf_blight": 197,
+      "tomato_blight": 0,
+      "tomato_healthy": 0
+    },
+    "tomato_blight": {
+      "maize_healthy": 0,
+      "maize_leaf_blight": 0,
+      "tomato_blight": 582,
+      "tomato_healthy": 0
+    },
+    "tomato_healthy": {
+      "maize_healthy": 0,
+      "maize_leaf_blight": 0,
+      "tomato_blight": 0,
+      "tomato_healthy": 319
+    }
+  },
+  "notes": "would_diagnose_rate is the share of images the API would answer for rather than ask for a retake (threshold 0.7, healthy results also need 0.85)."
+}

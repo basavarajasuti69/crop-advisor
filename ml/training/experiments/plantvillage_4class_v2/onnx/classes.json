@@ -1,0 +1,8 @@
+{
+  "classes": [
+    "maize_healthy",
+    "maize_leaf_blight",
+    "tomato_blight",
+    "tomato_healthy"
+  ]
+}
