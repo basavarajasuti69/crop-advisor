@@ -70,6 +70,17 @@ def main():
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--lr", type=float, default=0.0001)
     parser.add_argument(
+    "--label-smoothing",
+    type=float,
+    default=0.0,
+    help="Label smoothing factor for cross-entropy loss (0.0 to 1.0).",
+    )
+    parser.add_argument(
+        "--class-weighting",
+        action="store_true",
+        help="Weight training loss inversely to class frequency.",
+    )
+    parser.add_argument(
         "--out",
         default="ml/training/experiments/plantdoc_27class_v1",
     )
@@ -243,7 +254,44 @@ def main():
     model = model.to(device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
-    loss_fn = nn.CrossEntropyLoss()
+
+    if args.class_weighting:
+        class_counts = torch.bincount(
+            torch.tensor(
+                [label for _, label in train_dataset],
+                dtype=torch.long,
+            ),
+            minlength=len(classes),
+        ).float()
+
+        if torch.any(class_counts == 0):
+            raise ValueError(
+                "At least one class has no training examples."
+            )
+
+        class_weights = (
+            class_counts.sum()
+            / (len(classes) * class_counts)
+        ).to(device)
+
+        loss_fn = nn.CrossEntropyLoss(
+        weight=class_weights,
+        label_smoothing=args.label_smoothing,
+        )
+
+        print("Class weighting: enabled")
+        print(
+            "Class weights:",
+            {
+                name: round(class_weights[index].item(), 3)
+                for index, name in enumerate(classes)
+            },
+        )
+    else:
+        loss_fn = nn.CrossEntropyLoss(
+        label_smoothing=args.label_smoothing
+        )
+        print("Class weighting: disabled")
 
     output_dir.mkdir(parents=True, exist_ok=True)
     best_validation_accuracy = -1.0
@@ -307,6 +355,7 @@ def main():
     )
 
     metrics = {
+        "label_smoothing": args.label_smoothing,
         "model": "efficientnet_b0",
         "dataset": "PlantDoc",
         "classes": classes,
@@ -314,6 +363,10 @@ def main():
         "seed": SEED,
         "device": str(device),
         "epochs_requested": args.epochs,
+        "class_weighting": args.class_weighting,
+        "lr": args.lr,
+        "batch_size": args.batch_size,
+        "data": str(data_dir),
         "best_epoch": best_epoch,
         "training_images": len(train_indices),
         "validation_images": len(validation_indices),
