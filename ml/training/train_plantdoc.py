@@ -19,7 +19,7 @@ EXCLUDED_CLASS = "Tomato two spotted spider mites leaf"
 
 
 class MappedSubset(torch.utils.data.Dataset):
-    """Subset a dataset and remap its original labels safely."""
+    """Subset a dataset and safely remap its labels."""
 
     def __init__(self, dataset, indices, label_map):
         self.dataset = dataset
@@ -30,7 +30,9 @@ class MappedSubset(torch.utils.data.Dataset):
         return len(self.indices)
 
     def __getitem__(self, position):
-        image, original_label = self.dataset[self.indices[position]]
+        image, original_label = self.dataset[
+            self.indices[position]
+        ]
         return image, self.label_map[original_label]
 
 
@@ -173,8 +175,7 @@ def main():
             if label == test_source_label
         )
 
-    # Map original ImageFolder labels to the shared class indices.
-    # Keep the original datasets unchanged so their sample indices stay valid.
+    # Map labels without modifying the original datasets.
     class_to_new = {
         train_class_map[name]: shared_label[name]
         for name in classes
