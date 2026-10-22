@@ -26,7 +26,25 @@ from mcp_servers.crop_knowledge import server as ck_server  # noqa: E402
 
 
 def _make_image_bytes() -> bytes:
+    """A green, slightly textured image.
+
+    A flat colour would be rejected by the leaf-likeness check in triage,
+    which is correct behaviour - so the fixture has to look like a
+    photograph rather than a solid square.
+    """
+    import random
+
+    rng = random.Random(0)
     img = Image.new("RGB", (300, 300), color=(34, 139, 34))
+    pixels = img.load()
+    for y in range(300):
+        for x in range(300):
+            jitter = rng.randint(-25, 25)
+            pixels[x, y] = (
+                max(0, min(255, 34 + jitter)),
+                max(0, min(255, 139 + jitter)),
+                max(0, min(255, 34 + jitter)),
+            )
     buf = io.BytesIO()
     img.save(buf, format="PNG")
     return buf.getvalue()
@@ -416,7 +434,7 @@ def test_hindi_and_kannada_answers_have_no_english(mock_predict):
     """Neither language may fall back to the English passage."""
     mock_predict.return_value = [{"label": "leaf_blight", "score": 0.92}]
     for language in ("hi", "kn"):
-        state = run_advice_sync(Req(image_bytes=b"x", crop="rice", language=language))
+        state = run_advice_sync(Req(image_bytes=_make_image_bytes(), crop="rice", language=language))
         assert state.answer
         assert not any(ch.isascii() and ch.isalpha() for ch in state.answer), (
             f"{language} answer leaked English: {state.answer!r}"
@@ -431,7 +449,7 @@ def test_low_confidence_returns_retake(mock_predict):
         {"label": "leaf_blight", "score": 0.5},
         {"label": "healthy", "score": 0.3},
     ]
-    s = run_advice_sync(Req(image_bytes=b"x", crop="rice", language="en", location="Dharwad"))
+    s = run_advice_sync(Req(image_bytes=_make_image_bytes(), crop="rice", language="en", location="Dharwad"))
     assert s.answer is not None
     low = s.answer.lower()
     assert "retake" in low or "not sure" in low
@@ -443,7 +461,7 @@ def test_low_confidence_returns_retake(mock_predict):
 @patch("agents.graph._predict_image")
 def test_high_confidence_no_retake(mock_predict):
     mock_predict.return_value = [{"label": "healthy", "score": 0.9}]
-    s = run_advice_sync(Req(image_bytes=b"x", crop="rice", language="en"))
+    s = run_advice_sync(Req(image_bytes=_make_image_bytes(), crop="rice", language="en"))
     assert "retake" not in s.answer.lower()
     assert s.ood is False
 

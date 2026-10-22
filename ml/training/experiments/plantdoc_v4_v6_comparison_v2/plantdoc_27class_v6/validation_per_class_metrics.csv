@@ -1,0 +1,28 @@
+class,precision,recall,f1,support,tp,fp,fn
+Apple Scab Leaf,1.0,0.583333,0.736842,12,7,0,5
+Apple leaf,0.909091,0.833333,0.869565,12,10,1,2
+Apple rust leaf,0.888889,0.666667,0.761905,12,8,1,4
+Bell_pepper leaf,0.625,0.625,0.625,8,5,3,3
+Bell_pepper leaf spot,0.428571,0.333333,0.375,9,3,4,6
+Blueberry leaf,0.666667,0.8,0.727273,15,12,6,3
+Cherry leaf,0.333333,0.285714,0.307692,7,2,4,5
+Corn Gray leaf spot,0.666667,0.444444,0.533333,9,4,2,5
+Corn leaf blight,0.742857,0.962963,0.83871,27,26,9,1
+Corn rust leaf,0.846154,0.6875,0.758621,16,11,2,5
+Peach leaf,0.722222,0.866667,0.787879,15,13,5,2
+Potato leaf early blight,0.142857,0.0625,0.086957,16,1,6,15
+Potato leaf late blight,0.5,0.5,0.5,14,7,7,7
+Raspberry leaf,0.882353,0.882353,0.882353,17,15,2,2
+Soyabean leaf,0.615385,0.888889,0.727273,9,8,5,1
+Squash Powdery mildew leaf,1.0,1.0,1.0,19,19,0,0
+Strawberry leaf,0.764706,1.0,0.866667,13,13,4,0
+Tomato Early blight leaf,0.333333,0.333333,0.333333,12,4,8,8
+Tomato Septoria leaf spot,0.551724,0.761905,0.64,21,16,13,5
+Tomato leaf,0.666667,0.75,0.705882,8,6,3,2
+Tomato leaf bacterial spot,0.333333,0.2,0.25,15,3,6,12
+Tomato leaf late blight,0.538462,0.933333,0.682927,15,14,12,1
+Tomato leaf mosaic virus,0.5,0.142857,0.222222,7,1,1,6
+Tomato leaf yellow virus,0.538462,0.7,0.608696,10,7,6,3
+Tomato mold leaf,0.5,0.384615,0.434783,13,5,5,8
+grape leaf,0.75,0.75,0.75,8,6,2,2
+grape leaf black rot,1.0,0.5,0.666667,8,4,0,4

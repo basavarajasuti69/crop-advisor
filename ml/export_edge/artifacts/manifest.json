@@ -10,5 +10,12 @@
     224
   ],
   "format": "onnx",
-  "opset": 13
+  "opset": 13,
+  "source": "ml/training/artifacts/model.pt",
+  "dataset": "synthetic placeholder images (ml/data/train) - 40 solid-colour squares, not real leaf photos",
+  "metrics": {
+    "epochs": 3
+  },
+  "confidence_is_calibrated": false,
+  "notes": "This is the placeholder model that ships with the repository. It was trained on 40 solid-colour squares, so it cannot identify a real leaf disease and the service answers 'retake the photo' for real photos. It is NOT the 27-class PlantDoc model. See ml/training/experiments/ and ml/export_edge/export_plantdoc.py for a model that was actually trained on leaf photographs."
 }

@@ -1,0 +1,163 @@
+split,folder,file,filename_token,suggests_class,reason
+train,Apple rust leaf,Apple_Scab164.jpg,scab,Apple Scab Leaf,filename states 'scab' but the file is in the 'Apple rust leaf' folder
+train,Apple rust leaf,apples_black-rot_01_zoom.jpg,black_rot,grape leaf black rot,filename states 'black_rot' but the file is in the 'Apple rust leaf' folder
+train,Apple rust leaf,apples_rusts+apple-scab.jpg,scab,Apple Scab Leaf,filename states 'scab' but the file is in the 'Apple rust leaf' folder
+train,Bell_pepper leaf spot,Bacterial-spot-symptoms-on-pepper-leaves-for-web.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,Bacterial_leaf_spot_symptoms.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,Septoria-leaf-spot.jpg,septoria,Tomato Septoria leaf spot,filename states 'septoria' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,bacspot_confused_w_pseudomonas.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,bacterial-leaf-spot-on-peppers.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,bacterial_leaf_spot_pepper_plant_l.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,gray-leaf-spot-disease-on-260nw-559799659.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,green-pepper-plant-diseases-bacterial-spot-on-pepper-plant-green-pepper-plant-diseases-photos.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,pepper_bacterial-spot_02_zoom.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,pepper_bacterial-spot_04_zoom.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,peppers_bacterial_spot_onpeppertransplant_zoom.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Bell_pepper leaf spot,peppers_bacterial_spot_zoom.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+train,Corn leaf blight,2-3%20Gray%20leaf%20spot%20BRUCE.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+train,Corn leaf blight,Corn-Gray-Leaf-Spot-7-31-F2.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+train,Corn leaf blight,Corn-gray-leaf-spot-8-14-15-F1.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+train,Corn leaf blight,Corn-gray-leaf-spot-8-21.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+train,Corn leaf blight,Corn-gray-leaf-spot-F2-8-7-15.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+train,Corn leaf blight,corn-gray-leaf-spot-f5.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+train,Corn leaf blight,corn_gray_leaf_spot.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+train,Corn leaf blight,gray-leaf-spot-lesions-F4.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+train,Corn leaf blight,gray-leaf-spot-severe--.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+train,Corn leaf blight,smaller-Septoria2.jpg,septoria,Tomato Septoria leaf spot,filename states 'septoria' but the file is in the 'Corn leaf blight' folder
+train,Potato leaf early blight,1200px-Late_blight_on_potato_leaf_2.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,1573852-Early-Blight-e1515624612559.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,20080710-early%2Bblight%2Blesions%2Bwith%2Byellow%2Bhaloes.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,20100816earlyblight.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,21-late%20blight-early%20symptoms%20potato.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,2OBH_29_Gardening_early_blight.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,36-early-blight-concentric-rings.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,500px-Tomato_Early_Blight_Leaf.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,Early%20Blight%20-%20Potatoes.ashx?w=350.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,Early-Blight-Leaves-56a348bf3df78cf7727cb35e.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,Early-Blight-UK-A.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,Early_Blight_of_Tomato177.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,Early_blight_on_tomato_leaves_7871930010-Fairfax.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,Leaves-with-early-blight-need-to-be-removed-225x300.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,Potato-earlyblight2.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,Potato_Early_Blight_%26_Late_Blight.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,Potato_Early_Blight_%26_Late_Blight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,agriculture-potato-early-blight-leaf-symptoms-on-a-potato-leaf-caused-picture-id586884353.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early%20blight.tom_.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early-blight-2.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early-blight-alternaria-alternata-leaf-spotting-on-potato-leaf-ACG5WF.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early-blight-closeup-NCSU.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early-blight-cmyk-opt.jpeg.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early-blight-courtesy-Melanson-MS-State-U-Ext-Bugwood.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early-blight-or-target-spot-alternaria-solani-lesions-on-a-tomato-by9j8r.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early-blight-or-targfet-spot-alternaria-solani-lesions-on-a-tomato-ACG8W6.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early-blight-potatoes.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early-blight-septoria-ls-fig-1.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early-blight-septoria-ls-fig-1.jpg,septoria,Tomato Septoria leaf spot,filename states 'septoria' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,early_blight1.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,earlyblight21.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,pe-mi-lateblightleaf.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato-early-blight-alternaria-alternata-discreet-lesions-on-a-potato-BY651F.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato-early-blight-alternaria-alternata-lesion-on-a-potato-leaf-X96EFD.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato-early-blight-alternaria-alternata-lesions-on-a-potato-leaf-by650f.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato-early-blight-alternaria-alternata-lesions-on-potato-leaf-XDF64E.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato-early-blight-alternaria-alternata-target-spot-lesion-on-a-potato-leaf-x63fwh.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato-early-blight-alternaria-alternata-target-spot-lesions-on-a-by64yw.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato-early-blight-lesion-on-a-potato-leaf-picture-id81781211.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato_early-blight_01_zoom.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato_early-blight_02_zoom.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato_early-blight_03_zoom.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato_early-blight_04_zoom.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato_early-blight_05_zoom.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potato_early-blight_06_zoom.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potatoearlyblight.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf early blight,potatoearlyblightcloseup_pdc.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+train,Potato leaf late blight,22-late%20blight-advanced%20symptoms%20potato.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,39-late-blight-mold.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,4-late-blight-cmyk-opt.jpeg.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,6-13lateblightleavesMARY.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,B2650062-Potato_late_blight-SPL.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,B2750121-Potato_late_blight-SPL.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Jessore-potato-late-blight-8-2h2fdkl.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Late+Blight+of+Potato+and+Tomato.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Late+blight+on+potato.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Late-Blight-336x437.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Late-Blight-56a34bc55f9b58b7d0d15210.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Late-blight-infected-potato-plants_2.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Late-blight-leaves_261x240.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Late-blight-on-leaf-email.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Late-blight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,LateBlight02.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,LateBlight03.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,LateBlight13.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,LateBlightFig3new.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Late_blight_on_potato_leaf.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Late_blight_on_potato_leaf_3-58bcf5055f9b58af5c27bf74.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Lateblight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Potato-Late-Blight-3-06202014.jpeg.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Potato-late-blight-008.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Potato-late-blight-caused-by-Phytophthora-infestans_Q320.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Potato-late-blight-in-field-trial-1.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,PotatoLateBlight2.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,Symptom_potato_late_blight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,cropped-symptom_potato_late_blight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,early_blight.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,foliar_late_blight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,gcp_A-2_Late_Blight_of_potatoes_callout1.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,late-blight-leaf-figure1.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,late-blight-leaf.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,late-blight-leaves.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,late-blight-lesions-potato-leaf-miller-research-809.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,late-blight-midwest_twitter.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,late-blight-on-potato-leaf-550.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,late-blight-potato.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,late_blight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,late_blight_potato_leaf_500.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,lateblight1.JPG.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,lateblight2.JPG.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,lateblight8.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,lateblightleaf.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,lateblightlesions_1.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,phytophthora-infestans-late-blight-or-potato-blight-on-the-haulm-of-E29H6G.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,phytophthora-infestans-late-blight-or-potato-blight-on-the-haulm-of-EHW1RD.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato-late-blight-phytophthora-infestans-lesions-on-potato-foliage-X4XJF4.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato-late-blight-phytophthora-infestans-lesions-on-potato-foliage-a1w19k.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato-late-blight-phytophthora-infestans-necrotic-disease-lesions-B7DEW3.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato-late-blight-phytophthora-infestans-necrotic-disease-lesions-B7G2EC.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato-late-blight-symptom-on-leaves-PGB5H9.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato-late-blight-symptom-on-leaves-PGB5NJ.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato-solanum-tuberosum-late-blight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato_late-blight_02_zoom.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato_late-blight_05_zoom.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato_late-blight_07_zoom.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato_late-blight_08_zoom.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato_ocw_botrytis-lateblight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato_ocw_botrytis-lateblight.jpg,gray_mold_botrytis,Tomato mold leaf,filename states 'gray_mold_botrytis' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato_ocw_lateblight-earlyblight.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,potato_ocw_lateblight-earlyblight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Potato leaf late blight,wur-late-blight-in-potato-809.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+train,Tomato Septoria leaf spot,Tomato%20bacterial%20spot%20closeup-050S.JPG.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Tomato Septoria leaf spot' folder
+train,Tomato Septoria leaf spot,confused-early-blight-septoria-zoom.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Tomato Septoria leaf spot' folder
+train,Tomato Septoria leaf spot,early+blight+on+leaf+yel+halo+IMG_2313.JPG.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Tomato Septoria leaf spot' folder
+train,Tomato Septoria leaf spot,gray-leaf-spot.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Tomato Septoria leaf spot' folder
+train,Tomato Septoria leaf spot,tomato-early-blight-e1437503226856.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Tomato Septoria leaf spot' folder
+train,Tomato Septoria leaf spot,xgray-leaf-spot.jpg.pagespeed.ic.ltF8KfKtQ1.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Tomato Septoria leaf spot' folder
+train,Tomato leaf,Bacterial-leaf-spot-transplants1.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Tomato leaf' folder
+train,Tomato leaf,late_blight_tomato_leaf4x1200.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Tomato leaf' folder
+train,Tomato leaf late blight,tomato.early.blightH.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Tomato leaf late blight' folder
+train,Tomato leaf yellow virus,tomato-plant-virus-tomato-yellow-leaf-curl-virus-tomato-plant-disease-mosaic-virus.jpg,mosaic_virus,Tomato leaf mosaic virus,filename states 'mosaic_virus' but the file is in the 'Tomato leaf yellow virus' folder
+train,Tomato mold leaf,gray-leaf-spot-300x225.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Tomato mold leaf' folder
+train,Tomato mold leaf,tomato-gray-leaf-spot.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Tomato mold leaf' folder
+train,Tomato mold leaf,tylc.jpg,yellow_leaf_curl,Tomato leaf yellow virus,filename states 'yellow_leaf_curl' but the file is in the 'Tomato mold leaf' folder
+test,Bell_pepper leaf spot,Bacterial-spot-pepper2.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+test,Bell_pepper leaf spot,bacterial_leaf_spot_pepper_l.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+test,Bell_pepper leaf spot,pepper_bacterial-spot_03_zoom.jpg,bacterial_spot,Tomato leaf bacterial spot,filename states 'bacterial_spot' but the file is in the 'Bell_pepper leaf spot' folder
+test,Corn leaf blight,2013Corn_GrayLeafSpot_0815_0003.JPG.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+test,Corn leaf blight,corn-disease-update-fig-3-gray-leaf-spot.jpg,gray_leaf_spot,Corn Gray leaf spot,filename states 'gray_leaf_spot' but the file is in the 'Corn leaf blight' folder
+test,Potato leaf early blight,early-blight-alternaria-alternata-leaf-spotting-on-potato-leaf-X91XJE.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+test,Potato leaf early blight,early-blight-or-target-spot-alternaria-solani-lesions-on-a-tomato-AXK6AY.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+test,Potato leaf early blight,earlyblightpotato.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+test,Potato leaf early blight,potato-early-blight-alternaria-alternata-lesion-on-a-potato-leaf-a1w1em.jpg,early_blight,Tomato Early blight leaf,filename states 'early_blight' but the file is in the 'Potato leaf early blight' folder
+test,Potato leaf late blight,20090710-lateblight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+test,Potato leaf late blight,B2750109-Late_blight_on_a_potato_plant-SPL.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+test,Potato leaf late blight,LateBlight04.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder
+test,Potato leaf late blight,potato-late-blight.jpg,late_blight,Tomato leaf late blight,filename states 'late_blight' but the file is in the 'Potato leaf late blight' folder

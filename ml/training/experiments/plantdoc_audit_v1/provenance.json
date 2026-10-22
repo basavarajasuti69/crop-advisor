@@ -1,0 +1,53 @@
+{
+  "note": "Machine-readable counterpart of PROVENANCE.md. Used by compare_plantdoc_v4_v6.py as a fallback for the lr / batch_size / data fields that the older runs did not record. 'source' marks whether a value was measured ('recorded') or reconstructed from the script default ('reconstructed').",
+  "experiments": {
+    "plantdoc_27class_v4": {
+      "lr": {"value": 0.0001, "source": "reconstructed"},
+      "batch_size": {"value": 16, "source": "reconstructed"},
+      "data": {
+        "value": "ml/training/experiments/plantdoc_deduplicated_v2/data",
+        "source": "reconstructed"
+      },
+      "optimizer": {"value": "Adam", "source": "reconstructed"},
+      "weight_decay": {"value": 0, "source": "reconstructed"},
+      "lr_schedule": {"value": "none", "source": "reconstructed"},
+      "label_smoothing": {"value": 0.0, "source": "reconstructed"}
+    },
+    "plantdoc_27class_v5a": {
+      "lr": {"value": 0.0001, "source": "reconstructed"},
+      "batch_size": {"value": 16, "source": "reconstructed"},
+      "data": {
+        "value": "ml/training/experiments/plantdoc_deduplicated_v2/data",
+        "source": "reconstructed"
+      },
+      "optimizer": {"value": "Adam", "source": "reconstructed"},
+      "weight_decay": {"value": 0, "source": "reconstructed"},
+      "lr_schedule": {"value": "none", "source": "reconstructed"},
+      "label_smoothing": {"value": 0.0, "source": "reconstructed"}
+    },
+    "plantdoc_27class_v5b": {
+      "lr": {"value": 0.0001, "source": "reconstructed"},
+      "batch_size": {"value": 16, "source": "reconstructed"},
+      "data": {
+        "value": "ml/training/experiments/plantdoc_deduplicated_v2/data",
+        "source": "reconstructed"
+      },
+      "optimizer": {"value": "Adam", "source": "reconstructed"},
+      "weight_decay": {"value": 0, "source": "reconstructed"},
+      "lr_schedule": {"value": "none", "source": "reconstructed"},
+      "label_smoothing": {"value": 0.0, "source": "reconstructed"}
+    },
+    "plantdoc_27class_v6": {
+      "lr": {"value": 0.00003, "source": "recorded"},
+      "batch_size": {"value": 16, "source": "reconstructed"},
+      "data": {
+        "value": "ml/training/experiments/plantdoc_deduplicated_v2/data",
+        "source": "reconstructed"
+      },
+      "optimizer": {"value": "Adam", "source": "reconstructed"},
+      "weight_decay": {"value": 0, "source": "reconstructed"},
+      "lr_schedule": {"value": "none", "source": "reconstructed"},
+      "label_smoothing": {"value": 0.1, "source": "recorded"}
+    }
+  }
+}

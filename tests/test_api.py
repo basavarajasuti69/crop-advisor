@@ -13,7 +13,24 @@ client = TestClient(app)
 
 
 def _png_bytes() -> bytes:
+    """A green, slightly textured image.
+
+    A flat colour is rejected by the leaf-likeness check in triage, which
+    is correct behaviour, so the fixture has to look like a photograph.
+    """
+    import random
+
+    rng = random.Random(0)
     img = Image.new("RGB", (300, 300), color=(34, 139, 34))
+    pixels = img.load()
+    for y in range(300):
+        for x in range(300):
+            jitter = rng.randint(-25, 25)
+            pixels[x, y] = (
+                max(0, min(255, 34 + jitter)),
+                max(0, min(255, 139 + jitter)),
+                max(0, min(255, 34 + jitter)),
+            )
     buf = io.BytesIO()
     img.save(buf, format="PNG")
     return buf.getvalue()

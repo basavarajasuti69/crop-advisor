@@ -45,163 +45,6 @@ def _sagemaker_client():
     return _SAGEMAKER_CLIENT
 
 
-_CLASSIFIER = None
-_CLASSES = None
-_ONNX_SESSION = None
-_ONNX_CLASSES: list[str] = []
-_TORCH_TRANSFORM = None
-
-# ONNX artifacts exported by ml/export_edge/export_onnx.py.
-_ONNX_DIR = Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts"
-_ONNX_MEAN = (0.485, 0.456, 0.406)
-_ONNX_STD = (0.229, 0.224, 0.225)
-
-# Crop-specific classifier labels supported by the model.
-SUPPORTED_CROPS = {"rice", "wheat", "cotton", "maize", "tomato"}
-
-
-def crop_from_label(label: str) -> str | None:
-    """Return the crop encoded in a crop-specific model label."""
-    prefix, separator, _disease = label.partition("_")
-
-    if separator and prefix in SUPPORTED_CROPS:
-        return prefix
-
-    return None
-
-
-def disease_from_label(label: str) -> str:
-    """Normalize a classifier label for retrieval and localization."""
-    crop = crop_from_label(label)
-
-    if crop is None:
-        return label
-
-    return label[len(crop) + 1:]
-
-
-def is_healthy_label(label: str) -> bool:
-    """Recognize both legacy and crop-specific healthy labels."""
-    return label == "healthy" or disease_from_label(label) == "healthy"
-
-
-def _repo_root() -> Path:
-    """Repo root, so paths do not depend on the current working directory."""
-    return Path(__file__).resolve().parent.parent
-
-
-def _load_classifier(weights_path: str | None = None, metrics_path: str | None = None):
-    """Load the PyTorch classifier. Paths are injectable so tests can simulate
-    a missing model. Raises ModelUnavailable when torch is not installed."""
-    global _CLASSIFIER, _CLASSES
-    if weights_path is None and metrics_path is None and _CLASSIFIER is not None:
-        return _CLASSIFIER, _CLASSES
-    # Resolve from the repo root, not the CWD: the API may be started from
-    # anywhere (and in Docker the CWD is the image WORKDIR).
-    root = _repo_root()
-    w = Path(weights_path) if weights_path else root / "ml/training/artifacts/model.pt"
-    m = Path(metrics_path) if metrics_path else root / "ml/training/artifacts/metrics.json"
-    if not (w.exists() and m.exists()):
-        raise ModelUnavailable("classifier model file missing")
-    try:
-        import torch
-        from torchvision import models
-    except ImportError as exc:
-        raise ModelUnavailable("torch is not installed") from exc
-    classes = json.loads(m.read_text())["classes"]
-    model = models.efficientnet_b0(weights=None)
-    model.classifier[1] = torch.nn.Linear(model.classifier[1].in_features, len(classes))
-    model.load_state_dict(torch.load(w, map_location="cpu"))
-    model.eval()
-    _CLASSIFIER = model
-    _CLASSES = classes
-    return _CLASSIFIER, _CLASSES
-
-
-def _torch_transform():
-    """The training/eval transform: Resize(256) + CenterCrop(224) + Normalize."""
-    global _TORCH_TRANSFORM
-    if _TORCH_TRANSFORM is None:
-        from torchvision import transforms
-
-        _TORCH_TRANSFORM = transforms.Compose([
-            transforms.Resize(256),
-            transforms.CenterCrop(224),
-            transforms.ToTensor(),
-            transforms.Normalize(list(_ONNX_MEAN), list(_ONNX_STD)),
-        ])
-    return _TORCH_TRANSFORM
-
-
-def _onnx_preprocess(img: Image.Image):
-    """NumPy equivalent of _torch_transform() - must stay byte-identical to it."""
-    import numpy as np
-
-    width, height = img.size
-    if width <= height:
-        new_w, new_h = 256, int(256 * height / width)
-    else:
-        new_h, new_w = 256, int(256 * width / height)
-    resized = img.resize((new_w, new_h), Image.Resampling.BILINEAR)
-    left = int(round((new_w - 224) / 2.0))
-    top = int(round((new_h - 224) / 2.0))
-    cropped = resized.crop((left, top, left + 224, top + 224))
-    arr = np.asarray(cropped, dtype="float32") / 255.0
-    arr = (arr - np.array(_ONNX_MEAN, dtype="float32")) / np.array(_ONNX_STD, dtype="float32")
-    return arr.transpose(2, 0, 1)[None, ...]
-
-
-def _load_onnx():
-    """Load the ONNX Runtime session. Returns (session, classes) or None."""
-    global _ONNX_SESSION, _ONNX_CLASSES
-    if _ONNX_SESSION is not None:
-        return _ONNX_SESSION, _ONNX_CLASSES
-    model_path = _ONNX_DIR / "classifier.onnx"
-    classes_path = _ONNX_DIR / "classes.json"
-    if not (model_path.exists() and classes_path.exists()):
-        return None
-    try:
-        import onnxruntime as ort
-    except ImportError:
-        return None
-    _ONNX_CLASSES = json.loads(classes_path.read_text())["classes"]
-    _ONNX_SESSION = ort.InferenceSession(
-        str(model_path), providers=["CPUExecutionProvider"]
-    )
-    return _ONNX_SESSION, _ONNX_CLASSES
-
-
-def _predict_onnx(image_bytes: bytes, top_k: int = 3) -> list[dict[str, Any]]:
-    """Classify with ONNX Runtime. No torch required."""
-    import numpy as np
-
-    loaded = _load_onnx()
-    if loaded is None:
-        raise ModelUnavailable("onnx model not available")
-    session, classes = loaded
-    img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-    logits = session.run(["logits"], {"input": _onnx_preprocess(img)})[0].reshape(-1)
-    probs = np.exp(logits - logits.max())
-    probs = probs / probs.sum()
-    order = np.argsort(probs)[::-1][: min(top_k, len(classes))]
-    return [
-        {"label": classes[int(i)], "score": round(float(probs[i]), 4)} for i in order
-    ]
-
-
-# ---------------------------------------------------------------------------
-# Typed errors raised by the classifier path (never fake a prediction)
-# ---------------------------------------------------------------------------
-
-
-class ModelUnavailable(Exception):
-    """The classifier model file is missing or could not be loaded."""
-
-
-class ImageUnreadable(Exception):
-    """The uploaded image could not be opened/decoded."""
-
-
 # ---------------------------------------------------------------------------
 # Confidence thresholds (named constants; no raw numbers in logic)
 # ---------------------------------------------------------------------------
@@ -212,34 +55,32 @@ VISION_DISAGREE_MIN = 0.70   # classifier/vision disagreement retake threshold
 VISION_ENABLED = os.getenv("CA_VISION_SECOND_OPINION", "false").lower() == "true"
 
 
-def _predict_image(image_bytes: bytes, top_k: int = 3, model=None, classes=None) -> list[dict[str, Any]]:
-    """Classify an image.
+# The classifier lives in its own module so the serving path can be read
+# without the LangGraph machinery. The names below are kept as aliases
+# because they are part of the module's existing surface.
+from agents.classifier import (  # noqa: E402
+    SUPPORTED_CROPS,
+    ImageUnreadable,
+    ModelUnavailable,
+    crop_from_label,
+    disease_from_label,
+    is_healthy_label,
+    kb_section_for_label,
+    load_class_names,
+    looks_like_leaf,
+)
+from agents.classifier import onnx_preprocess as _onnx_preprocess  # noqa: E402
+from agents.classifier import predict_onnx as _predict_onnx  # noqa: E402
+from agents.classifier import load_onnx as _load_onnx  # noqa: E402
+from agents.classifier import load_torch as _load_classifier  # noqa: E402
+from agents.classifier import predict as _predict_image  # noqa: E402
 
-    Backends, in order: an explicitly injected model, ONNX Runtime (no torch
-    needed), then the local PyTorch model. Never returns a fake prediction.
-    """
-    try:
-        Image.open(io.BytesIO(image_bytes)).convert("RGB")
-    except Exception:
-        raise ImageUnreadable("could not open image")
-    if model is None and classes is None:
-        if _load_onnx() is not None:
-            return _predict_onnx(image_bytes, top_k)
-        model, classes = _load_classifier()
-    elif model is None or classes is None:
-        raise ValueError("model and classes must be provided together")
-    import torch
 
-    img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
-    x = _torch_transform()(img).unsqueeze(0)
-    with torch.no_grad():
-        logits = model(x)
-        probs = torch.softmax(logits, dim=1)[0]
-    top = torch.topk(probs, min(top_k, len(classes)))
-    return [
-        {"label": classes[int(i)], "score": round(float(p), 4)}
-        for i, p in zip(top.indices, top.values)
-    ]
+def _torch_transform():
+    """The training/eval transform: Resize(256) + CenterCrop(224) + Normalize."""
+    from agents.classifier import _torch_transform as transform
+
+    return transform()
 
 
 def _predict_sagemaker(image_bytes: bytes) -> list[dict[str, Any]]:
@@ -392,6 +233,7 @@ class AgentState(BaseModel):
     quality_ok: bool = False
     quality_issue: str | None = None
     predictions: list[dict[str, Any]] = Field(default_factory=list)
+    guidance_available: bool = False
     vision_llm_opinion: dict[str, Any] | None = None
     agreed: bool | None = None
     retake_requested: bool = False
@@ -447,8 +289,24 @@ async def triage(state: AgentState) -> AgentState:
     # Placeholder quality model; real implementation runs blur/leaf/lit checks.
     state.quality_ok = True
     state.quality_issue = None
-    # Crop ID: use provided crop or default
-    state.crop = state.crop or "rice"
+    # A photo that is not a plant at all: the classifier would still assign
+    # a disease to it, so it is turned away before the model is asked.
+    if state.image_bytes is not None and not looks_like_leaf(state.image_bytes):
+        state.quality_ok = False
+        state.quality_issue = "not a leaf photo"
+        state.safe = False
+        state.escalate = True
+        state.escalate_reason = "not_a_leaf"
+        state.retake_requested = True
+        strings = load_strings(state.language)
+        state.answer = strings.get("not_a_leaf") or strings.get(
+            "cannot_read", "This does not look like a photo of a leaf."
+        )
+        return state
+    # Crop ID: use the crop the caller supplied. It is not guessed
+    # here - a wrong guess would send the farmer to another crop's
+    # guidance. The classifier may override it below.
+    state.crop = state.crop or None
     return state
 
 
@@ -508,8 +366,6 @@ async def classify(state: AgentState) -> AgentState:
     predicted_crop = crop_from_label(predictions[0]["label"])
     if predicted_crop:
         state.crop = predicted_crop
-    else:
-        state.crop = state.crop or "rice"
 
     state.confidence = predictions[0]["score"]
     return state
@@ -534,7 +390,7 @@ async def vision_second_opinion(state: AgentState) -> AgentState:
         state.vision_llm_opinion = None
         state.agreed = None
         return state
-    class_list = _CLASSES or [p["label"] for p in state.predictions]
+    class_list = load_class_names() or [p["label"] for p in state.predictions]
     try:
         opinion = await asyncio.to_thread(vision_opinion, image_bytes, class_list, state.language)
     except Exception:
@@ -573,25 +429,39 @@ async def retrieve(state: AgentState) -> AgentState:
 
     label = state.predictions[0]["label"] if state.predictions else "healthy"
     detected_crop = crop_from_label(label)
-    crop = detected_crop or state.crop or "rice"
+    crop = detected_crop or state.crop
     disease = disease_from_label(label)
 
     # Keep the crop consistent with the classifier's crop-specific label.
     state.crop = crop
 
+    # A PlantDoc class usually has no section in the knowledge base.
+    # When there is one, ask for it by name so the retrieval cannot
+    # drift onto a different crop's section.
+    section = kb_section_for_label(label)
+    if section:
+        query = section.lower().replace(" - ", " ")
+        kb_crop = section.split(" - ")[0].strip().lower()
+    else:
+        query = " ".join(part for part in (disease, crop) if part).lower()
+        kb_crop = crop or ""
+
     kb = await mcp_call(
         "crop_knowledge",
         "search_knowledge",
         {
-            "query": f"{disease} {crop}",
-            "crop": crop,
+            "query": query,
+            "crop": kb_crop,
         },
     )
 
     if "error" not in kb and isinstance(kb, list) and kb:
         state.passages = kb
         state.citations = ["crop_knowledge_mcp"]
+        state.guidance_available = True
     else:
+        # No guidance for this class. Say so instead of borrowing another
+        # crop's advice.
         state.passages = [
             {
                 "text": (
@@ -604,6 +474,7 @@ async def retrieve(state: AgentState) -> AgentState:
             }
         ]
         state.citations = ["crop_knowledge_base"]
+        state.guidance_available = False
 
     return state
 
@@ -612,7 +483,8 @@ async def draft_advice(state: AgentState) -> AgentState:
     """Draft grounded advice with citations."""
     state.step = "draft_advice"
     label = state.predictions[0]["label"] if state.predictions else "healthy"
-    crop = state.crop or "rice"
+    strings = load_strings("en")
+    crop = state.crop or strings.get("neutral_crop", "crop")
     disease = disease_from_label(label)
     passage = state.passages[0]["text"] if state.passages else ""
     strings = load_strings("en")
@@ -629,7 +501,7 @@ async def localize_advice(state: AgentState) -> AgentState:
 
     label = state.predictions[0]["label"] if state.predictions else "healthy"
     detected_crop = crop_from_label(label)
-    crop = detected_crop or state.crop or "rice"
+    crop = detected_crop or state.crop
     disease = disease_from_label(label)
 
     state.crop = crop
@@ -639,7 +511,7 @@ async def localize_advice(state: AgentState) -> AgentState:
         # language model writes the explanation in Hindi from the English
         # chunks when one is configured.
         strings = load_strings("hi")
-        crop_local = glossary_hi.CROP_NAMES.get(crop)
+        crop_local = glossary_hi.CROP_NAMES.get(crop) if crop else None
         if crop_local is None:
             crop_local = strings.get("neutral_crop", "फसल")
         disease_local = glossary_hi.DISEASE_NAMES.get(disease)
@@ -652,7 +524,7 @@ async def localize_advice(state: AgentState) -> AgentState:
     elif state.language == "kn":
         # Never put English passage text into a Kannada answer.
         strings = load_strings("kn")
-        crop_local = glossary_kn.CROP_NAMES.get(crop)
+        crop_local = glossary_kn.CROP_NAMES.get(crop) if crop else None
         if crop_local is None:
             crop_local = strings.get("neutral_crop", "ಬೆಳೆ")
         disease_local = glossary_kn.DISEASE_NAMES.get(disease)
@@ -748,7 +620,7 @@ async def critic_safety(state: AgentState) -> AgentState:
         state.escalate = True
         state.escalate_reason = "language_mismatch"
         detected_crop = crop_from_label(label)
-        crop = detected_crop or state.crop or "rice"
+        crop = detected_crop or state.crop or ""
         disease = disease_from_label(label)
         state.crop = crop
         if state.language == "kn":
@@ -797,7 +669,10 @@ async def find_officer(state: AgentState) -> AgentState:
     state.step = "find_officer"
     if not state.location:
         return state
-    crop = state.crop or "rice"
+    # The directory only lists officers for some crops. When the crop is
+    # not one of them, ask without a crop filter rather than returning
+    # nobody - a local officer can still advise on any crop.
+    crop = state.crop or ""
     officer = await mcp_call(
         "officer_directory", "find_officer", {"location": state.location, "crop": crop, "language": state.language}
     )

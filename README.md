@@ -209,16 +209,53 @@ confidence threshold and the app always answers "retake the photo".
 the ten classes to train, the free datasets to use, and the steps to
 export the ONNX model and commit it.
 
+### 4. Or serve the 27-class PlantDoc model
+
+There is a second, much better model in this repository: an
+EfficientNet-B0 trained on the **PlantDoc** field photographs, 27
+classes, validated on 347 held-out images. It is *not* exported or
+deployed yet, and it is not a finished product - see
+**[ml/training/MODEL_CARD.md](ml/training/MODEL_CARD.md)** for what it
+scores and what it cannot do.
+
+To try it without replacing the model that ships:
+
+```bash
+python ml/export_edge/export_plantdoc.py --list
+python ml/export_edge/export_plantdoc.py \
+    --experiment plantdoc_27class_v5a \
+    --output ml/export_edge/artifacts_plantdoc_v5a
+
+CA_MODEL_DIR=ml/export_edge/artifacts_plantdoc_v5a \
+    uvicorn main:app --reload
+```
+
+The service reads what the deployed model can recognise from the
+export's own manifest, so `/model` describes the model that is
+actually loaded. The knowledge base only covers rice, wheat, cotton,
+maize and tomato; the other 22 PlantDoc classes get a pointer to an
+agriculture officer rather than another crop's advice.
+
 ## Known limitations
 
-- **The model is weak.** It was trained on a small synthetic set (40
-  solid-colour squares, two classes: `healthy` and `leaf_blight`). Real
-  photos often score below the 0.70 confidence threshold, so the app
-  answers "retake the photo" instead of naming a disease. That is the
-  intended behaviour for a low-confidence result, not a crash - but it
-  means the app mostly asks for a better photo until the model is
-  retrained on real field data. See
-  [ml/training/DATASETS.md](ml/training/DATASETS.md).
+- **The shipped model is a placeholder.** The export in
+  `ml/export_edge/artifacts/` is a 2-class `healthy` / `leaf_blight`
+  model trained on 40 solid-colour squares (verified: one unique colour
+  per image). Real photos score below the 0.70 confidence threshold, so
+  the app answers "retake the photo" instead of naming a disease. That
+  is the intended behaviour for a low-confidence result, not a crash -
+  but it means the app mostly asks for a better photo. See
+  [ml/training/DATASETS.md](ml/training/DATASETS.md) and
+  [ml/training/MODEL_CARD.md](ml/training/MODEL_CARD.md).
+- **The 27-class PlantDoc model is not production-ready.** It reaches
+  0.69 validation accuracy and 0.65 test accuracy on PlantDoc, which
+  is a dataset of 2,546 field photographs with noisy folder labels. It
+  is not evidence of reliability on a real farm, and several of its
+  classes are limited by mislabelled training images rather than by
+  the model. The knowledge base only covers five of its thirteen crops.
+- **The confidence score is not a probability.** It is an uncalibrated
+  softmax output. The API says so in the response
+  (`confidence_is_calibrated: false`) and in the disclaimer.
 - **The free API sleeps.** Render's free plan sleeps after 15 minutes
   of inactivity, so the first request after a pause can take up to about
   a minute to wake up. The web app shows a "Waking up the server" note
@@ -227,8 +264,11 @@ export the ONNX model and commit it.
   configured (`CA_SARVAM_API_KEY` for Hindi and Kannada). The web app
   disables the "Listen to advice" button with a clear label when that
   happens.
-- **Only three languages and five crops** are wired up: English, Hindi
-  and Kannada; rice, wheat, cotton, maize and tomato.
+- **Only three languages are wired up**: English, Hindi and Kannada.
+  The guidance covers rice, wheat, cotton, maize and tomato. The
+  27-class PlantDoc model can identify thirteen crops, but the
+  knowledge base has sections for five of them, so the other classes
+  are answered with an officer referral rather than treatment advice.
 
 ## Legacy
 

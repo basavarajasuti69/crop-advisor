@@ -11,5 +11,6 @@
   "service_problem": "Service problem, please try again later.",
   "disease_unknown": "unknown disease",
   "waking_up": "Waking up the server, this can take up to a minute.",
-  "audio_unavailable": "Audio is not available right now."
+  "audio_unavailable": "Audio is not available right now.",
+  "not_a_leaf": "This does not look like a photo of a leaf. Please upload a clear photo of a single leaf."
 }

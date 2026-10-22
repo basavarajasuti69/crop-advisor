@@ -1,0 +1,1883 @@
+{
+  "comparison": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_v4_v6_comparison_v2",
+  "experiments": [
+    "plantdoc_27class_v4",
+    "plantdoc_27class_v5a",
+    "plantdoc_27class_v5b",
+    "plantdoc_27class_v6"
+  ],
+  "hard_classes": [
+    {
+      "class": "Tomato mold leaf",
+      "support": {
+        "class": "Tomato mold leaf",
+        "train_total": 85,
+        "train_used": 72,
+        "validation": 13,
+        "test": 6,
+        "train_to_test_ratio": 14.17
+      },
+      "per_model": {
+        "plantdoc_27class_v4": {
+          "precision": "0.333333",
+          "recall": "0.5",
+          "f1": "0.4",
+          "support": "6",
+          "top_confusions": [
+            {
+              "predicted": "Corn rust leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato Early blight leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5a": {
+          "precision": "0.0",
+          "recall": "0.0",
+          "f1": "0.0",
+          "support": "6",
+          "top_confusions": [
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 2
+            },
+            {
+              "predicted": "Corn rust leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato Early blight leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato Septoria leaf spot",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5b": {
+          "precision": "0.285714",
+          "recall": "0.333333",
+          "f1": "0.307692",
+          "support": "6",
+          "top_confusions": [
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 2
+            },
+            {
+              "predicted": "Corn rust leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato Early blight leaf",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v6": {
+          "precision": "0.25",
+          "recall": "0.333333",
+          "f1": "0.285714",
+          "support": "6",
+          "top_confusions": [
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 3
+            },
+            {
+              "predicted": "Corn rust leaf",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "class": "Tomato leaf bacterial spot",
+      "support": {
+        "class": "Tomato leaf bacterial spot",
+        "train_total": 100,
+        "train_used": 85,
+        "validation": 15,
+        "test": 8,
+        "train_to_test_ratio": 12.5
+      },
+      "per_model": {
+        "plantdoc_27class_v4": {
+          "precision": "0.0",
+          "recall": "0.0",
+          "f1": "0.0",
+          "support": "8",
+          "top_confusions": [
+            {
+              "predicted": "Tomato Septoria leaf spot",
+              "count": 4
+            },
+            {
+              "predicted": "Bell_pepper leaf spot",
+              "count": 2
+            },
+            {
+              "predicted": "Squash Powdery mildew leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato Early blight leaf",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5a": {
+          "precision": "0.4",
+          "recall": "0.25",
+          "f1": "0.307692",
+          "support": "8",
+          "top_confusions": [
+            {
+              "predicted": "Bell_pepper leaf spot",
+              "count": 2
+            },
+            {
+              "predicted": "Tomato Septoria leaf spot",
+              "count": 2
+            },
+            {
+              "predicted": "Squash Powdery mildew leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato Early blight leaf",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5b": {
+          "precision": "0.5",
+          "recall": "0.125",
+          "f1": "0.2",
+          "support": "8",
+          "top_confusions": [
+            {
+              "predicted": "Tomato Early blight leaf",
+              "count": 3
+            },
+            {
+              "predicted": "Bell_pepper leaf spot",
+              "count": 2
+            },
+            {
+              "predicted": "Squash Powdery mildew leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato leaf",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v6": {
+          "precision": "0.6",
+          "recall": "0.375",
+          "f1": "0.461538",
+          "support": "8",
+          "top_confusions": [
+            {
+              "predicted": "Bell_pepper leaf spot",
+              "count": 2
+            },
+            {
+              "predicted": "Squash Powdery mildew leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato Early blight leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato Septoria leaf spot",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "class": "Tomato leaf mosaic virus",
+      "support": {
+        "class": "Tomato leaf mosaic virus",
+        "train_total": 44,
+        "train_used": 37,
+        "validation": 7,
+        "test": 10,
+        "train_to_test_ratio": 4.4
+      },
+      "per_model": {
+        "plantdoc_27class_v4": {
+          "precision": "0.0",
+          "recall": "0.0",
+          "f1": "0.0",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Bell_pepper leaf",
+              "count": 2
+            },
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 2
+            },
+            {
+              "predicted": "Tomato mold leaf",
+              "count": 2
+            },
+            {
+              "predicted": "Peach leaf",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5a": {
+          "precision": "1.0",
+          "recall": "0.2",
+          "f1": "0.333333",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Tomato leaf yellow virus",
+              "count": 3
+            },
+            {
+              "predicted": "Bell_pepper leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Potato leaf late blight",
+              "count": 1
+            },
+            {
+              "predicted": "Squash Powdery mildew leaf",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5b": {
+          "precision": "0.5",
+          "recall": "0.1",
+          "f1": "0.166667",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Tomato leaf yellow virus",
+              "count": 3
+            },
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 2
+            },
+            {
+              "predicted": "Tomato mold leaf",
+              "count": 2
+            },
+            {
+              "predicted": "Bell_pepper leaf",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v6": {
+          "precision": "1.0",
+          "recall": "0.2",
+          "f1": "0.333333",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Tomato leaf yellow virus",
+              "count": 3
+            },
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 2
+            },
+            {
+              "predicted": "Bell_pepper leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Corn rust leaf",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "class": "Cherry leaf",
+      "support": {
+        "class": "Cherry leaf",
+        "train_total": 47,
+        "train_used": 40,
+        "validation": 7,
+        "test": 10,
+        "train_to_test_ratio": 4.7
+      },
+      "per_model": {
+        "plantdoc_27class_v4": {
+          "precision": "0.4",
+          "recall": "0.2",
+          "f1": "0.266667",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Apple leaf",
+              "count": 5
+            },
+            {
+              "predicted": "Blueberry leaf",
+              "count": 2
+            },
+            {
+              "predicted": "Peach leaf",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5a": {
+          "precision": "0.5",
+          "recall": "0.2",
+          "f1": "0.285714",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Apple leaf",
+              "count": 5
+            },
+            {
+              "predicted": "Blueberry leaf",
+              "count": 3
+            }
+          ]
+        },
+        "plantdoc_27class_v5b": {
+          "precision": "0.5",
+          "recall": "0.4",
+          "f1": "0.444444",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Apple leaf",
+              "count": 2
+            },
+            {
+              "predicted": "Blueberry leaf",
+              "count": 2
+            },
+            {
+              "predicted": "Peach leaf",
+              "count": 2
+            }
+          ]
+        },
+        "plantdoc_27class_v6": {
+          "precision": "0.5",
+          "recall": "0.4",
+          "f1": "0.444444",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Apple leaf",
+              "count": 2
+            },
+            {
+              "predicted": "Blueberry leaf",
+              "count": 2
+            },
+            {
+              "predicted": "Peach leaf",
+              "count": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "class": "Corn leaf blight",
+      "support": {
+        "class": "Corn leaf blight",
+        "train_total": 178,
+        "train_used": 151,
+        "validation": 27,
+        "test": 10,
+        "train_to_test_ratio": 17.8
+      },
+      "per_model": {
+        "plantdoc_27class_v4": {
+          "precision": "0.75",
+          "recall": "0.3",
+          "f1": "0.428571",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Corn Gray leaf spot",
+              "count": 7
+            }
+          ]
+        },
+        "plantdoc_27class_v5a": {
+          "precision": "0.8",
+          "recall": "0.4",
+          "f1": "0.533333",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Corn Gray leaf spot",
+              "count": 6
+            }
+          ]
+        },
+        "plantdoc_27class_v5b": {
+          "precision": "0.833333",
+          "recall": "0.5",
+          "f1": "0.625",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Corn Gray leaf spot",
+              "count": 5
+            }
+          ]
+        },
+        "plantdoc_27class_v6": {
+          "precision": "0.857143",
+          "recall": "0.6",
+          "f1": "0.705882",
+          "support": "10",
+          "top_confusions": [
+            {
+              "predicted": "Corn Gray leaf spot",
+              "count": 4
+            }
+          ]
+        }
+      }
+    },
+    {
+      "class": "Potato leaf early blight",
+      "support": {
+        "class": "Potato leaf early blight",
+        "train_total": 105,
+        "train_used": 89,
+        "validation": 16,
+        "test": 7,
+        "train_to_test_ratio": 15.0
+      },
+      "per_model": {
+        "plantdoc_27class_v4": {
+          "precision": "0.833333",
+          "recall": "0.714286",
+          "f1": "0.769231",
+          "support": "7",
+          "top_confusions": [
+            {
+              "predicted": "Apple leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Potato leaf late blight",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5a": {
+          "precision": "0.571429",
+          "recall": "0.571429",
+          "f1": "0.571429",
+          "support": "7",
+          "top_confusions": [
+            {
+              "predicted": "Apple rust leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Potato leaf late blight",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato Early blight leaf",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5b": {
+          "precision": "0.75",
+          "recall": "0.428571",
+          "f1": "0.545455",
+          "support": "7",
+          "top_confusions": [
+            {
+              "predicted": "Tomato Early blight leaf",
+              "count": 2
+            },
+            {
+              "predicted": "Apple leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Potato leaf late blight",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v6": {
+          "precision": "0.833333",
+          "recall": "0.714286",
+          "f1": "0.769231",
+          "support": "7",
+          "top_confusions": [
+            {
+              "predicted": "Potato leaf late blight",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato Early blight leaf",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "class": "Potato leaf late blight",
+      "support": {
+        "class": "Potato leaf late blight",
+        "train_total": 96,
+        "train_used": 82,
+        "validation": 14,
+        "test": 5,
+        "train_to_test_ratio": 19.2
+      },
+      "per_model": {
+        "plantdoc_27class_v4": {
+          "precision": "0.75",
+          "recall": "0.6",
+          "f1": "0.666667",
+          "support": "5",
+          "top_confusions": [
+            {
+              "predicted": "Blueberry leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5a": {
+          "precision": "0.5",
+          "recall": "0.6",
+          "f1": "0.545455",
+          "support": "5",
+          "top_confusions": [
+            {
+              "predicted": "Potato leaf early blight",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5b": {
+          "precision": "0.666667",
+          "recall": "0.4",
+          "f1": "0.5",
+          "support": "5",
+          "top_confusions": [
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 2
+            },
+            {
+              "predicted": "Blueberry leaf",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v6": {
+          "precision": "0.75",
+          "recall": "0.6",
+          "f1": "0.666667",
+          "support": "5",
+          "top_confusions": [
+            {
+              "predicted": "Soyabean leaf",
+              "count": 1
+            },
+            {
+              "predicted": "Tomato leaf late blight",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "class": "Corn Gray leaf spot",
+      "support": {
+        "class": "Corn Gray leaf spot",
+        "train_total": 62,
+        "train_used": 53,
+        "validation": 9,
+        "test": 3,
+        "train_to_test_ratio": 20.67
+      },
+      "per_model": {
+        "plantdoc_27class_v4": {
+          "precision": "0.2",
+          "recall": "0.666667",
+          "f1": "0.307692",
+          "support": "3",
+          "top_confusions": [
+            {
+              "predicted": "Corn leaf blight",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5a": {
+          "precision": "0.2",
+          "recall": "0.666667",
+          "f1": "0.307692",
+          "support": "3",
+          "top_confusions": [
+            {
+              "predicted": "Corn leaf blight",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v5b": {
+          "precision": "0.2",
+          "recall": "0.666667",
+          "f1": "0.307692",
+          "support": "3",
+          "top_confusions": [
+            {
+              "predicted": "Corn leaf blight",
+              "count": 1
+            }
+          ]
+        },
+        "plantdoc_27class_v6": {
+          "precision": "0.222222",
+          "recall": "0.666667",
+          "f1": "0.333333",
+          "support": "3",
+          "top_confusions": [
+            {
+              "predicted": "Corn leaf blight",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "cross_model_agreement": [
+    {
+      "class": "Tomato mold leaf",
+      "test_images": 6,
+      "models_correct_histogram": {
+        "0_of_4": 3,
+        "1_of_4": 1,
+        "3_of_4": 2
+      },
+      "never_correct_by_any_model": 3
+    },
+    {
+      "class": "Tomato leaf bacterial spot",
+      "test_images": 8,
+      "models_correct_histogram": {
+        "0_of_4": 5,
+        "1_of_4": 1,
+        "2_of_4": 1,
+        "3_of_4": 1
+      },
+      "never_correct_by_any_model": 5
+    },
+    {
+      "class": "Tomato leaf mosaic virus",
+      "test_images": 10,
+      "models_correct_histogram": {
+        "0_of_4": 7,
+        "1_of_4": 2,
+        "3_of_4": 1
+      },
+      "never_correct_by_any_model": 7
+    },
+    {
+      "class": "Cherry leaf",
+      "test_images": 10,
+      "models_correct_histogram": {
+        "0_of_4": 6,
+        "2_of_4": 2,
+        "4_of_4": 2
+      },
+      "never_correct_by_any_model": 6
+    },
+    {
+      "class": "Corn leaf blight",
+      "test_images": 10,
+      "models_correct_histogram": {
+        "0_of_4": 4,
+        "1_of_4": 1,
+        "2_of_4": 1,
+        "3_of_4": 1,
+        "4_of_4": 3
+      },
+      "never_correct_by_any_model": 4
+    },
+    {
+      "class": "Potato leaf early blight",
+      "test_images": 7,
+      "models_correct_histogram": {
+        "0_of_4": 1,
+        "1_of_4": 2,
+        "3_of_4": 1,
+        "4_of_4": 3
+      },
+      "never_correct_by_any_model": 1
+    },
+    {
+      "class": "Potato leaf late blight",
+      "test_images": 5,
+      "models_correct_histogram": {
+        "0_of_4": 2,
+        "3_of_4": 1,
+        "4_of_4": 2
+      },
+      "never_correct_by_any_model": 2
+    },
+    {
+      "class": "Corn Gray leaf spot",
+      "test_images": 3,
+      "models_correct_histogram": {
+        "0_of_4": 1,
+        "4_of_4": 2
+      },
+      "never_correct_by_any_model": 1
+    }
+  ],
+  "confidence": {
+    "plantdoc_27class_v4": {
+      "all_mistakes_mean_confidence": 0.3966,
+      "all_mistakes_median_confidence": 0.3602,
+      "hard_class_mistakes": [
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Bell_pepper leaf spot",
+          "confidence": 0.8254,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/bact-spot-fig-1.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.7906,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/corn-disease-update-fig-3-gray-leaf-spot.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.7846,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/1321189.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.7812,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/0796.20graylssymt.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Potato leaf late blight",
+          "confidence": 0.7645,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/3023.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.6892,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/07c.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.676,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/three-vibrant-leaves-bird-cherry-tree-13905898.jpg"
+        },
+        {
+          "actual": "Corn Gray leaf spot",
+          "predicted": "Corn leaf blight",
+          "confidence": 0.5932,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn Gray leaf spot/rsz0803Figure6.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Bell_pepper leaf",
+          "confidence": 0.5671,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/ill-tomato-of-tomato-mosaic-virus-DBE17N.jpg"
+        },
+        {
+          "actual": "Potato leaf late blight",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.548,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/20090710-lateblight.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf",
+          "confidence": 0.5453,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/9511.img.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.5414,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/2013Corn_GrayLeafSpot_0815_0003.JPG.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.4956,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/fc729af279e9087d00bd32d89a1552a756a3ad9de7f2b_1260x1260.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.4643,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/fungus-univ-of-minnesoeta.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.4368,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tmv-tomato-9.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Septoria leaf spot",
+          "confidence": 0.4297,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/tomato_bacterial-speck_01_zoom.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.4286,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/160314_web.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.4134,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/five-cherry-tree-green-leaves-white-isolated-background-34493587.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Peach leaf",
+          "confidence": 0.3912,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/red-cherry-tree-leaf-isolated-crisp-white-background-35742030.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.3709,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunus-virginiana-le-gmittelhauser.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Septoria leaf spot",
+          "confidence": 0.3695,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tomato%2BBacterial%2BSpot%2Bon%2BLeaves.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.3602,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/07.17.18-Common_Tomato_Diseases_Canker-258x300.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Bell_pepper leaf",
+          "confidence": 0.3533,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tmv-tomato-34.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato Septoria leaf spot",
+          "confidence": 0.3462,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/toma_TMV.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.3351,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/Corn-SCLB-2017-1.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.3336,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunsero_leaf1.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Bell_pepper leaf spot",
+          "confidence": 0.3285,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Bacterial_spots563.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.3251,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunsero_leaf2.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.3025,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/ed12ff77ce021883de241830dee55e2e53d2c93231699_1260x1260.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Apple leaf",
+          "confidence": 0.2859,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/potato-blight-phytophthora-infestans-close-up-of-upper-surface-of-BMMRXC.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Septoria leaf spot",
+          "confidence": 0.2586,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tom_Bact7.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.2573,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tomato_virus_04_zoom.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Squash Powdery mildew leaf",
+          "confidence": 0.2449,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tom_Bact3.jpg"
+        },
+        {
+          "actual": "Potato leaf late blight",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.2426,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/potato-late-blight.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato mold leaf",
+          "confidence": 0.2364,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/D%29AlfMov.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.2054,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/black_leaf_mold_in_zina_tina.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Septoria leaf spot",
+          "confidence": 0.1795,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/%2320+Bacterial+Spot+and+Speck.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf yellow virus",
+          "confidence": 0.1711,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/everystockphoto-21099455-l.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Peach leaf",
+          "confidence": 0.1399,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/page_2.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Corn rust leaf",
+          "confidence": 0.0913,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/BIGSD.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato mold leaf",
+          "confidence": 0.0586,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/Tomato-Mosaic-1wdr2jx-300x225.jpg"
+        }
+      ]
+    },
+    "plantdoc_27class_v5a": {
+      "all_mistakes_mean_confidence": 0.6067,
+      "all_mistakes_median_confidence": 0.5493,
+      "hard_class_mistakes": [
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.9848,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/three-vibrant-leaves-bird-cherry-tree-13905898.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.9843,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/corn-disease-update-fig-3-gray-leaf-spot.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.983,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/1321189.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.9741,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/07c.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.961,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/2013Corn_GrayLeafSpot_0815_0003.JPG.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.9426,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunus-virginiana-le-gmittelhauser.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.9411,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/0796.20graylssymt.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Bell_pepper leaf spot",
+          "confidence": 0.9179,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/bact-spot-fig-1.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.8919,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunsero_leaf2.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.8875,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/fc729af279e9087d00bd32d89a1552a756a3ad9de7f2b_1260x1260.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.8304,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/Corn-SCLB-2017-1.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.8194,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/five-cherry-tree-green-leaves-white-isolated-background-34493587.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Potato leaf late blight",
+          "confidence": 0.8133,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tomato_virus_04_zoom.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.802,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/07.17.18-Common_Tomato_Diseases_Canker-258x300.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Potato leaf late blight",
+          "confidence": 0.7956,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/3023.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Bell_pepper leaf",
+          "confidence": 0.7539,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/ill-tomato-of-tomato-mosaic-virus-DBE17N.jpg"
+        },
+        {
+          "actual": "Potato leaf late blight",
+          "predicted": "Potato leaf early blight",
+          "confidence": 0.7029,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/potato-late-blight.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.6796,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/early-blight-or-target-spot-alternaria-solani-lesions-on-a-tomato-AXK6AY.jpg"
+        },
+        {
+          "actual": "Corn Gray leaf spot",
+          "predicted": "Corn leaf blight",
+          "confidence": 0.664,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn Gray leaf spot/rsz0803Figure6.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.6292,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/dscn6689.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Septoria leaf spot",
+          "confidence": 0.6203,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tomato%2BBacterial%2BSpot%2Bon%2BLeaves.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.5978,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/black_leaf_mold_in_zina_tina.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.5616,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/red-cherry-tree-leaf-isolated-crisp-white-background-35742030.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf",
+          "confidence": 0.5282,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/9511.img.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.5221,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tmv-tomato-9.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Septoria leaf spot",
+          "confidence": 0.5187,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tom_Bact7.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.5109,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/ed12ff77ce021883de241830dee55e2e53d2c93231699_1260x1260.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.5086,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/fungus-univ-of-minnesoeta.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.4985,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunsero_leaf1.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf yellow virus",
+          "confidence": 0.4836,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/everystockphoto-21099455-l.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Apple rust leaf",
+          "confidence": 0.4724,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/potato-blight-phytophthora-infestans-close-up-of-upper-surface-of-BMMRXC.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Bell_pepper leaf spot",
+          "confidence": 0.469,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Bacterial_spots563.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf yellow virus",
+          "confidence": 0.4666,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/page_2.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato Septoria leaf spot",
+          "confidence": 0.4658,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/49%20Leafmold%20Bottom.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf yellow virus",
+          "confidence": 0.4487,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/toma_TMV.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Squash Powdery mildew leaf",
+          "confidence": 0.4478,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tom_Bact3.jpg"
+        },
+        {
+          "actual": "Potato leaf late blight",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.4433,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/20090710-lateblight.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato leaf bacterial spot",
+          "confidence": 0.4238,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/50%20Leafmold%20Top.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Corn rust leaf",
+          "confidence": 0.1789,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/BIGSD.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Squash Powdery mildew leaf",
+          "confidence": 0.1321,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/Tomato-Mosaic-1wdr2jx-300x225.jpg"
+        }
+      ]
+    },
+    "plantdoc_27class_v5b": {
+      "all_mistakes_mean_confidence": 0.5703,
+      "all_mistakes_median_confidence": 0.5481,
+      "hard_class_mistakes": [
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.9502,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/1321189.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.943,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/0796.20graylssymt.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Bell_pepper leaf spot",
+          "confidence": 0.9338,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/bact-spot-fig-1.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.9291,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/corn-disease-update-fig-3-gray-leaf-spot.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.9229,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/07c.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Bell_pepper leaf",
+          "confidence": 0.9107,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/ill-tomato-of-tomato-mosaic-virus-DBE17N.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Potato leaf late blight",
+          "confidence": 0.9077,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/3023.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Peach leaf",
+          "confidence": 0.8659,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/red-cherry-tree-leaf-isolated-crisp-white-background-35742030.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.8434,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunsero_leaf2.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.8154,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/2013Corn_GrayLeafSpot_0815_0003.JPG.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf yellow virus",
+          "confidence": 0.8035,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/everystockphoto-21099455-l.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf yellow virus",
+          "confidence": 0.7924,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/toma_TMV.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.7824,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/three-vibrant-leaves-bird-cherry-tree-13905898.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.7446,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/fc729af279e9087d00bd32d89a1552a756a3ad9de7f2b_1260x1260.jpg"
+        },
+        {
+          "actual": "Corn Gray leaf spot",
+          "predicted": "Corn leaf blight",
+          "confidence": 0.7334,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn Gray leaf spot/rsz0803Figure6.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.7298,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/early-blight-or-target-spot-alternaria-solani-lesions-on-a-tomato-AXK6AY.jpg"
+        },
+        {
+          "actual": "Potato leaf late blight",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.7045,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/20090710-lateblight.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Peach leaf",
+          "confidence": 0.6872,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/five-cherry-tree-green-leaves-white-isolated-background-34493587.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.668,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/dscn6689.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.6476,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tmv-tomato-9.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.6057,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/fungus-univ-of-minnesoeta.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.5851,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tomato%2BBacterial%2BSpot%2Bon%2BLeaves.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.5645,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunsero_leaf1.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.56,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/07.17.18-Common_Tomato_Diseases_Canker-258x300.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.5561,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/tomato_bacterial-speck_01_zoom.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.5481,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/potatobd001.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.5339,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/black_leaf_mold_in_zina_tina.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf",
+          "confidence": 0.4887,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/9511.img.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Bell_pepper leaf spot",
+          "confidence": 0.458,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Bacterial_spots563.jpg"
+        },
+        {
+          "actual": "Potato leaf late blight",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.4495,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/2540_600.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato leaf",
+          "confidence": 0.4353,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tom_Bact7.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Apple leaf",
+          "confidence": 0.3733,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/potato-blight-phytophthora-infestans-close-up-of-upper-surface-of-BMMRXC.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato mold leaf",
+          "confidence": 0.3721,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/D%29AlfMov.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.3646,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tomato_virus_04_zoom.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf yellow virus",
+          "confidence": 0.3039,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/page_2.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato mold leaf",
+          "confidence": 0.2552,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/Tomato-Mosaic-1wdr2jx-300x225.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Squash Powdery mildew leaf",
+          "confidence": 0.2478,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tom_Bact3.jpg"
+        },
+        {
+          "actual": "Potato leaf late blight",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.1963,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/potato-late-blight.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Corn rust leaf",
+          "confidence": 0.097,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/BIGSD.jpg"
+        }
+      ]
+    },
+    "plantdoc_27class_v6": {
+      "all_mistakes_mean_confidence": 0.3625,
+      "all_mistakes_median_confidence": 0.3468,
+      "hard_class_mistakes": [
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.7463,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/1321189.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Bell_pepper leaf spot",
+          "confidence": 0.7222,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/bact-spot-fig-1.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Peach leaf",
+          "confidence": 0.6399,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/five-cherry-tree-green-leaves-white-isolated-background-34493587.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.6154,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/07c.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.6047,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/corn-disease-update-fig-3-gray-leaf-spot.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Potato leaf late blight",
+          "confidence": 0.5679,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/3023.jpg"
+        },
+        {
+          "actual": "Corn leaf blight",
+          "predicted": "Corn Gray leaf spot",
+          "confidence": 0.5584,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/0796.20graylssymt.jpg"
+        },
+        {
+          "actual": "Corn Gray leaf spot",
+          "predicted": "Corn leaf blight",
+          "confidence": 0.5568,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn Gray leaf spot/rsz0803Figure6.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.5448,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/three-vibrant-leaves-bird-cherry-tree-13905898.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Blueberry leaf",
+          "confidence": 0.5285,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunsero_leaf1.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.4957,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/dscn6689.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Bell_pepper leaf",
+          "confidence": 0.494,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/ill-tomato-of-tomato-mosaic-virus-DBE17N.jpg"
+        },
+        {
+          "actual": "Potato leaf late blight",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.4881,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/20090710-lateblight.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Peach leaf",
+          "confidence": 0.4686,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/red-cherry-tree-leaf-isolated-crisp-white-background-35742030.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.4517,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/fungus-univ-of-minnesoeta.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.445,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/07.17.18-Common_Tomato_Diseases_Canker-258x300.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.4407,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tomato_virus_04_zoom.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.3954,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tmv-tomato-9.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.3634,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunsero_leaf2.jpg"
+        },
+        {
+          "actual": "Cherry leaf",
+          "predicted": "Apple leaf",
+          "confidence": 0.3461,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/fc729af279e9087d00bd32d89a1552a756a3ad9de7f2b_1260x1260.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf yellow virus",
+          "confidence": 0.324,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/everystockphoto-21099455-l.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Bell_pepper leaf spot",
+          "confidence": 0.3119,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Bacterial_spots563.jpg"
+        },
+        {
+          "actual": "Potato leaf early blight",
+          "predicted": "Tomato Early blight leaf",
+          "confidence": 0.3084,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/early-blight-or-target-spot-alternaria-solani-lesions-on-a-tomato-AXK6AY.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato mold leaf",
+          "confidence": 0.3048,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/D%29AlfMov.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Tomato leaf late blight",
+          "confidence": 0.2822,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/black_leaf_mold_in_zina_tina.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf yellow virus",
+          "confidence": 0.2378,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/toma_TMV.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Squash Powdery mildew leaf",
+          "confidence": 0.1933,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tom_Bact3.jpg"
+        },
+        {
+          "actual": "Tomato leaf bacterial spot",
+          "predicted": "Tomato Septoria leaf spot",
+          "confidence": 0.1791,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tom_Bact7.jpg"
+        },
+        {
+          "actual": "Potato leaf late blight",
+          "predicted": "Soyabean leaf",
+          "confidence": 0.155,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/potato-late-blight.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Tomato leaf yellow virus",
+          "confidence": 0.0924,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/page_2.jpg"
+        },
+        {
+          "actual": "Tomato leaf mosaic virus",
+          "predicted": "Corn rust leaf",
+          "confidence": 0.086,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/Tomato-Mosaic-1wdr2jx-300x225.jpg"
+        },
+        {
+          "actual": "Tomato mold leaf",
+          "predicted": "Corn rust leaf",
+          "confidence": 0.0827,
+          "path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/BIGSD.jpg"
+        }
+      ]
+    }
+  },
+  "resolution_shift": [
+    {
+      "class": "Tomato leaf mosaic virus",
+      "train_median_px": 114600,
+      "test_median_px": 578117,
+      "ratio": 5.04
+    },
+    {
+      "class": "Potato leaf early blight",
+      "train_median_px": 347310,
+      "test_median_px": 786432,
+      "ratio": 2.26
+    },
+    {
+      "class": "Apple leaf",
+      "train_median_px": 726843,
+      "test_median_px": 1526200,
+      "ratio": 2.1
+    },
+    {
+      "class": "Tomato leaf",
+      "train_median_px": 1248000,
+      "test_median_px": 1920000,
+      "ratio": 1.54
+    },
+    {
+      "class": "Strawberry leaf",
+      "train_median_px": 1004288,
+      "test_median_px": 1514500,
+      "ratio": 1.51
+    },
+    {
+      "class": "Tomato Early blight leaf",
+      "train_median_px": 270720,
+      "test_median_px": 305602,
+      "ratio": 1.13
+    },
+    {
+      "class": "Blueberry leaf",
+      "train_median_px": 1244100,
+      "test_median_px": 1385256,
+      "ratio": 1.11
+    },
+    {
+      "class": "grape leaf black rot",
+      "train_median_px": 480000,
+      "test_median_px": 523305,
+      "ratio": 1.09
+    },
+    {
+      "class": "Cherry leaf",
+      "train_median_px": 1228800,
+      "test_median_px": 1330560,
+      "ratio": 1.08
+    },
+    {
+      "class": "Corn leaf blight",
+      "train_median_px": 375500,
+      "test_median_px": 398925,
+      "ratio": 1.06
+    },
+    {
+      "class": "Soyabean leaf",
+      "train_median_px": 696320,
+      "test_median_px": 712299,
+      "ratio": 1.02
+    },
+    {
+      "class": "Tomato leaf bacterial spot",
+      "train_median_px": 307200,
+      "test_median_px": 305750,
+      "ratio": 1.0
+    },
+    {
+      "class": "Peach leaf",
+      "train_median_px": 1301300,
+      "test_median_px": 1244100,
+      "ratio": 0.96
+    },
+    {
+      "class": "Corn Gray leaf spot",
+      "train_median_px": 185328,
+      "test_median_px": 153600,
+      "ratio": 0.83
+    },
+    {
+      "class": "Tomato leaf yellow virus",
+      "train_median_px": 345600,
+      "test_median_px": 285256,
+      "ratio": 0.83
+    },
+    {
+      "class": "Raspberry leaf",
+      "train_median_px": 1239550,
+      "test_median_px": 1008640,
+      "ratio": 0.81
+    },
+    {
+      "class": "Bell_pepper leaf",
+      "train_median_px": 599592,
+      "test_median_px": 472800,
+      "ratio": 0.79
+    },
+    {
+      "class": "Tomato Septoria leaf spot",
+      "train_median_px": 286250,
+      "test_median_px": 224507,
+      "ratio": 0.78
+    },
+    {
+      "class": "Bell_pepper leaf spot",
+      "train_median_px": 470650,
+      "test_median_px": 305602,
+      "ratio": 0.65
+    },
+    {
+      "class": "Apple Scab Leaf",
+      "train_median_px": 287472,
+      "test_median_px": 180054,
+      "ratio": 0.63
+    },
+    {
+      "class": "Tomato mold leaf",
+      "train_median_px": 479200,
+      "test_median_px": 296925,
+      "ratio": 0.62
+    },
+    {
+      "class": "Squash Powdery mildew leaf",
+      "train_median_px": 480000,
+      "test_median_px": 263736,
+      "ratio": 0.55
+    },
+    {
+      "class": "grape leaf",
+      "train_median_px": 1705600,
+      "test_median_px": 906000,
+      "ratio": 0.53
+    },
+    {
+      "class": "Apple rust leaf",
+      "train_median_px": 480000,
+      "test_median_px": 215400,
+      "ratio": 0.45
+    },
+    {
+      "class": "Potato leaf late blight",
+      "train_median_px": 424076,
+      "test_median_px": 189200,
+      "ratio": 0.45
+    },
+    {
+      "class": "Tomato leaf late blight",
+      "train_median_px": 673920,
+      "test_median_px": 240590,
+      "ratio": 0.36
+    },
+    {
+      "class": "Corn rust leaf",
+      "train_median_px": 566052,
+      "test_median_px": 128736,
+      "ratio": 0.23
+    }
+  ],
+  "note": "The test set is reused across every experiment, so these figures are an exploratory comparison. The confidences are uncalibrated softmax outputs, not disease probabilities."
+}

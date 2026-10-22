@@ -12,6 +12,11 @@ from pydantic import BaseModel, field_validator
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
+from agents.classifier import (
+    crop_from_label,
+    load_class_names,
+    load_model_metadata,
+)
 from agents.graph import run_advice
 from speech.tts_adapter import tts_adapter
 from speech.stt import stt_adapter
@@ -69,6 +74,31 @@ class AdviceRequest(BaseModel):
         return value
 
 
+DISCLAIMER = (
+    "This is an informational estimate, not a guaranteed diagnosis, and it is "
+    "not a substitute for an agricultural officer. The score shown is an "
+    "uncalibrated model confidence, not the probability of a disease."
+)
+
+
+def _model_disclaimer() -> str:
+    """The disclaimer, naming the dataset the deployed model was trained on.
+
+    Read from the export's own manifest, so the text cannot claim a
+    dataset the model was not trained on.
+    """
+    metadata = load_model_metadata()
+    dataset = metadata.get("dataset")
+    if not dataset:
+        return DISCLAIMER
+    return (
+        f"This is an informational estimate from a model trained on {dataset}. "
+        "It is not a guaranteed diagnosis and it is not a substitute for an "
+        "agricultural officer. The score shown is an uncalibrated model "
+        "confidence, not the probability of a disease."
+    )
+
+
 class AdviceResponse(BaseModel):
     case_id: str
     crop: str
@@ -77,13 +107,42 @@ class AdviceResponse(BaseModel):
     advice: str
     citations: list[str]
     confidence: float
+    confidence_is_calibrated: bool = False
     safe: bool
     escalate: bool
+    disclaimer: str = DISCLAIMER
 
 
 @app.get("/health")
 async def health() -> dict[str, str]:
     return {"status": "ok", "region": REGION}
+
+
+@app.get("/model")
+async def model_info() -> dict[str, Any]:
+    """What the deployed classifier can actually recognise.
+
+    Everything here is read from the export's own manifest and class
+    list, so the description cannot drift away from the artifact that
+    is actually being served.
+    """
+    metadata = load_model_metadata()
+    classes = metadata.get("classes") or load_class_names()
+    crops = sorted({
+        crop for crop in (crop_from_label(name) for name in classes) if crop
+    })
+    return {
+        "classes": classes,
+        "crops": crops,
+        "crop_specific": bool(crops),
+        "num_classes": metadata.get("num_classes") or len(classes),
+        "trained_on": metadata.get("dataset"),
+        "metrics": metadata.get("metrics"),
+        "confidence_is_calibrated": metadata.get(
+            "confidence_is_calibrated", False
+        ),
+        "disclaimer": _model_disclaimer(),
+    }
 
 
 @app.post("/advice", response_model=AdviceResponse)
@@ -95,15 +154,20 @@ async def advice(req: AdviceRequest) -> AdviceResponse:
         language=state.language,
         diagnosis={
             "predictions": state.predictions,
+            "top_predictions": state.predictions[:3],
             "confidence": state.confidence,
+            "confidence_is_calibrated": False,
+            "guidance_available": state.guidance_available,
             "quality_ok": state.quality_ok,
             "quality_issue": state.quality_issue,
         },
         advice=state.answer or "",
         citations=state.citations,
         confidence=state.confidence,
+        confidence_is_calibrated=False,
         safe=state.safe,
         escalate=state.escalate,
+        disclaimer=_model_disclaimer(),
     )
 
 
@@ -144,11 +208,11 @@ async def transcribe(req: TranscribeRequest):
 async def advice_image(
     file: UploadFile = File(...),
     language: str = Form("en"),
-    crop: str = Form("rice"),
+    crop: str = Form(""),
 ) -> AdviceResponse:
     contents = await file.read()
     state = await run_advice(
-        AdviceRequest(image_url=file.filename, image_bytes=contents, language=language, crop=crop)
+        AdviceRequest(image_url=file.filename, image_bytes=contents, language=language, crop=crop or None)
     )
     return AdviceResponse(
         case_id=state.case_id,
@@ -156,13 +220,18 @@ async def advice_image(
         language=state.language,
         diagnosis={
             "predictions": state.predictions,
+            "top_predictions": state.predictions[:3],
             "confidence": state.confidence,
+            "confidence_is_calibrated": False,
+            "guidance_available": state.guidance_available,
             "quality_ok": state.quality_ok,
             "quality_issue": state.quality_issue,
         },
         advice=state.answer or "",
         citations=state.citations,
         confidence=state.confidence,
+        confidence_is_calibrated=False,
         safe=state.safe,
         escalate=state.escalate,
+        disclaimer=_model_disclaimer(),
     )
