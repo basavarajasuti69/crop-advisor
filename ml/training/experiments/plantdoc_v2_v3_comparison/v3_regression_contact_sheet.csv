@@ -1,0 +1,21 @@
+actual_label,predicted_label,confidence,source_path
+Blueberry leaf,Soyabean leaf,0.2955876290798187,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Blueberry leaf/blueberrysilverleaf16-1372b.jpg
+Blueberry leaf,Soyabean leaf,0.5534029603004456,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Blueberry leaf/stock-photo-two-sides-of-blueberry-leaf-isolated-on-white-15582232.jpg
+Blueberry leaf,Bell_pepper leaf,0.3712114691734314,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Blueberry leaf/vaccinium-angustifolium-low-bush-blueberry_0830_124221.jpg
+Corn leaf blight,Corn Gray leaf spot,0.6207512021064758,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Corn leaf blight/160314_web.jpg
+Corn leaf blight,Corn Gray leaf spot,0.4960661828517914,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Corn leaf blight/Corn-SCLB-2017-1.jpg
+Corn rust leaf,Corn Gray leaf spot,0.4353944361209869,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Corn rust leaf/12-19striprustJIM.jpg
+Corn rust leaf,Corn Gray leaf spot,0.5590184926986694,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Corn rust leaf/5496239405_d95bdb97d1_z.jpg
+Potato leaf early blight,Tomato Early blight leaf,0.6347224712371826,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Potato leaf early blight/early-blight-or-target-spot-alternaria-solani-lesions-on-a-tomato-AXK6AY.jpg
+Potato leaf early blight,Tomato Early blight leaf,0.4448478519916534,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Potato leaf early blight/earlyblightpotato.jpg
+Potato leaf early blight,Tomato Early blight leaf,0.3149906396865845,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Potato leaf early blight/potatobd001.jpg
+Soyabean leaf,Apple Scab Leaf,0.2658253014087677,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Soyabean leaf/07feb_ma_sbr3.JPG.jpg
+Soyabean leaf,Raspberry leaf,0.545563817024231,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Soyabean leaf/leaf-raspberry-isolated-on-a-white-stock-photography-image-10106222-1625198.jpg
+Squash Powdery mildew leaf,Apple Scab Leaf,0.4963064789772033,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Squash Powdery mildew leaf/surface.jpg
+Tomato Septoria leaf spot,Apple rust leaf,0.2193454504013061,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato Septoria leaf spot/2septoria-tomato.jpg
+Tomato Septoria leaf spot,Tomato Early blight leaf,0.1994789391756057,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato Septoria leaf spot/7-17-Photo3_Septoria-MARY.jpg
+Tomato leaf bacterial spot,Tomato Septoria leaf spot,0.1203714832663536,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf bacterial spot/%2320+Bacterial+Spot+and+Speck.jpg
+Tomato leaf mosaic virus,Tomato mold leaf,0.2729068100452423,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf mosaic virus/D%29AlfMov.jpg
+Tomato leaf,Raspberry leaf,0.3096783459186554,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf/Tomato_leaf.jpg
+Tomato mold leaf,Tomato leaf late blight,0.3279177546501159,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato mold leaf/fungus-univ-of-minnesoeta.jpg
+grape leaf,Cherry leaf,0.5541930198669434,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/grape leaf/DSCN7317.JPG.jpg

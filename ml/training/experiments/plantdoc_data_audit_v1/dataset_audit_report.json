@@ -1,0 +1,86 @@
+{
+  "dataset_path": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data",
+  "train": {
+    "total_images": 2325,
+    "class_count": 28,
+    "images_per_class": {
+      "Apple Scab Leaf": 83,
+      "Apple leaf": 82,
+      "Apple rust leaf": 78,
+      "Bell_pepper leaf": 53,
+      "Bell_pepper leaf spot": 62,
+      "Blueberry leaf": 103,
+      "Cherry leaf": 47,
+      "Corn Gray leaf spot": 62,
+      "Corn leaf blight": 178,
+      "Corn rust leaf": 106,
+      "Peach leaf": 102,
+      "Potato leaf early blight": 105,
+      "Potato leaf late blight": 96,
+      "Raspberry leaf": 112,
+      "Soyabean leaf": 57,
+      "Squash Powdery mildew leaf": 124,
+      "Strawberry leaf": 88,
+      "Tomato Early blight leaf": 79,
+      "Tomato Septoria leaf spot": 138,
+      "Tomato leaf": 55,
+      "Tomato leaf bacterial spot": 101,
+      "Tomato leaf late blight": 101,
+      "Tomato leaf mosaic virus": 44,
+      "Tomato leaf yellow virus": 69,
+      "Tomato mold leaf": 85,
+      "Tomato two spotted spider mites leaf": 2,
+      "grape leaf": 57,
+      "grape leaf black rot": 56
+    },
+    "file_extensions": {
+      ".jpg": 2323,
+      ".jpeg": 1,
+      ".png": 1
+    },
+    "unreadable_images": []
+  },
+  "test": {
+    "total_images": 225,
+    "class_count": 27,
+    "images_per_class": {
+      "Apple Scab Leaf": 10,
+      "Apple leaf": 9,
+      "Apple rust leaf": 10,
+      "Bell_pepper leaf": 8,
+      "Bell_pepper leaf spot": 9,
+      "Blueberry leaf": 10,
+      "Cherry leaf": 10,
+      "Corn Gray leaf spot": 3,
+      "Corn leaf blight": 10,
+      "Corn rust leaf": 10,
+      "Peach leaf": 9,
+      "Potato leaf early blight": 7,
+      "Potato leaf late blight": 5,
+      "Raspberry leaf": 7,
+      "Soyabean leaf": 8,
+      "Squash Powdery mildew leaf": 6,
+      "Strawberry leaf": 8,
+      "Tomato Early blight leaf": 9,
+      "Tomato Septoria leaf spot": 10,
+      "Tomato leaf": 8,
+      "Tomato leaf bacterial spot": 8,
+      "Tomato leaf late blight": 10,
+      "Tomato leaf mosaic virus": 10,
+      "Tomato leaf yellow virus": 5,
+      "Tomato mold leaf": 6,
+      "grape leaf": 12,
+      "grape leaf black rot": 8
+    },
+    "file_extensions": {
+      ".jpg": 225
+    },
+    "unreadable_images": []
+  },
+  "classes_only_in_train": [
+    "Tomato two spotted spider mites leaf"
+  ],
+  "classes_only_in_test": [],
+  "total_images": 2550,
+  "warning": "This report checks file structure and readability, not whether disease labels are scientifically correct."
+}

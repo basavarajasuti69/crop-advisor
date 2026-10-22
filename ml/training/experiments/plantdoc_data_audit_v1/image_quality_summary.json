@@ -1,0 +1,15 @@
+{
+  "images_inspected": 2550,
+  "images_by_split": {
+    "train": 2325,
+    "test": 225
+  },
+  "images_flagged_for_review": 80,
+  "flag_counts": {
+    "small_file_size": 35,
+    "possible_blur_or_low_detail": 36,
+    "small_dimensions": 12,
+    "unusual_aspect_ratio": 4
+  },
+  "warning": "Automated flags are heuristics, not proof of poor quality or incorrect labels. Review flagged images manually."
+}

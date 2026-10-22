@@ -1,0 +1,28 @@
+actual/predicted,Apple Scab Leaf,Apple leaf,Apple rust leaf,Bell_pepper leaf,Bell_pepper leaf spot,Blueberry leaf,Cherry leaf,Corn Gray leaf spot,Corn leaf blight,Corn rust leaf,Peach leaf,Potato leaf early blight,Potato leaf late blight,Raspberry leaf,Soyabean leaf,Squash Powdery mildew leaf,Strawberry leaf,Tomato Early blight leaf,Tomato Septoria leaf spot,Tomato leaf,Tomato leaf bacterial spot,Tomato leaf late blight,Tomato leaf mosaic virus,Tomato leaf yellow virus,Tomato mold leaf,grape leaf,grape leaf black rot
+Apple Scab Leaf,7,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0
+Apple leaf,0,8,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Apple rust leaf,0,1,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+Bell_pepper leaf,0,0,0,4,3,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+Bell_pepper leaf spot,0,1,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+Blueberry leaf,0,1,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0
+Cherry leaf,0,5,0,0,0,3,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Corn Gray leaf spot,0,0,0,0,0,0,0,2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Corn leaf blight,0,0,0,0,0,0,0,6,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Corn rust leaf,0,0,0,0,0,0,0,2,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Peach leaf,0,2,0,0,0,0,1,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+Potato leaf early blight,0,0,1,0,0,0,0,0,0,0,0,4,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+Potato leaf late blight,0,0,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,0,0,0,1,0,0,0,0,0
+Raspberry leaf,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0
+Soyabean leaf,0,1,0,0,0,2,0,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0,0,0,0
+Squash Powdery mildew leaf,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0
+Strawberry leaf,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,0
+Tomato Early blight leaf,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,6,2,0,0,0,0,0,0,0,0
+Tomato Septoria leaf spot,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,8,0,0,0,0,0,0,0,0
+Tomato leaf,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,3,1,0,0,0,0,1,0
+Tomato leaf bacterial spot,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1,0,1,2,0,2,0,0,0,0,0,0
+Tomato leaf late blight,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,9,0,0,0,0,0
+Tomato leaf mosaic virus,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1,0,1,2,3,0,0,0
+Tomato leaf yellow virus,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,4,0,0,0
+Tomato mold leaf,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,1,2,0,0,0,0,0
+grape leaf,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,0
+grape leaf black rot,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7

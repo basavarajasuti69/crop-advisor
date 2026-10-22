@@ -1,0 +1,34 @@
+{
+  "experiment": "plantdoc_27class_v4",
+  "metrics": {
+    "accuracy": 0.64,
+    "macro_precision": 0.614022,
+    "macro_recall": 0.643695,
+    "macro_f1": 0.607734,
+    "weighted_f1": 0.611924,
+    "correct": 144,
+    "incorrect": 81,
+    "total": 225,
+    "mean_max_probability": 0.565806,
+    "mean_max_probability_correct": 0.660997,
+    "mean_max_probability_incorrect": 0.396579
+  },
+  "training": {
+    "epochs_requested": 5,
+    "best_epoch": 5,
+    "best_validation_accuracy": 0.6455,
+    "label_smoothing": null,
+    "class_weighting": false,
+    "seed": 42,
+    "device": "mps",
+    "training_images": 1972,
+    "validation_images": 347,
+    "test_images": 225,
+    "lr": null,
+    "learning_rate": null,
+    "batch_size": null,
+    "lr_recorded": false,
+    "batch_size_recorded": false
+  },
+  "note": "Probabilities are uncalibrated softmax outputs."
+}

@@ -1,0 +1,11 @@
+{
+  "dataset": "ml/training/experiments/plantdoc_deduplicated_v2/data",
+  "training_images_checked": 2321,
+  "test_images_checked": 225,
+  "threshold": 8,
+  "candidate_count": 0,
+  "same_label_candidates": 0,
+  "different_label_candidates": 0,
+  "candidates": [],
+  "warning": "Perceptual similarity is a screening signal, not proof of duplicate images or incorrect labels. Review candidate images."
+}

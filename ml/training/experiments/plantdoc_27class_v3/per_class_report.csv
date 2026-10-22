@@ -1,0 +1,28 @@
+class,test_images,correct,accuracy,most_common_wrong_prediction
+Apple Scab Leaf,10,8,0.8000,Soyabean leaf (2)
+Apple leaf,9,8,0.8889,Bell_pepper leaf (1)
+Apple rust leaf,10,8,0.8000,Potato leaf early blight (1)
+Bell_pepper leaf,8,7,0.8750,Raspberry leaf (1)
+Bell_pepper leaf spot,9,7,0.7778,Tomato Septoria leaf spot (1)
+Blueberry leaf,10,2,0.2000,Soyabean leaf (3)
+Cherry leaf,10,3,0.3000,Apple leaf (3)
+Corn Gray leaf spot,3,2,0.6667,Corn leaf blight (1)
+Corn leaf blight,10,3,0.3000,Corn Gray leaf spot (7)
+Corn rust leaf,10,6,0.6000,Corn Gray leaf spot (4)
+Peach leaf,9,7,0.7778,Cherry leaf (1)
+Potato leaf early blight,7,2,0.2857,Tomato Early blight leaf (3)
+Potato leaf late blight,5,4,0.8000,Tomato leaf late blight (1)
+Raspberry leaf,7,7,1.0000,
+Soyabean leaf,8,5,0.6250,Raspberry leaf (1)
+Squash Powdery mildew leaf,6,5,0.8333,Apple Scab Leaf (1)
+Strawberry leaf,8,8,1.0000,
+Tomato Early blight leaf,9,9,1.0000,
+Tomato Septoria leaf spot,10,8,0.8000,Tomato Early blight leaf (1)
+Tomato leaf,8,3,0.3750,Bell_pepper leaf (3)
+Tomato leaf bacterial spot,8,0,0.0000,Tomato Septoria leaf spot (2)
+Tomato leaf late blight,10,9,0.9000,Tomato Early blight leaf (1)
+Tomato leaf mosaic virus,10,2,0.2000,Tomato mold leaf (2)
+Tomato leaf yellow virus,5,4,0.8000,Tomato leaf (1)
+Tomato mold leaf,6,2,0.3333,Tomato leaf late blight (2)
+grape leaf,12,10,0.8333,Raspberry leaf (1)
+grape leaf black rot,8,7,0.8750,Apple rust leaf (1)

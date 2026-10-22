@@ -1,0 +1,42 @@
+{
+  "training_images": 2325,
+  "test_images": 225,
+  "threshold": 8,
+  "candidate_pair_count": 4,
+  "same_label_candidates": 3,
+  "different_label_candidates": 1,
+  "candidates": [
+    {
+      "hamming_distance": 0,
+      "train_label": "Tomato Early blight leaf",
+      "test_label": "Potato leaf early blight",
+      "same_label": false,
+      "train_path": "ml/training/experiments/plantdoc_deduplicated_v1/data/train/Tomato Early blight leaf/earlyblightpotato.jpg",
+      "test_path": "ml/training/experiments/plantdoc_deduplicated_v1/data/test/Potato leaf early blight/earlyblightpotato.jpg"
+    },
+    {
+      "hamming_distance": 0,
+      "train_label": "Tomato leaf bacterial spot",
+      "test_label": "Tomato leaf bacterial spot",
+      "same_label": true,
+      "train_path": "ml/training/experiments/plantdoc_deduplicated_v1/data/train/Tomato leaf bacterial spot/bacterial-canker3x2400-2ia1kgd.jpg",
+      "test_path": "ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf bacterial spot/07.17.18-Common_Tomato_Diseases_Canker-258x300.jpg"
+    },
+    {
+      "hamming_distance": 0,
+      "train_label": "Tomato leaf late blight",
+      "test_label": "Tomato leaf late blight",
+      "same_label": true,
+      "train_path": "ml/training/experiments/plantdoc_deduplicated_v1/data/train/Tomato leaf late blight/late_blight1.jpg",
+      "test_path": "ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf late blight/18c.jpg"
+    },
+    {
+      "hamming_distance": 6,
+      "train_label": "grape leaf",
+      "test_label": "grape leaf",
+      "same_label": true,
+      "train_path": "ml/training/experiments/plantdoc_deduplicated_v1/data/train/grape leaf/grape-leave-clipping-path-3817989.jpg",
+      "test_path": "ml/training/experiments/plantdoc_deduplicated_v1/data/test/grape leaf/depositphotos_6898486-stock-photo-grape-leaves.jpg"
+    }
+  ]
+}

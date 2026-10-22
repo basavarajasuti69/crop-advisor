@@ -1,0 +1,14 @@
+{
+  "experiment": "PlantDoc V4",
+  "model": "efficientnet_b0",
+  "dataset": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test",
+  "device": "mps",
+  "classes": 27,
+  "test_images": 225,
+  "correct_predictions": 144,
+  "incorrect_predictions": 81,
+  "accuracy": 0.64,
+  "accuracy_percent": 64.0,
+  "mean_max_probability_percent": 56.58,
+  "warning": "Exploratory benchmark only. PlantDoc folder labels may be noisy, and the test set has been reused across experiments. This is not proof of real-world diagnostic accuracy."
+}

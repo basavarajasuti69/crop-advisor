@@ -1,0 +1,35 @@
+actual_label,predicted_label,confidence,source_path
+Apple Scab Leaf,Soyabean leaf | V3: Soyabean leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Apple Scab Leaf/apple%20scabnew.jpg
+Apple Scab Leaf,Soyabean leaf | V3: Soyabean leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Apple Scab Leaf/apples_apple-scab_10_zoom.jpg
+Apple leaf,Bell_pepper leaf | V3: Bell_pepper leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Apple leaf/Apple-Leaf-Wallpaper-17.jpg
+Apple rust leaf,Potato leaf early blight | V3: Potato leaf early blight,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Apple rust leaf/20130802_111632.jpg
+Bell_pepper leaf spot,Tomato Septoria leaf spot | V3: Tomato Septoria leaf spot,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Bell_pepper leaf spot/000.jpg
+Bell_pepper leaf spot,Apple Scab Leaf | V3: Apple Scab Leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Bell_pepper leaf spot/CMVpepperLeafShock-copy-50QUALITY-1ge8umw.jpg
+Bell_pepper leaf,Soyabean leaf | V3: Raspberry leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Bell_pepper leaf/4825902504_5fa80b65b8_z.jpg
+Blueberry leaf,Tomato leaf bacterial spot | V3: Apple Scab Leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Blueberry leaf/P1200701+Vaccinium+ovalifolium+Oval-leaf+Blueberry+leaf+margin+Heather+Meadows+cr.jpg
+Blueberry leaf,Soyabean leaf | V3: Soyabean leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Blueberry leaf/leaf-blueberry-15281271.jpg
+Blueberry leaf,Apple leaf | V3: Apple leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Blueberry leaf/stock-photo-blueberry-leaf-closeup-isolated-on-white-306486470.jpg
+Blueberry leaf,Apple leaf | V3: Apple leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Blueberry leaf/stock-photo-green-blueberry-leaf-isolated-with-clipping-path-550344304.jpg
+Blueberry leaf,Cherry leaf | V3: Cherry leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Blueberry leaf/vaccinium_angustifolium_leaf2.JPG.jpg
+Cherry leaf,Apple leaf | V3: Apple leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Cherry leaf/ed12ff77ce021883de241830dee55e2e53d2c93231699_1260x1260.jpg
+Cherry leaf,Apple leaf | V3: Apple leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Cherry leaf/fc729af279e9087d00bd32d89a1552a756a3ad9de7f2b_1260x1260.jpg
+Cherry leaf,Peach leaf | V3: Peach leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Cherry leaf/five-cherry-tree-green-leaves-white-isolated-background-34493587.jpg
+Cherry leaf,Blueberry leaf | V3: Blueberry leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Cherry leaf/prunsero_leaf1.jpg
+Cherry leaf,Apple leaf | V3: Apple leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Cherry leaf/prunsero_leaf2.jpg
+Cherry leaf,Peach leaf | V3: Peach leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Cherry leaf/red-cherry-tree-leaf-isolated-crisp-white-background-35742030.jpg
+Cherry leaf,Blueberry leaf | V3: Blueberry leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Cherry leaf/three-vibrant-leaves-bird-cherry-tree-13905898.jpg
+Peach leaf,Apple leaf | V3: Apple leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Peach leaf/00pe.jpg
+Peach leaf,Cherry leaf | V3: Cherry leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Peach leaf/rose_tree_220430.jpg
+Potato leaf early blight,Apple leaf | V3: Apple leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Potato leaf early blight/potato-blight-phytophthora-infestans-close-up-of-upper-surface-of-BMMRXC.jpg
+Potato leaf late blight,Tomato leaf late blight | V3: Tomato leaf late blight,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Potato leaf late blight/20090710-lateblight.jpg
+Soyabean leaf,Apple leaf | V3: Apple leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Soyabean leaf/fresh-soy-leaves-isolated-on-260nw-667193923.jpg
+Tomato leaf bacterial spot,Bell_pepper leaf spot | V3: Bell_pepper leaf spot,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf bacterial spot/Bacterial_spots563.jpg
+Tomato leaf bacterial spot,Apple leaf | V3: Apple leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf bacterial spot/Tom_Bact3.jpg
+Tomato leaf bacterial spot,Bell_pepper leaf spot | V3: Bell_pepper leaf spot,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf bacterial spot/bact-spot-fig-1.jpg
+Tomato leaf mosaic virus,Corn rust leaf | V3: Corn rust leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf mosaic virus/Tomato-Mosaic-1wdr2jx-300x225.jpg
+Tomato leaf mosaic virus,Bell_pepper leaf | V3: Bell_pepper leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf mosaic virus/ill-tomato-of-tomato-mosaic-virus-DBE17N.jpg
+Tomato leaf,Blueberry leaf | V3: Blueberry leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf/2013-08-20-06.jpg
+Tomato leaf,Bell_pepper leaf | V3: Bell_pepper leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf/DSCN1015.JPG.jpg
+Tomato mold leaf,Corn rust leaf | V3: Corn rust leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato mold leaf/BIGSD.jpg
+grape leaf black rot,Apple rust leaf | V3: Apple rust leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/grape leaf black rot/5-29black-rot-chardRR.jpg
+grape leaf,Raspberry leaf | V3: Raspberry leaf,0.0,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/grape leaf/P1130286.jpg

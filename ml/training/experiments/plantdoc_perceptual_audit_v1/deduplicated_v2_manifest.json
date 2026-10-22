@@ -1,0 +1,44 @@
+{
+  "dataset": "PlantDoc Deduplicated V2",
+  "source": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data",
+  "destination": "/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data",
+  "policy": "Four visually similar training-side candidates excluded. Test images retained. No labels changed. Source and production artifacts were not modified.",
+  "train_images_before": 2325,
+  "test_images_before": 225,
+  "train_images_after": 2321,
+  "test_images_after": 225,
+  "excluded_training_candidates": [
+    {
+      "train_relative_path": "train/Tomato Early blight leaf/earlyblightpotato.jpg",
+      "test_relative_path": "test/Potato leaf early blight/earlyblightpotato.jpg",
+      "reason": "Perceptual hash distance 0; visually similar; conflicting labels",
+      "label_review_required": true,
+      "source_train_sha256": "d0c8a4d48ed9a3f9435d1affb82ac10e9a06adb0f2615ff62e83e21bdfa281fc",
+      "excluded_train_sha256": "d0c8a4d48ed9a3f9435d1affb82ac10e9a06adb0f2615ff62e83e21bdfa281fc"
+    },
+    {
+      "train_relative_path": "train/Tomato leaf bacterial spot/bacterial-canker3x2400-2ia1kgd.jpg",
+      "test_relative_path": "test/Tomato leaf bacterial spot/07.17.18-Common_Tomato_Diseases_Canker-258x300.jpg",
+      "reason": "Perceptual hash distance 0; visually similar candidate",
+      "label_review_required": false,
+      "source_train_sha256": "9840822e5069579f3b7a7608b69a77fdd8b477a9be85eb70524eff1ca7b191aa",
+      "excluded_train_sha256": "9840822e5069579f3b7a7608b69a77fdd8b477a9be85eb70524eff1ca7b191aa"
+    },
+    {
+      "train_relative_path": "train/Tomato leaf late blight/late_blight1.jpg",
+      "test_relative_path": "test/Tomato leaf late blight/18c.jpg",
+      "reason": "Perceptual hash distance 0; visually similar candidate",
+      "label_review_required": false,
+      "source_train_sha256": "3230695e2d8b18154ab2514dacdc3dca3249c8ef0559c255b958d3b62873e382",
+      "excluded_train_sha256": "3230695e2d8b18154ab2514dacdc3dca3249c8ef0559c255b958d3b62873e382"
+    },
+    {
+      "train_relative_path": "train/grape leaf/grape-leave-clipping-path-3817989.jpg",
+      "test_relative_path": "test/grape leaf/depositphotos_6898486-stock-photo-grape-leaves.jpg",
+      "reason": "Perceptual hash distance 6; visually similar candidate",
+      "label_review_required": false,
+      "source_train_sha256": "1d787bef07e963bd08e00b705062f3c2e77673aa9792e88985711aa7091613e4",
+      "excluded_train_sha256": "1d787bef07e963bd08e00b705062f3c2e77673aa9792e88985711aa7091613e4"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+experiment,accuracy,macro_precision,macro_recall,macro_f1,weighted_f1,correct,incorrect,total,mean_max_probability,mean_max_probability_correct,mean_max_probability_incorrect
+plantdoc_27class_v4,0.64,0.614022,0.643695,0.607734,0.611924,144,81,225,0.565806,0.660997,0.396579
+plantdoc_27class_v5a,0.653333,0.653111,0.648633,0.619118,0.636433,147,78,225,0.750023,0.826049,0.606744
+plantdoc_27class_v5b,0.64,0.658,0.633671,0.614876,0.629445,144,81,225,0.709499,0.787802,0.570294
+plantdoc_27class_v6,0.657778,0.681395,0.659686,0.641891,0.651622,148,77,225,0.50836,0.584242,0.362508

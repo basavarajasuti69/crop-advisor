@@ -1,0 +1,12 @@
+{
+  "experiment": "PlantDoc top-3 crop-constrained evaluation",
+  "device": "mps",
+  "test_images": 225,
+  "baseline_disease_accuracy": 0.6711,
+  "top1_disease_accuracy": 0.6489,
+  "top3_disease_accuracy": 0.6756,
+  "top3_true_crop_coverage": 0.9378,
+  "top1_change_vs_baseline_percentage_points": -2.22,
+  "top3_change_vs_baseline_percentage_points": 0.44,
+  "warning": "Exploratory PlantDoc evaluation. The test set was used in previous experiments; results do not establish field reliability."
+}

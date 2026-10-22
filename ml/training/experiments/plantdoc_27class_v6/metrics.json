@@ -1,0 +1,139 @@
+{
+  "label_smoothing": 0.1,
+  "model": "efficientnet_b0",
+  "dataset": "PlantDoc",
+  "classes": [
+    "Apple Scab Leaf",
+    "Apple leaf",
+    "Apple rust leaf",
+    "Bell_pepper leaf",
+    "Bell_pepper leaf spot",
+    "Blueberry leaf",
+    "Cherry leaf",
+    "Corn Gray leaf spot",
+    "Corn leaf blight",
+    "Corn rust leaf",
+    "Peach leaf",
+    "Potato leaf early blight",
+    "Potato leaf late blight",
+    "Raspberry leaf",
+    "Soyabean leaf",
+    "Squash Powdery mildew leaf",
+    "Strawberry leaf",
+    "Tomato Early blight leaf",
+    "Tomato Septoria leaf spot",
+    "Tomato leaf",
+    "Tomato leaf bacterial spot",
+    "Tomato leaf late blight",
+    "Tomato leaf mosaic virus",
+    "Tomato leaf yellow virus",
+    "Tomato mold leaf",
+    "grape leaf",
+    "grape leaf black rot"
+  ],
+  "excluded_class": "Tomato two spotted spider mites leaf",
+  "seed": 42,
+  "device": "mps",
+  "epochs_requested": 15,
+  "class_weighting": false,
+  "best_epoch": 15,
+  "training_images": 1972,
+  "validation_images": 347,
+  "test_images": 225,
+  "best_validation_accuracy": 0.6628,
+  "test_loss": 1.5827,
+  "test_accuracy": 0.6578,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 3.2255,
+      "validation_loss": 3.0895,
+      "validation_accuracy": 0.219
+    },
+    {
+      "epoch": 2,
+      "train_loss": 2.9833,
+      "validation_loss": 2.8257,
+      "validation_accuracy": 0.3516
+    },
+    {
+      "epoch": 3,
+      "train_loss": 2.6939,
+      "validation_loss": 2.5212,
+      "validation_accuracy": 0.4121
+    },
+    {
+      "epoch": 4,
+      "train_loss": 2.4361,
+      "validation_loss": 2.2822,
+      "validation_accuracy": 0.4467
+    },
+    {
+      "epoch": 5,
+      "train_loss": 2.2513,
+      "validation_loss": 2.1379,
+      "validation_accuracy": 0.513
+    },
+    {
+      "epoch": 6,
+      "train_loss": 2.0902,
+      "validation_loss": 1.9862,
+      "validation_accuracy": 0.5303
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.9443,
+      "validation_loss": 1.8793,
+      "validation_accuracy": 0.5793
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.836,
+      "validation_loss": 1.818,
+      "validation_accuracy": 0.5879
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.7065,
+      "validation_loss": 1.7029,
+      "validation_accuracy": 0.6052
+    },
+    {
+      "epoch": 10,
+      "train_loss": 1.6456,
+      "validation_loss": 1.6391,
+      "validation_accuracy": 0.6427
+    },
+    {
+      "epoch": 11,
+      "train_loss": 1.5524,
+      "validation_loss": 1.5983,
+      "validation_accuracy": 0.6282
+    },
+    {
+      "epoch": 12,
+      "train_loss": 1.4873,
+      "validation_loss": 1.5684,
+      "validation_accuracy": 0.6455
+    },
+    {
+      "epoch": 13,
+      "train_loss": 1.4389,
+      "validation_loss": 1.5437,
+      "validation_accuracy": 0.6455
+    },
+    {
+      "epoch": 14,
+      "train_loss": 1.3792,
+      "validation_loss": 1.5429,
+      "validation_accuracy": 0.6398
+    },
+    {
+      "epoch": 15,
+      "train_loss": 1.331,
+      "validation_loss": 1.5071,
+      "validation_accuracy": 0.6628
+    }
+  ],
+  "warning": "PlantDoc test accuracy is not proof of field reliability. Check for duplicate or related images and evaluate on a separate, independently labelled field-photo collection."
+}

@@ -1,0 +1,13 @@
+{
+  "experiment": "PlantDoc crop-first hierarchical evaluation",
+  "device": "mps",
+  "test_images": 225,
+  "disease_classes": 27,
+  "crop_classes": 13,
+  "baseline_disease_accuracy": 0.6711,
+  "crop_accuracy": 0.7956,
+  "hierarchical_disease_accuracy": 0.6489,
+  "hierarchical_change_vs_baseline_percentage_points": -2.22,
+  "hierarchical_correct_when_crop_correct": 0.8156,
+  "warning": "Exploratory evaluation on PlantDoc. Results do not establish real-world field reliability. This test set has been used in previous experiments, so treat comparisons as exploratory."
+}

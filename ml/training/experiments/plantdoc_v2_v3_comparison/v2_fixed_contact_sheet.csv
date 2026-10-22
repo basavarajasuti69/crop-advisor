@@ -1,0 +1,16 @@
+actual_label,predicted_label,confidence,source_path
+Apple Scab Leaf,Tomato mold leaf,0.7839639782905579,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Apple Scab Leaf/052609%20Hartman%20Crabapple%20scab%20single%20leaf.JPG.jpg
+Apple Scab Leaf,Potato leaf early blight,0.4213145971298218,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Apple Scab Leaf/apple%20scab%20leaf.jpg
+Bell_pepper leaf,Peach leaf,0.2693306803703308,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Bell_pepper leaf/10148582-green-leaf-of-pepper.jpg
+Bell_pepper leaf,Soyabean leaf,0.4302396476268768,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Bell_pepper leaf/e33155.jpg
+Bell_pepper leaf,Peach leaf,0.3297813236713409,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Bell_pepper leaf/pepper_leaf.jpg
+Cherry leaf,Peach leaf,0.5080496668815613,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Cherry leaf/e52bbb9a08ede2948ba0c006f02fe7b053ad7831d1df6_1260x1260.jpg
+Cherry leaf,grape leaf,0.3266274631023407,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Cherry leaf/prunus-virginiana-le-gmittelhauser.jpg
+Potato leaf late blight,Soyabean leaf,0.2413811683654785,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Potato leaf late blight/potato-late-blight.jpg
+Tomato Early blight leaf,Tomato Septoria leaf spot,0.3039288222789764,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato Early blight leaf/039b47d574bc4bb8a14259a1cd96a741.jpg
+Tomato Early blight leaf,Tomato Septoria leaf spot,0.3216350674629211,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato Early blight leaf/100983448.jpg
+Tomato Early blight leaf,Tomato leaf late blight,0.3051053285598755,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato Early blight leaf/Shoemaker_7068.JPG.jpg
+Tomato Early blight leaf,Bell_pepper leaf,0.3193499445915222,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato Early blight leaf/bugs-and-blight-061.jpg
+Tomato Early blight leaf,Potato leaf early blight,0.2137991487979889,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato Early blight leaf/early_blight1-150x150.jpg
+Tomato Early blight leaf,Tomato leaf bacterial spot,0.3389981389045715,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato Early blight leaf/tomato_early-blight_01_zoom.jpg
+Tomato leaf mosaic virus,Tomato leaf,0.3723258674144745,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v1/data/test/Tomato leaf mosaic virus/9511.img.jpg

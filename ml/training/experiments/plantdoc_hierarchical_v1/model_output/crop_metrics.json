@@ -1,0 +1,55 @@
+{
+  "experiment": "PlantDoc hierarchical crop classifier",
+  "crop_names": [
+    "Apple",
+    "Bell pepper",
+    "Blueberry",
+    "Cherry",
+    "Corn",
+    "Grape",
+    "Peach",
+    "Potato",
+    "Raspberry",
+    "Soybean",
+    "Squash",
+    "Strawberry",
+    "Tomato"
+  ],
+  "seed": 42,
+  "device": "mps",
+  "epochs": 5,
+  "best_epoch": 4,
+  "training_images": 1975,
+  "validation_images": 348,
+  "test_images": 225,
+  "best_validation_accuracy": 0.8362,
+  "test_crop_accuracy": 0.7956,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.8884,
+      "validation_accuracy": 0.658
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.1191,
+      "validation_accuracy": 0.7701
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.7826,
+      "validation_accuracy": 0.8218
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.5723,
+      "validation_accuracy": 0.8362
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.4558,
+      "validation_accuracy": 0.8362
+    }
+  ],
+  "warning": "Experimental only. Test images are held out from training. PlantDoc performance does not prove field reliability."
+}
