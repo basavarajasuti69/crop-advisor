@@ -1,0 +1,78 @@
+source_path,actual_label,predicted_label,confidence,confidence_percent
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf/DSCN1015.JPG.jpg,Tomato leaf,Bell_pepper leaf,0.769945,76.99
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/1321189.jpg,Corn leaf blight,Corn Gray leaf spot,0.746331,74.63
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/0796.52srusttelia.jpg,Corn rust leaf,Corn Gray leaf spot,0.736968,73.7
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/bact-spot-fig-1.jpg,Tomato leaf bacterial spot,Bell_pepper leaf spot,0.722197,72.22
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/five-cherry-tree-green-leaves-white-isolated-background-34493587.jpg,Cherry leaf,Peach leaf,0.639914,63.99
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/07c.jpg,Corn leaf blight,Corn Gray leaf spot,0.615377,61.54
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/corn-disease-update-fig-3-gray-leaf-spot.jpg,Corn leaf blight,Corn Gray leaf spot,0.604746,60.47
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/3023.jpg,Potato leaf early blight,Potato leaf late blight,0.567914,56.79
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Peach leaf/rose_tree_220430.jpg,Peach leaf,Cherry leaf,0.562497,56.25
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/0796.20graylssymt.jpg,Corn leaf blight,Corn Gray leaf spot,0.558405,55.84
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn Gray leaf spot/rsz0803Figure6.jpg,Corn Gray leaf spot,Corn leaf blight,0.556806,55.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/vaccinium_angustifolium_leaf2.JPG.jpg,Blueberry leaf,Cherry leaf,0.547164,54.72
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/three-vibrant-leaves-bird-cherry-tree-13905898.jpg,Cherry leaf,Blueberry leaf,0.544763,54.48
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/leaf-blueberry-15281271.jpg,Blueberry leaf,Soyabean leaf,0.529174,52.92
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunsero_leaf1.jpg,Cherry leaf,Blueberry leaf,0.528497,52.85
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/dscn6689.jpg,Tomato mold leaf,Tomato leaf late blight,0.495664,49.57
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple leaf/Apple-Leaf-Wallpaper-17.jpg,Apple leaf,Bell_pepper leaf,0.49502,49.5
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/ill-tomato-of-tomato-mosaic-virus-DBE17N.jpg,Tomato leaf mosaic virus,Bell_pepper leaf,0.494,49.4
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/20090710-lateblight.jpg,Potato leaf late blight,Tomato leaf late blight,0.488095,48.81
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/red-cherry-tree-leaf-isolated-crisp-white-background-35742030.jpg,Cherry leaf,Peach leaf,0.468562,46.86
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/fungus-univ-of-minnesoeta.jpg,Tomato mold leaf,Tomato leaf late blight,0.451675,45.17
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple Scab Leaf/052609%20Hartman%20Crabapple%20scab%20single%20leaf.JPG.jpg,Apple Scab Leaf,Tomato mold leaf,0.446265,44.63
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/07.17.18-Common_Tomato_Diseases_Canker-258x300.jpg,Tomato leaf bacterial spot,Tomato Early blight leaf,0.445039,44.5
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tomato_virus_04_zoom.jpg,Tomato leaf mosaic virus,Tomato leaf late blight,0.440716,44.07
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf black rot/grape_F15a.jpg,grape leaf black rot,Tomato Septoria leaf spot,0.429276,42.93
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf black rot/5-29black-rot-chardRR.jpg,grape leaf black rot,Apple rust leaf,0.427869,42.79
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf yellow virus/17fc47.jpg,Tomato leaf yellow virus,Raspberry leaf,0.427418,42.74
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/IMG_1629.JPG?1507122477.jpg,Bell_pepper leaf,Bell_pepper leaf spot,0.416806,41.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/stock-photo-blueberry-leaf-closeup-isolated-on-white-306486470.jpg,Blueberry leaf,Apple leaf,0.414947,41.49
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Soyabean leaf/leaf-raspberry-isolated-on-a-white-stock-photography-image-10106222-1625198.jpg,Soyabean leaf,Raspberry leaf,0.406327,40.63
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/pepper_bacterial-spot_03_zoom.jpg,Bell_pepper leaf spot,Tomato Septoria leaf spot,0.400853,40.09
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tmv-tomato-9.jpg,Tomato leaf mosaic virus,Tomato leaf late blight,0.395399,39.54
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/P1200665+Vaccinium+alaskaense+vs+ovalifolium+leaf+and++twig+cr.jpg,Blueberry leaf,Apple leaf,0.392181,39.22
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/stock-photo-green-blueberry-leaf-isolated-with-clipping-path-550344304.jpg,Blueberry leaf,Apple leaf,0.387546,38.75
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/why-are-my-pepper-plants-yellow-yellow-pepper-plants-yellow-leaves-green-veins-pepper-plants-yellow-veins.jpg,Bell_pepper leaf,Bell_pepper leaf spot,0.382008,38.2
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/P1130286.jpg,grape leaf,Raspberry leaf,0.373852,37.39
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/prunsero_leaf2.jpg,Cherry leaf,Apple leaf,0.36345,36.35
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/12-19striprustJIM.jpg,Corn rust leaf,Corn Gray leaf spot,0.355147,35.51
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple rust leaf/02.-Rust-2017-207u24s.jpg,Apple rust leaf,Apple leaf,0.346796,34.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/fc729af279e9087d00bd32d89a1552a756a3ad9de7f2b_1260x1260.jpg,Cherry leaf,Apple leaf,0.346077,34.61
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/everystockphoto-21099455-l.jpg,Tomato leaf mosaic virus,Tomato leaf yellow virus,0.324009,32.4
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple rust leaf/20130802_111632.jpg,Apple rust leaf,Potato leaf early blight,0.322282,32.23
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/80104747.jpg,Corn rust leaf,Corn Gray leaf spot,0.319519,31.95
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Bacterial_spots563.jpg,Tomato leaf bacterial spot,Bell_pepper leaf spot,0.31189,31.19
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/early-blight-or-target-spot-alternaria-solani-lesions-on-a-tomato-AXK6AY.jpg,Potato leaf early blight,Tomato Early blight leaf,0.308378,30.84
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/D%29AlfMov.jpg,Tomato leaf mosaic virus,Tomato mold leaf,0.304815,30.48
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/pepper_leaf.jpg,Bell_pepper leaf,Bell_pepper leaf spot,0.301336,30.13
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/LateBlt09_06.jpg,Tomato leaf late blight,Tomato leaf bacterial spot,0.28444,28.44
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/black_leaf_mold_in_zina_tina.jpg,Tomato mold leaf,Tomato leaf late blight,0.282207,28.22
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/DSCN7317.JPG.jpg,grape leaf,Cherry leaf,0.264949,26.49
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Early blight leaf/tomato_early-blight_01_zoom.jpg,Tomato Early blight leaf,Tomato leaf bacterial spot,0.262497,26.25
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Early blight leaf/early_blight1-150x150.jpg,Tomato Early blight leaf,Tomato mold leaf,0.257228,25.72
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf/2013-08-20-06.jpg,Tomato leaf,Blueberry leaf,0.256736,25.67
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/pepper-spot.jpg,Bell_pepper leaf spot,Tomato Septoria leaf spot,0.249986,25.0
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Early blight leaf/039b47d574bc4bb8a14259a1cd96a741.jpg,Tomato Early blight leaf,Tomato Septoria leaf spot,0.248094,24.81
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple Scab Leaf/apple%20scabnew.jpg,Apple Scab Leaf,Blueberry leaf,0.245262,24.53
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/toma_TMV.jpg,Tomato leaf mosaic virus,Tomato leaf yellow virus,0.237822,23.78
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf/IMG_1246.jpg,Tomato leaf,Tomato mold leaf,0.234785,23.48
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Soyabean leaf/fresh-soy-leaves-isolated-on-260nw-667193923.jpg,Soyabean leaf,Apple leaf,0.231178,23.12
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/000.jpg,Bell_pepper leaf spot,Tomato Septoria leaf spot,0.23103,23.1
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Peach leaf/00pe.jpg,Peach leaf,Cherry leaf,0.230835,23.08
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/RnGnC.jpg,Bell_pepper leaf,Bell_pepper leaf spot,0.223975,22.4
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/4825902504_5fa80b65b8_z.jpg,Bell_pepper leaf,Raspberry leaf,0.197946,19.79
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tom_Bact3.jpg,Tomato leaf bacterial spot,Squash Powdery mildew leaf,0.193265,19.33
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/e33155.jpg,Bell_pepper leaf,Soyabean leaf,0.180645,18.06
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tom_Bact7.jpg,Tomato leaf bacterial spot,Tomato Septoria leaf spot,0.17909,17.91
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple Scab Leaf/apples_apple-scab_10_zoom.jpg,Apple Scab Leaf,Tomato mold leaf,0.176355,17.64
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/P1200701+Vaccinium+ovalifolium+Oval-leaf+Blueberry+leaf+margin+Heather+Meadows+cr.jpg,Blueberry leaf,Apple Scab Leaf,0.176035,17.6
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/CMVpepperLeafShock-copy-50QUALITY-1ge8umw.jpg,Bell_pepper leaf spot,Apple leaf,0.166777,16.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/GREEN%20BELL%20PLANT%20YELLOW%20LEAF.JPG.jpg,Bell_pepper leaf,Tomato mold leaf,0.156758,15.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/potato-late-blight.jpg,Potato leaf late blight,Soyabean leaf,0.154976,15.5
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple rust leaf/2011-011.jpg,Apple rust leaf,grape leaf black rot,0.142435,14.24
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Soyabean leaf/07feb_ma_sbr3.JPG.jpg,Soyabean leaf,Apple Scab Leaf,0.137947,13.79
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf/Tomato59.JPG.jpg,Tomato leaf,Bell_pepper leaf,0.134865,13.49
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/page_2.jpg,Tomato leaf mosaic virus,Tomato leaf yellow virus,0.09241,9.24
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/Tomato-Mosaic-1wdr2jx-300x225.jpg,Tomato leaf mosaic virus,Corn rust leaf,0.085968,8.6
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/BIGSD.jpg,Tomato mold leaf,Corn rust leaf,0.082704,8.27

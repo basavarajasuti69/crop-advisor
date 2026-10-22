@@ -645,7 +645,7 @@ def main():
         "best_validation_macro_f1": round(
             _macro_f1(per_class_metrics(
                 validation_result["confusion"], classes
-            ), classes)
+            ), classes), 6
         ),
         "best_validation_per_class": per_class_metrics(
             validation_result["confusion"], classes
@@ -655,7 +655,7 @@ def main():
         "test_macro_f1": round(
             _macro_f1(per_class_metrics(
                 test_result["confusion"], classes
-            ), classes)
+            ), classes), 6
         ),
         "test_per_class": per_class_metrics(
             test_result["confusion"], classes

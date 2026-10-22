@@ -1,0 +1,790 @@
+{
+  "label_smoothing": 0.1,
+  "model": "efficientnet_b0",
+  "pretrained_weights": "IMAGENET1K_V1",
+  "dataset": "PlantDoc",
+  "classes": [
+    "Apple Scab Leaf",
+    "Apple leaf",
+    "Apple rust leaf",
+    "Bell_pepper leaf",
+    "Bell_pepper leaf spot",
+    "Blueberry leaf",
+    "Cherry leaf",
+    "Corn Gray leaf spot",
+    "Corn leaf blight",
+    "Corn rust leaf",
+    "Peach leaf",
+    "Potato leaf early blight",
+    "Potato leaf late blight",
+    "Raspberry leaf",
+    "Soyabean leaf",
+    "Squash Powdery mildew leaf",
+    "Strawberry leaf",
+    "Tomato Early blight leaf",
+    "Tomato Septoria leaf spot",
+    "Tomato leaf",
+    "Tomato leaf bacterial spot",
+    "Tomato leaf late blight",
+    "Tomato leaf mosaic virus",
+    "Tomato leaf yellow virus",
+    "Tomato mold leaf",
+    "grape leaf",
+    "grape leaf black rot"
+  ],
+  "excluded_class": "Tomato two spotted spider mites leaf",
+  "seed": 42,
+  "device": "mps",
+  "epochs_requested": 40,
+  "epochs_completed": 40,
+  "stopped_early": false,
+  "early_stopping_patience": 0,
+  "early_stopping_min_epochs": 0,
+  "class_weighting": false,
+  "lr": 3e-05,
+  "lr_scheduler": "none",
+  "optimizer": "Adam",
+  "weight_decay": 0,
+  "batch_size": 16,
+  "data": "ml/training/experiments/plantdoc_deduplicated_v2/data",
+  "validation_fraction": 0.15,
+  "augmentation": {
+    "resize": 256,
+    "random_resized_crop": {
+      "size": 224,
+      "scale": [
+        0.75,
+        1.0
+      ]
+    },
+    "random_horizontal_flip": true,
+    "random_rotation_degrees": 15,
+    "color_jitter": {
+      "brightness": 0.15,
+      "contrast": 0.15,
+      "saturation": 0.1
+    },
+    "normalization": {
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    },
+    "eval_transform": "Resize(256) + CenterCrop(224)"
+  },
+  "best_epoch": 30,
+  "training_images": 1972,
+  "validation_images": 347,
+  "test_images": 225,
+  "train_class_counts": {
+    "Apple Scab Leaf": 71,
+    "Apple leaf": 70,
+    "Apple rust leaf": 66,
+    "Bell_pepper leaf": 45,
+    "Bell_pepper leaf spot": 53,
+    "Blueberry leaf": 88,
+    "Cherry leaf": 40,
+    "Corn Gray leaf spot": 53,
+    "Corn leaf blight": 151,
+    "Corn rust leaf": 90,
+    "Peach leaf": 87,
+    "Potato leaf early blight": 89,
+    "Potato leaf late blight": 82,
+    "Raspberry leaf": 95,
+    "Soyabean leaf": 48,
+    "Squash Powdery mildew leaf": 105,
+    "Strawberry leaf": 75,
+    "Tomato Early blight leaf": 66,
+    "Tomato Septoria leaf spot": 117,
+    "Tomato leaf": 47,
+    "Tomato leaf bacterial spot": 85,
+    "Tomato leaf late blight": 85,
+    "Tomato leaf mosaic virus": 37,
+    "Tomato leaf yellow virus": 59,
+    "Tomato mold leaf": 72,
+    "grape leaf": 48,
+    "grape leaf black rot": 48
+  },
+  "validation_class_counts": {
+    "Apple Scab Leaf": 12,
+    "Apple leaf": 12,
+    "Apple rust leaf": 12,
+    "Bell_pepper leaf": 8,
+    "Bell_pepper leaf spot": 9,
+    "Blueberry leaf": 15,
+    "Cherry leaf": 7,
+    "Corn Gray leaf spot": 9,
+    "Corn leaf blight": 27,
+    "Corn rust leaf": 16,
+    "Peach leaf": 15,
+    "Potato leaf early blight": 16,
+    "Potato leaf late blight": 14,
+    "Raspberry leaf": 17,
+    "Soyabean leaf": 9,
+    "Squash Powdery mildew leaf": 19,
+    "Strawberry leaf": 13,
+    "Tomato Early blight leaf": 12,
+    "Tomato Septoria leaf spot": 21,
+    "Tomato leaf": 8,
+    "Tomato leaf bacterial spot": 15,
+    "Tomato leaf late blight": 15,
+    "Tomato leaf mosaic virus": 7,
+    "Tomato leaf yellow virus": 10,
+    "Tomato mold leaf": 13,
+    "grape leaf": 8,
+    "grape leaf black rot": 8
+  },
+  "test_class_counts": {
+    "Apple Scab Leaf": 10,
+    "Apple leaf": 9,
+    "Apple rust leaf": 10,
+    "Bell_pepper leaf": 8,
+    "Bell_pepper leaf spot": 9,
+    "Blueberry leaf": 10,
+    "Cherry leaf": 10,
+    "Corn Gray leaf spot": 3,
+    "Corn leaf blight": 10,
+    "Corn rust leaf": 10,
+    "Peach leaf": 9,
+    "Potato leaf early blight": 7,
+    "Potato leaf late blight": 5,
+    "Raspberry leaf": 7,
+    "Soyabean leaf": 8,
+    "Squash Powdery mildew leaf": 6,
+    "Strawberry leaf": 8,
+    "Tomato Early blight leaf": 9,
+    "Tomato Septoria leaf spot": 10,
+    "Tomato leaf": 8,
+    "Tomato leaf bacterial spot": 8,
+    "Tomato leaf late blight": 10,
+    "Tomato leaf mosaic virus": 10,
+    "Tomato leaf yellow virus": 5,
+    "Tomato mold leaf": 6,
+    "grape leaf": 12,
+    "grape leaf black rot": 8
+  },
+  "best_validation_accuracy": 0.6888,
+  "best_validation_macro_f1": 0.661009,
+  "best_validation_per_class": {
+    "Apple Scab Leaf": {
+      "precision": 0.9,
+      "recall": 0.75,
+      "f1": 0.818182,
+      "support": 12
+    },
+    "Apple leaf": {
+      "precision": 0.9,
+      "recall": 0.75,
+      "f1": 0.818182,
+      "support": 12
+    },
+    "Apple rust leaf": {
+      "precision": 0.818182,
+      "recall": 0.75,
+      "f1": 0.782609,
+      "support": 12
+    },
+    "Bell_pepper leaf": {
+      "precision": 0.555556,
+      "recall": 0.625,
+      "f1": 0.588235,
+      "support": 8
+    },
+    "Bell_pepper leaf spot": {
+      "precision": 0.357143,
+      "recall": 0.555556,
+      "f1": 0.434783,
+      "support": 9
+    },
+    "Blueberry leaf": {
+      "precision": 0.705882,
+      "recall": 0.8,
+      "f1": 0.75,
+      "support": 15
+    },
+    "Cherry leaf": {
+      "precision": 0.666667,
+      "recall": 0.571429,
+      "f1": 0.615385,
+      "support": 7
+    },
+    "Corn Gray leaf spot": {
+      "precision": 0.666667,
+      "recall": 0.444444,
+      "f1": 0.533333,
+      "support": 9
+    },
+    "Corn leaf blight": {
+      "precision": 0.888889,
+      "recall": 0.888889,
+      "f1": 0.888889,
+      "support": 27
+    },
+    "Corn rust leaf": {
+      "precision": 0.761905,
+      "recall": 1.0,
+      "f1": 0.864865,
+      "support": 16
+    },
+    "Peach leaf": {
+      "precision": 0.875,
+      "recall": 0.933333,
+      "f1": 0.903226,
+      "support": 15
+    },
+    "Potato leaf early blight": {
+      "precision": 0.222222,
+      "recall": 0.125,
+      "f1": 0.16,
+      "support": 16
+    },
+    "Potato leaf late blight": {
+      "precision": 0.5,
+      "recall": 0.428571,
+      "f1": 0.461538,
+      "support": 14
+    },
+    "Raspberry leaf": {
+      "precision": 1.0,
+      "recall": 0.941176,
+      "f1": 0.969697,
+      "support": 17
+    },
+    "Soyabean leaf": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.666667,
+      "support": 9
+    },
+    "Squash Powdery mildew leaf": {
+      "precision": 0.904762,
+      "recall": 1.0,
+      "f1": 0.95,
+      "support": 19
+    },
+    "Strawberry leaf": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 13
+    },
+    "Tomato Early blight leaf": {
+      "precision": 0.333333,
+      "recall": 0.5,
+      "f1": 0.4,
+      "support": 12
+    },
+    "Tomato Septoria leaf spot": {
+      "precision": 0.56,
+      "recall": 0.666667,
+      "f1": 0.608696,
+      "support": 21
+    },
+    "Tomato leaf": {
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.857143,
+      "support": 8
+    },
+    "Tomato leaf bacterial spot": {
+      "precision": 0.333333,
+      "recall": 0.133333,
+      "f1": 0.190476,
+      "support": 15
+    },
+    "Tomato leaf late blight": {
+      "precision": 0.6,
+      "recall": 0.6,
+      "f1": 0.6,
+      "support": 15
+    },
+    "Tomato leaf mosaic virus": {
+      "precision": 0.333333,
+      "recall": 0.285714,
+      "f1": 0.307692,
+      "support": 7
+    },
+    "Tomato leaf yellow virus": {
+      "precision": 0.538462,
+      "recall": 0.7,
+      "f1": 0.608696,
+      "support": 10
+    },
+    "Tomato mold leaf": {
+      "precision": 0.625,
+      "recall": 0.384615,
+      "f1": 0.47619,
+      "support": 13
+    },
+    "grape leaf": {
+      "precision": 0.777778,
+      "recall": 0.875,
+      "f1": 0.823529,
+      "support": 8
+    },
+    "grape leaf black rot": {
+      "precision": 1.0,
+      "recall": 0.625,
+      "f1": 0.769231,
+      "support": 8
+    }
+  },
+  "test_loss": 1.541,
+  "test_accuracy": 0.6711,
+  "test_macro_f1": 0.645858,
+  "test_per_class": {
+    "Apple Scab Leaf": {
+      "precision": 0.777778,
+      "recall": 0.7,
+      "f1": 0.736842,
+      "support": 10
+    },
+    "Apple leaf": {
+      "precision": 0.538462,
+      "recall": 0.777778,
+      "f1": 0.636364,
+      "support": 9
+    },
+    "Apple rust leaf": {
+      "precision": 0.888889,
+      "recall": 0.8,
+      "f1": 0.842105,
+      "support": 10
+    },
+    "Bell_pepper leaf": {
+      "precision": 0.4,
+      "recall": 0.25,
+      "f1": 0.307692,
+      "support": 8
+    },
+    "Bell_pepper leaf spot": {
+      "precision": 0.571429,
+      "recall": 0.888889,
+      "f1": 0.695652,
+      "support": 9
+    },
+    "Blueberry leaf": {
+      "precision": 0.636364,
+      "recall": 0.7,
+      "f1": 0.666667,
+      "support": 10
+    },
+    "Cherry leaf": {
+      "precision": 0.6,
+      "recall": 0.3,
+      "f1": 0.4,
+      "support": 10
+    },
+    "Corn Gray leaf spot": {
+      "precision": 0.222222,
+      "recall": 0.666667,
+      "f1": 0.333333,
+      "support": 3
+    },
+    "Corn leaf blight": {
+      "precision": 0.8,
+      "recall": 0.4,
+      "f1": 0.533333,
+      "support": 10
+    },
+    "Corn rust leaf": {
+      "precision": 0.9,
+      "recall": 0.9,
+      "f1": 0.9,
+      "support": 10
+    },
+    "Peach leaf": {
+      "precision": 0.636364,
+      "recall": 0.777778,
+      "f1": 0.7,
+      "support": 9
+    },
+    "Potato leaf early blight": {
+      "precision": 0.714286,
+      "recall": 0.714286,
+      "f1": 0.714286,
+      "support": 7
+    },
+    "Potato leaf late blight": {
+      "precision": 0.5,
+      "recall": 0.6,
+      "f1": 0.545455,
+      "support": 5
+    },
+    "Raspberry leaf": {
+      "precision": 0.875,
+      "recall": 1.0,
+      "f1": 0.933333,
+      "support": 7
+    },
+    "Soyabean leaf": {
+      "precision": 0.555556,
+      "recall": 0.625,
+      "f1": 0.588235,
+      "support": 8
+    },
+    "Squash Powdery mildew leaf": {
+      "precision": 0.857143,
+      "recall": 1.0,
+      "f1": 0.923077,
+      "support": 6
+    },
+    "Strawberry leaf": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 8
+    },
+    "Tomato Early blight leaf": {
+      "precision": 0.666667,
+      "recall": 0.666667,
+      "f1": 0.666667,
+      "support": 9
+    },
+    "Tomato Septoria leaf spot": {
+      "precision": 0.692308,
+      "recall": 0.9,
+      "f1": 0.782609,
+      "support": 10
+    },
+    "Tomato leaf": {
+      "precision": 0.8,
+      "recall": 0.5,
+      "f1": 0.615385,
+      "support": 8
+    },
+    "Tomato leaf bacterial spot": {
+      "precision": 0.285714,
+      "recall": 0.25,
+      "f1": 0.266667,
+      "support": 8
+    },
+    "Tomato leaf late blight": {
+      "precision": 0.666667,
+      "recall": 0.8,
+      "f1": 0.727273,
+      "support": 10
+    },
+    "Tomato leaf mosaic virus": {
+      "precision": 1.0,
+      "recall": 0.2,
+      "f1": 0.333333,
+      "support": 10
+    },
+    "Tomato leaf yellow virus": {
+      "precision": 0.571429,
+      "recall": 0.8,
+      "f1": 0.666667,
+      "support": 5
+    },
+    "Tomato mold leaf": {
+      "precision": 0.166667,
+      "recall": 0.166667,
+      "f1": 0.166667,
+      "support": 6
+    },
+    "grape leaf": {
+      "precision": 1.0,
+      "recall": 0.916667,
+      "f1": 0.956522,
+      "support": 12
+    },
+    "grape leaf black rot": {
+      "precision": 0.857143,
+      "recall": 0.75,
+      "f1": 0.8,
+      "support": 8
+    }
+  },
+  "elapsed_seconds": 5111.9,
+  "git_commit": "b013aac079dcedb9f1ecdec52a47a14cef8aa128",
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 3.2255,
+      "validation_loss": 3.0895,
+      "validation_accuracy": 0.219,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 2,
+      "train_loss": 2.9833,
+      "validation_loss": 2.8257,
+      "validation_accuracy": 0.3516,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 3,
+      "train_loss": 2.6939,
+      "validation_loss": 2.5212,
+      "validation_accuracy": 0.4121,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 4,
+      "train_loss": 2.4361,
+      "validation_loss": 2.2822,
+      "validation_accuracy": 0.4467,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 5,
+      "train_loss": 2.2513,
+      "validation_loss": 2.1379,
+      "validation_accuracy": 0.513,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 6,
+      "train_loss": 2.0902,
+      "validation_loss": 1.9862,
+      "validation_accuracy": 0.5303,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.9443,
+      "validation_loss": 1.8793,
+      "validation_accuracy": 0.5793,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.836,
+      "validation_loss": 1.818,
+      "validation_accuracy": 0.5879,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.7065,
+      "validation_loss": 1.7029,
+      "validation_accuracy": 0.6052,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 10,
+      "train_loss": 1.6456,
+      "validation_loss": 1.6391,
+      "validation_accuracy": 0.6427,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 11,
+      "train_loss": 1.5524,
+      "validation_loss": 1.5983,
+      "validation_accuracy": 0.6282,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 12,
+      "train_loss": 1.4873,
+      "validation_loss": 1.5684,
+      "validation_accuracy": 0.6455,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 13,
+      "train_loss": 1.4389,
+      "validation_loss": 1.5437,
+      "validation_accuracy": 0.6455,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 14,
+      "train_loss": 1.3792,
+      "validation_loss": 1.5429,
+      "validation_accuracy": 0.6398,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 15,
+      "train_loss": 1.331,
+      "validation_loss": 1.5071,
+      "validation_accuracy": 0.6628,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 16,
+      "train_loss": 1.2809,
+      "validation_loss": 1.5191,
+      "validation_accuracy": 0.6455,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 17,
+      "train_loss": 1.2441,
+      "validation_loss": 1.5122,
+      "validation_accuracy": 0.6455,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 18,
+      "train_loss": 1.2078,
+      "validation_loss": 1.4903,
+      "validation_accuracy": 0.6542,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 19,
+      "train_loss": 1.1658,
+      "validation_loss": 1.4589,
+      "validation_accuracy": 0.6744,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 20,
+      "train_loss": 1.1595,
+      "validation_loss": 1.4662,
+      "validation_accuracy": 0.6571,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 21,
+      "train_loss": 1.1067,
+      "validation_loss": 1.4701,
+      "validation_accuracy": 0.6599,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 22,
+      "train_loss": 1.1026,
+      "validation_loss": 1.4849,
+      "validation_accuracy": 0.6571,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 23,
+      "train_loss": 1.0826,
+      "validation_loss": 1.4709,
+      "validation_accuracy": 0.6772,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 24,
+      "train_loss": 1.0449,
+      "validation_loss": 1.4846,
+      "validation_accuracy": 0.6628,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 25,
+      "train_loss": 1.0222,
+      "validation_loss": 1.4943,
+      "validation_accuracy": 0.6628,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 26,
+      "train_loss": 1.0115,
+      "validation_loss": 1.4969,
+      "validation_accuracy": 0.6455,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 27,
+      "train_loss": 1.0082,
+      "validation_loss": 1.4989,
+      "validation_accuracy": 0.6513,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 28,
+      "train_loss": 0.9711,
+      "validation_loss": 1.516,
+      "validation_accuracy": 0.6715,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 29,
+      "train_loss": 0.9485,
+      "validation_loss": 1.5031,
+      "validation_accuracy": 0.6715,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 30,
+      "train_loss": 0.9429,
+      "validation_loss": 1.4771,
+      "validation_accuracy": 0.6888,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 31,
+      "train_loss": 0.95,
+      "validation_loss": 1.5086,
+      "validation_accuracy": 0.6801,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 32,
+      "train_loss": 0.9116,
+      "validation_loss": 1.5087,
+      "validation_accuracy": 0.6715,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 33,
+      "train_loss": 0.9008,
+      "validation_loss": 1.5029,
+      "validation_accuracy": 0.6744,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 34,
+      "train_loss": 0.889,
+      "validation_loss": 1.5343,
+      "validation_accuracy": 0.6715,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 35,
+      "train_loss": 0.8777,
+      "validation_loss": 1.5028,
+      "validation_accuracy": 0.6801,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 36,
+      "train_loss": 0.8733,
+      "validation_loss": 1.5379,
+      "validation_accuracy": 0.6744,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 37,
+      "train_loss": 0.8724,
+      "validation_loss": 1.5403,
+      "validation_accuracy": 0.6744,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 38,
+      "train_loss": 0.8581,
+      "validation_loss": 1.5503,
+      "validation_accuracy": 0.6715,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 39,
+      "train_loss": 0.8408,
+      "validation_loss": 1.5339,
+      "validation_accuracy": 0.6888,
+      "lr": 3e-05
+    },
+    {
+      "epoch": 40,
+      "train_loss": 0.8479,
+      "validation_loss": 1.5481,
+      "validation_accuracy": 0.6772,
+      "lr": 3e-05
+    }
+  ],
+  "warning": "PlantDoc test accuracy is not proof of field reliability. Check for duplicate or related images and evaluate on a separate, independently labelled field-photo collection. The test set has been scored by every experiment in this series, so it is an exploratory comparison set and not an independent benchmark."
+}
