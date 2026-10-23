@@ -1,0 +1,6 @@
+metric,value
+total_images,151
+v8_agrees_with_current_label,111
+v9_agrees_with_current_label,112
+models_agree_with_each_other,125
+both_models_disagree_with_current_label,29

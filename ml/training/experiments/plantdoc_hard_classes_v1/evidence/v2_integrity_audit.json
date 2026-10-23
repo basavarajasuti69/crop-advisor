@@ -1,0 +1,8 @@
+{
+  "dataset": "ml/training/experiments/plantdoc_deduplicated_v2/data",
+  "unique_hashes": 2545,
+  "cross_split_duplicate_groups": 0,
+  "unreadable_images": 0,
+  "duplicates": [],
+  "unreadable": []
+}

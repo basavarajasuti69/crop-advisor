@@ -31,11 +31,7 @@ class STTAdapter:
 
     def transcribe(self, audio_bytes: bytes, language: str = "en") -> Optional[str]:
         """Return transcribed text, or None if all providers fail."""
-        # 1. Amazon Transcribe (StartTranscribeJob is async; for real-time use
-        #    Transcribe Streaming SDK. Here we use a simple synchronous path
-        #    via a local file + batch job is too slow, so we fall to Sarvam.)
-        #    Keep as placeholder; real implementation uses streaming.
-        # 2. Sarvam speech-to-text
+        # 1. Sarvam speech-to-text
         if self._sarvam_key:
             try:
                 import httpx

@@ -17,14 +17,14 @@ image). The LangGraph pipeline in `agents/graph.py` runs:
 | Node | What it does |
 |---|---|
 | `triage` | Checks an image is present. Without one it answers "upload a photo" in the farmer's language. |
-| `classify` | ONNX Runtime (falls back to the PyTorch checkpoint, or to SageMaker if `CA_SAGEMAKER_ENDPOINT` is set). Low confidence or a `healthy` result below `HEALTHY_MIN` produces the "retake the photo" answer instead of a diagnosis. |
+| `classify` | ONNX Runtime (falls back to the PyTorch checkpoint). Low confidence or a `healthy` result below `HEALTHY_MIN` produces the "retake the photo" answer instead of a diagnosis. |
 | `vision_second_opinion` | Off by default. When `CA_VISION_SECOND_OPINION=true` it sends the image (EXIF/GPS stripped, resized to 512px) and compares the model's diseases with the classifier's. |
 | `context_weather` | The `weather` MCP server (open-meteo, keyless). |
 | `retrieve` | The `crop_knowledge` MCP server. It splits the knowledge base on `## ` headings and matches token by token, so `<disease> <crop>` finds the `<Crop> - <Disease>` section. |
 | `draft_advice` | Builds the English answer from the retrieved chunk. |
 | `localize_advice` | The diagnosis and the safety line in the farmer's script. The English passage is not embedded, so the answer is never mixed script. |
 | `llm_explain` | Optional. When `CA_LLM_BASE_URL`, `CA_LLM_API_KEY` and `CA_LLM_MODEL_NAME` are set, a language model writes the explanation in the target language from the English chunks. Its output is validated (script, no headings, no invented dose or chemical) and the fixed safety line and helpline are appended by the code. Without a key this node does nothing. |
-| `critic_safety` | Dose verification, the script check, and the Bedrock guardrail when `CA_GUARDRAIL_ID` is set. |
+| `critic_safety` | Dose verification and the script check. |
 | `find_officer` | The `officer_directory` MCP server. |
 | `follow_up` | Schedules a follow-up for a low-confidence case, and appends the officer details or the helpline. |
 
@@ -76,8 +76,6 @@ app is fully self-contained without any of them.
 | `CA_LLM_BASE_URL` / `CA_LLM_API_KEY` / `CA_LLM_MODEL_NAME` | The language model writes the explanation. Any OpenAI-compatible endpoint works. |
 | `CA_SARVAM_API_KEY` | Text-to-speech in Hindi and Kannada. |
 | `GOOGLE_APPLICATION_CREDENTIALS` | Google Cloud TTS / STT. |
-| `CA_SAGEMAKER_ENDPOINT` | Classify with a SageMaker endpoint instead of the bundled model. |
-| `CA_GUARDRAIL_ID` | Screen the advice text with a Bedrock guardrail. |
 | `CA_VISION_SECOND_OPINION` | Send the image to the vision model. |
 
 ## Operational notes

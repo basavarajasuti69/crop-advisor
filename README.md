@@ -49,7 +49,7 @@ npm install && npm run dev
 Next.js (static export)  ->  FastAPI  ->  ONNX classifier (V11, 27 classes)
    on Netlify               on Render      + RAG (rag/index.jsonl)
                                             + MCP servers (weather, crop_knowledge, officer_directory)
-                                            + TTS (Polly/Sarvam/Google)
+                                            + TTS (Sarvam/Google)
 ```
 
 The browser talks to the API directly. The API is stateless: photos are
@@ -127,7 +127,7 @@ as UID 1000.
 | `CA_VISION_SECOND_OPINION` | no | `false` | sends the image to the vision model. Leave off. |
 | `CA_SARVAM_API_KEY` | no | empty | text-to-speech (Hindi, Kannada). Without it `/speak` returns 503 and the web app shows "Audio is not available right now." |
 | `GOOGLE_APPLICATION_CREDENTIALS` | no | empty | Google Cloud TTS / STT fallback |
-| `CA_SAGEMAKER_ENDPOINT` | no | empty | serve the classifier from SageMaker instead of the bundled ONNX model |
+
 
 No secret is required: with none of these set the API is fully
 self-contained (ONNX + the local knowledge base + the local MCP servers)

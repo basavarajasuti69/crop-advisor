@@ -1,7 +1,7 @@
 """RAG ingest stub: load crop knowledge docs into the knowledge base index.
 
 Phase 1: reads markdown files from rag/source_docs and writes chunks
-to a local JSONL index (replace with Bedrock Knowledge Base / pgvector later).
+to a local JSONL index.
 """
 
 from __future__ import annotations

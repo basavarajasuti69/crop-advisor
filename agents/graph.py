@@ -27,7 +27,7 @@ from rag.glossary import kn as glossary_kn  # noqa: E402
 from agents.llm import explain, llm_configured, vision_opinion  # noqa: E402
 
 # ---------------------------------------------------------------------------
-# Classifier: SageMaker endpoint first, local PyTorch fallback
+# Classifier: local ONNX/PyTorch model
 # ---------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------

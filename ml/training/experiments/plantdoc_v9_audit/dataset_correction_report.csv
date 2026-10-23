@@ -1,0 +1,10 @@
+decision,original_path,new_path,status
+RELABEL,train/Corn leaf blight/Corn-gray-leaf-spot-8-14-15-F1.jpg,train/Corn Gray leaf spot/Corn-gray-leaf-spot-8-14-15-F1.jpg,RELABELLED
+RELABEL,train/Corn leaf blight/corn_gray_leaf_spot.jpg,train/Corn Gray leaf spot/corn_gray_leaf_spot.jpg,RELABELLED
+RELABEL,train/Corn leaf blight/gray-leaf-spot-lesions-F4.jpg,train/Corn Gray leaf spot/gray-leaf-spot-lesions-F4.jpg,RELABELLED
+RELABEL,train/Corn leaf blight/gray-leaf-spot-severe--.jpg,train/Corn Gray leaf spot/gray-leaf-spot-severe--.jpg,RELABELLED
+RELABEL,train/Potato leaf early blight/1573852-Early-Blight-e1515624612559.jpg,train/Tomato Early blight leaf/1573852-Early-Blight-e1515624612559.jpg,RELABELLED
+RELABEL,train/Potato leaf late blight/early_blight.jpg,train/Potato leaf early blight/early_blight.jpg,RELABELLED
+REMOVE,train/Potato leaf late blight/potato_ocw_botrytis-lateblight.jpg,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_v9_audit/dataset_backup_20261023_160246/quarantine/train/Potato leaf late blight/potato_ocw_botrytis-lateblight.jpg,QUARANTINED
+REMOVE,train/Potato leaf late blight/potato_ocw_lateblight-earlyblight.jpg,/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_v9_audit/dataset_backup_20261023_160246/quarantine/train/Potato leaf late blight/potato_ocw_lateblight-earlyblight.jpg,QUARANTINED
+RELABEL,train/Tomato mold leaf/tylc.jpg,train/Tomato leaf yellow virus/tylc.jpg,RELABELLED
