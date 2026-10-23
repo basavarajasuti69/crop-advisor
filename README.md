@@ -1,6 +1,6 @@
 # Crop Disease Advisor
 
-AI crop-disease advisor — languages **English, Hindi, Kannada**, crops **rice, wheat, cotton, maize, tomato**.
+AI crop-disease advisor — languages **English, Hindi, Kannada**, crops **13 crops, 27 disease classes** (PlantDoc).
 
 This repository holds the API (a Docker image built from the root
 `Dockerfile`) and the web app. The API is deployed to Render and the web
@@ -9,18 +9,15 @@ app to Netlify.
 ```
 crop-advisor/
 ├── apps/          api/ (FastAPI) · web/ (Next.js PWA) · expert-review/
-├── agents/        LangGraph state + node definitions
+├── agents/        LangGraph state + node definitions, classifier, label_map
 ├── mcp_servers/   crop_knowledge, weather, officer_directory
 ├── ml/            training, evaluation, export_edge (ONNX)
 ├── rag/           ingest, retriever, glossary
 ├── speech/        stt, tts_adapter
-├── apps/api/      FastAPI service
-├── apps/web/      Next.js PWA (static export)
-├── apps/expert-review/  human review queue
 ├── strings/       en / hi / kn farmer-facing strings
-├── archive/aws/   the old AWS deployment path (not used)
-├── .github/       CI/CD workflows
-└── docs/          architecture, outbreak dashboard
+├── tests/         backend + model tests (214 passing)
+├── docs/          architecture, deployment checklist
+└── .github/       CI/CD workflows
 ```
 
 ## Phase plan
@@ -52,13 +49,33 @@ installed here. See [archive/aws/README.md](archive/aws/README.md).
 ## Architecture
 
 ```
-Next.js (static export)  ->  FastAPI  ->  ONNX classifier
+Next.js (static export)  ->  FastAPI  ->  ONNX classifier (V11, 27 classes)
    on Netlify               on Render      + RAG (rag/index.jsonl)
                                             + MCP servers (weather, crop_knowledge, officer_directory)
+                                            + TTS (Polly/Sarvam/Google)
 ```
 
 The browser talks to the API directly. The API is stateless: photos are
 processed in memory and nothing is stored.
+
+## Screenshots
+
+> Add screenshots to `docs/screenshots/` and update the paths below.
+
+| Screen | Description |
+|--------|-------------|
+| ![Home](docs/screenshots/home.png) | Hero section with language selector |
+| ![Diagnosis](docs/screenshots/diagnosis.png) | Image upload, crop selector, and analysis |
+| ![Result](docs/screenshots/result.png) | Prediction with top-3, confidence, and advice |
+| ![TTS](docs/screenshots/tts.png) | Speech controls (play/pause/stop/replay) |
+| ![Camera](docs/screenshots/camera.png) | Live camera capture preview |
+| ![Mobile](docs/screenshots/mobile.png) | Mobile-responsive layout |
+
+To generate screenshots, run the app locally and capture each state:
+```bash
+cd apps/web && npm run dev
+# Open http://localhost:3000 and capture screenshots
+```
 
 ## Deploy (free)
 
@@ -238,19 +255,14 @@ agriculture officer rather than another crop's advice.
 
 ## Known limitations
 
-- **The shipped model is now the 27-class PlantDoc V8 model.** The
+- **The shipped model is the 27-class PlantDoc V11 model.** The
   export in `ml/export_edge/artifacts/` is an EfficientNet-B0 trained on
-  the PlantDoc field photographs (27 classes, 69.33% test accuracy on 225
-  images). It is **not** production-ready: the test set is small and
-  reused, the confidence is uncalibrated, several classes are limited by
-  mislabeled training images, and the knowledge base only covers 5 of the
-  13 crops. See [ml/training/MODEL_CARD.md](ml/training/MODEL_CARD.md).
-- **The 27-class PlantDoc model is not production-ready.** It reaches
-  0.69 validation accuracy and 0.65 test accuracy on PlantDoc, which
-  is a dataset of 2,546 field photographs with noisy folder labels. It
-  is not evidence of reliability on a real farm, and several of its
-  classes are limited by mislabelled training images rather than by
-  the model. The knowledge base only covers five of its thirteen crops.
+  the validated PlantDoc V5 dataset (27 classes, 67.56% test accuracy
+  on 225 images, 0.6559 macro F1). It is **not** production-ready: the
+  test set is small and reused across experiments, confidence is
+  uncalibrated, several classes are limited by mislabeled training
+  images, and the knowledge base only covers 4 of the 13 crops.
+  See [ml/training/MODEL_CARD.md](ml/training/MODEL_CARD.md).
 - **The confidence score is not a probability.** It is an uncalibrated
   softmax output. The API says so in the response
   (`confidence_is_calibrated: false`) and in the disclaimer.
