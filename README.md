@@ -57,18 +57,14 @@ processed in memory and nothing is stored.
 
 ## Screenshots
 
-> Add screenshots to `docs/screenshots/` and update the paths below.
+![Crop Disease Advisor](docs/screenshots/app.png)
 
-| Screen | Description |
-|--------|-------------|
-| ![Home](docs/screenshots/home.png) | Hero section with language selector |
-| ![Diagnosis](docs/screenshots/diagnosis.png) | Image upload, crop selector, and analysis |
-| ![Result](docs/screenshots/result.png) | Prediction with top-3, confidence, and advice |
-| ![TTS](docs/screenshots/tts.png) | Speech controls (play/pause/stop/replay) |
-| ![Camera](docs/screenshots/camera.png) | Live camera capture preview |
-| ![Mobile](docs/screenshots/mobile.png) | Mobile-responsive layout |
+The application provides a clean, mobile-friendly interface for farmers to
+upload leaf photos, get disease predictions with confidence scores, and
+listen to advice in English, Hindi, or Kannada.
 
-To generate screenshots, run the app locally and capture each state:
+To add more screenshots, capture them from the running app and place them
+in `docs/screenshots/`:
 ```bash
 cd apps/web && npm run dev
 # Open http://localhost:3000 and capture screenshots
