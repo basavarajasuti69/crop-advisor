@@ -155,6 +155,9 @@ def test_predict_onnx_returns_a_valid_ranking():
 
 
 def test_predict_onnx_without_a_model_is_an_error(monkeypatch, tmp_path):
+    # Isolate from CA_MODEL_DIR so the test exercises the no-model path
+    # even when the environment points at a real export.
+    monkeypatch.setenv("CA_MODEL_DIR", "")
     monkeypatch.setattr(classifier, "_ONNX_DIR", tmp_path)
     monkeypatch.setattr(classifier, "_ONNX_SESSION", None)
     with pytest.raises(ModelUnavailable):
