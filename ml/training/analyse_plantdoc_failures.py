@@ -7,8 +7,6 @@ like, so the failure is described rather than guessed at.
 from __future__ import annotations
 
 import csv
-import json
-from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]

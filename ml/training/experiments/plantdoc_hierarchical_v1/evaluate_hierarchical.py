@@ -123,9 +123,6 @@ def main():
     disease_to_id = {
         name: index for index, name in enumerate(disease_classes)
     }
-    crop_to_id = {
-        name: index for index, name in enumerate(crop_classes)
-    }
 
     # For each crop, retain the V2 disease-model output indices
     # corresponding to diseases mapped to that crop.

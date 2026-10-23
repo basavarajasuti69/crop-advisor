@@ -19,7 +19,6 @@ from typing import Any, cast
 
 from langgraph.graph import StateGraph, END
 from mcp.types import CallToolRequest, CallToolRequestParams
-from PIL import Image
 from pydantic import BaseModel, Field
 
 from rag.glossary import hi as glossary_hi  # noqa: E402
@@ -59,7 +58,6 @@ VISION_ENABLED = os.getenv("CA_VISION_SECOND_OPINION", "false").lower() == "true
 # without the LangGraph machinery. The names below are kept as aliases
 # because they are part of the module's existing surface.
 from agents.classifier import (  # noqa: E402
-    SUPPORTED_CROPS,
     ImageUnreadable,
     ModelUnavailable,
     crop_from_label,
@@ -69,11 +67,10 @@ from agents.classifier import (  # noqa: E402
     load_class_names,
     looks_like_leaf,
 )
-from agents.classifier import onnx_preprocess as _onnx_preprocess  # noqa: E402
-from agents.classifier import predict_onnx as _predict_onnx  # noqa: E402
-from agents.classifier import load_onnx as _load_onnx  # noqa: E402
-from agents.classifier import load_torch as _load_classifier  # noqa: E402
 from agents.classifier import predict as _predict_image  # noqa: E402
+from agents.classifier import onnx_preprocess as _onnx_preprocess  # noqa: E402, F401
+from agents.classifier import predict_onnx as _predict_onnx  # noqa: E402, F401
+from agents.classifier import load_torch as _load_classifier  # noqa: E402, F401
 
 
 def _torch_transform():

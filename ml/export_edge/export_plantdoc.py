@@ -136,7 +136,7 @@ def main() -> None:
     )
     print(f"  experiment: {args.experiment}")
     print(f"  classes:   {len(classes)}")
-    print(f"  dataset:   PlantDoc")
+    print("  dataset:   PlantDoc")
     print(
         f"  validation accuracy: {payload.get('best_validation_accuracy')} "
         f"(best epoch {payload.get('best_epoch')})"

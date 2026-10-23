@@ -23,7 +23,6 @@ import argparse
 import csv
 import hashlib
 import json
-import math
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -229,7 +228,7 @@ def main() -> None:
     for label, f in train_items:
         within_train[sha256_file(f)].append((label, f))
     train_dup_groups = [
-        [{"label": l, "file": str(f.relative_to(data))} for l, f in v]
+        [{"label": lbl, "file": str(f.relative_to(data))} for lbl, f in v]
         for v in within_train.values() if len(v) > 1
     ]
 
@@ -238,7 +237,7 @@ def main() -> None:
     for label, f in test_items:
         within_test[sha256_file(f)].append((label, f))
     test_dup_groups = [
-        [{"label": l, "file": str(f.relative_to(data))} for l, f in v]
+        [{"label": lbl, "file": str(f.relative_to(data))} for lbl, f in v]
         for v in within_test.values() if len(v) > 1
     ]
 
@@ -351,7 +350,6 @@ def main() -> None:
     # 4. AUDIT.md summary
     # ------------------------------------------------------------------
     priority_rows = [r for r in rows if r["priority_crop"] == "yes"]
-    by_crop = Counter(r["current_label"].split()[0].lower() for r in priority_rows)
     # corn is "Corn", potato "Potato", tomato "Tomato"
     crop_counts = Counter()
     for r in priority_rows:

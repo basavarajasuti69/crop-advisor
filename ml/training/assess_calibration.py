@@ -21,13 +21,13 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "ml/training"))
 
-import torch
-from torch import nn
-from torch.utils.data import DataLoader
-from torchvision import models, transforms
-from torchvision.datasets import ImageFolder
+import torch  # noqa: E402
+from torch import nn  # noqa: E402
+from torch.utils.data import DataLoader  # noqa: E402
+from torchvision import models, transforms  # noqa: E402
+from torchvision.datasets import ImageFolder  # noqa: E402
 
-from train_plantdoc import MappedSubset, build_split, resolve_classes
+from train_plantdoc import MappedSubset, build_split, resolve_classes  # noqa: E402
 
 EXPERIMENTS = ROOT / "ml/training/experiments"
 DATA = ROOT / "ml/training/experiments/plantdoc_deduplicated_v3/data"
@@ -81,8 +81,6 @@ def main() -> None:
         classes = classes.get("classes", classes)
     classes = list(classes)
 
-    metrics = _json.loads((exp / "metrics.json").read_text())
-    smoothing = metrics.get("label_smoothing", 0.0)
 
     train_ds = ImageFolder(data / "train")
     test_ds = ImageFolder(data / "test")
@@ -91,7 +89,8 @@ def main() -> None:
     split = build_split(train_ds.samples, train_ds.classes,
                         test_ds.samples, test_ds.classes, resolved)
 
-    mean = [0.485, 0.456, 0.406]; std = [0.229, 0.224, 0.225]
+    mean = [0.485, 0.456, 0.406]
+    std = [0.229, 0.224, 0.225]
     eval_tf = transforms.Compose([
         transforms.Resize(256), transforms.CenterCrop(224),
         transforms.ToTensor(), transforms.Normalize(mean, std),
@@ -108,7 +107,6 @@ def main() -> None:
     model = model.to(device)
     model.eval()
 
-    loss_fn = nn.CrossEntropyLoss(label_smoothing=smoothing)
 
     confidences = []
     correct = []
@@ -124,8 +122,6 @@ def main() -> None:
     ece_val, table = ece(confidences, correct, n_bins=10)
 
     # Per-class calibration: ECE is dominated by confident classes.
-    import collections
-    per_class = collections.defaultdict(lambda: {"conf": [], "corr": []})
     # Need per-sample labels; re-run tracking labels.
     confidences2 = []
     correct2 = []
@@ -142,7 +138,7 @@ def main() -> None:
 
     per_class_ece = {}
     for idx, name in enumerate(classes):
-        mask = [i for i, l in enumerate(labels2) if l == idx]
+        mask = [i for i, lbl in enumerate(labels2) if lbl == idx]
         if not mask:
             per_class_ece[name] = None
             continue

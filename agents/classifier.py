@@ -20,11 +20,9 @@ import os
 from pathlib import Path
 from typing import Any
 
-from PIL import Image
+from PIL import Image  # noqa: F401
 
 from agents.label_map import (
-    PLANTDOC_CLASSES,
-    PLANTDOC_CROPS,
     is_plantdoc_label,
     plantdoc_crop,
     plantdoc_disease,
