@@ -56,9 +56,6 @@ The browser talks to the API directly. The API is stateless: photos are
 processed in memory and nothing is stored.
 
 ## Screenshots
-
-![Crop Disease Advisor](docs/screenshots/app.png)
-
 ![Crop Disease Advisor - Results](docs/screenshots/app2.png)
 
 The application provides a clean, mobile-friendly interface for farmers to
