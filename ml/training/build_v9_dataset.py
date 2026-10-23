@@ -42,6 +42,8 @@ def main() -> None:
     parser.add_argument("--manifest", required=True, help="reviewed manifest CSV")
     parser.add_argument("--out", required=True, help="output dataset root")
     parser.add_argument("--dry-run", action="store_true", help="print actions, copy nothing")
+    parser.add_argument("--strict", action="store_true",
+                        help="reject PENDING or unresolved decisions (use for a reviewed manifest)")
     args = parser.parse_args()
 
     source = Path(args.source)
@@ -52,10 +54,33 @@ def main() -> None:
     if out.exists() and any(out.iterdir()):
         raise SystemExit(f"Output is not empty: {out}. Choose a new --out.")
 
-    # Load manifest decisions.
+    # Load manifest decisions, validating the schema and values.
+    VALID_DECISIONS = {"PENDING", "KEEP", "REMOVE", "RELABEL"}
     decisions: dict[str, dict] = {}
+    required_cols = {"split", "current_label", "file", "reviewer_decision",
+                     "reviewer_new_label"}
     with Path(args.manifest).open(newline="") as h:
-        for row in csv.DictReader(h):
+        reader = csv.DictReader(h)
+        if not required_cols.issubset(set(reader.fieldnames or [])):
+            raise SystemExit(
+                f"Manifest is missing required columns: "
+                f"{sorted(required_cols - set(reader.fieldnames or []))}"
+            )
+        for row in reader:
+            if not row.get("file"):
+                raise SystemExit("Manifest contains a row with an empty 'file'.")
+            action = (row.get("reviewer_decision") or "KEEP").upper()
+            if action not in VALID_DECISIONS:
+                raise SystemExit(
+                    f"Invalid reviewer_decision '{row.get('reviewer_decision')}' "
+                    f"for {row['file']}; expected one of {sorted(VALID_DECISIONS)}."
+                )
+            if action == "RELABEL" and not (row.get("reviewer_new_label") or "").strip():
+                raise SystemExit(f"RELABEL without reviewer_new_label: {row['file']}")
+            if args.strict and action in ("PENDING",):
+                raise SystemExit(
+                    f"Unresolved PENDING decision in strict mode: {row['file']}"
+                )
             decisions[row["file"]] = row
 
     removed = 0
@@ -64,10 +89,12 @@ def main() -> None:
     for split in ("train", "test"):
         src_split = source / split
         dst_split = out / split
-        dst_split.mkdir(parents=True, exist_ok=True)
+        if not args.dry_run:
+            dst_split.mkdir(parents=True, exist_ok=True)
         for class_dir in sorted(p for p in src_split.iterdir() if p.is_dir()):
             dst_class = dst_split / class_dir.name
-            dst_class.mkdir(parents=True, exist_ok=True)
+            if not args.dry_run:
+                dst_class.mkdir(parents=True, exist_ok=True)
             for f in sorted(class_dir.iterdir()):
                 if not f.is_file():
                     continue
@@ -84,8 +111,16 @@ def main() -> None:
                     new_label = (dec.get("reviewer_new_label") or "").strip()
                     if not new_label:
                         raise SystemExit(f"RELABEL without reviewer_new_label: {rel}")
+                    # The target must be an existing class folder in the source
+                    # split. We never invent a new class from a free-text label.
+                    if not (src_split / new_label).is_dir():
+                        raise SystemExit(
+                            f"RELABEL target '{new_label}' is not an existing "
+                            f"class folder in {src_split}: {rel}"
+                        )
                     target = dst_split / new_label
-                    target.mkdir(parents=True, exist_ok=True)
+                    if not args.dry_run:
+                        target.mkdir(parents=True, exist_ok=True)
                     relabeled += 1
                     if not args.dry_run:
                         shutil.copy2(f, target / f.name)
