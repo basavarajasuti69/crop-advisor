@@ -13,6 +13,7 @@ from pydantic import BaseModel, field_validator
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from agents.classifier import (
+    _artifacts_dir,
     crop_from_label,
     load_class_names,
     load_model_metadata,
@@ -116,6 +117,32 @@ class AdviceResponse(BaseModel):
 @app.get("/health")
 async def health() -> dict[str, str]:
     return {"status": "ok", "region": REGION}
+
+
+@app.get("/ready")
+async def ready() -> dict[str, Any]:
+    """Model readiness check.
+
+    Reports whether the classifier artifacts are present and loadable,
+    without exposing sensitive information. Used by deployment health
+    checks and by the frontend to decide whether to enable analysis.
+    """
+    metadata = load_model_metadata()
+    classes = metadata.get("classes") or []
+    d = _artifacts_dir()
+    onnx_path = d / "classifier.onnx"
+    classes_path = d / "classes.json"
+    artifacts_present = onnx_path.exists() and classes_path.exists()
+    return {
+        "status": "ready" if artifacts_present else "not_ready",
+        "model": {
+            "num_classes": metadata.get("num_classes") or len(classes),
+            "dataset": metadata.get("dataset"),
+            "confidence_is_calibrated": metadata.get("confidence_is_calibrated", False),
+            "artifacts_present": artifacts_present,
+        },
+        "region": REGION,
+    }
 
 
 @app.get("/model")

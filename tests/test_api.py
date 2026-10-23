@@ -156,3 +156,22 @@ def test_app_cors_origins_have_no_trailing_slash():
             assert all(origin == origin.strip().rstrip("/") for origin in origins)
             return
     raise AssertionError("CORSMiddleware is not configured on the app")
+
+
+def test_ready_endpoint_reports_model_status():
+    response = client.get("/ready")
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] in ("ready", "not_ready")
+    assert "model" in body
+    assert "num_classes" in body["model"]
+    assert "artifacts_present" in body["model"]
+    assert body["model"]["confidence_is_calibrated"] is False
+
+
+def test_model_endpoint_reports_uncalibrated_confidence():
+    response = client.get("/model")
+    assert response.status_code == 200
+    body = response.json()
+    assert body["confidence_is_calibrated"] is False
+    assert body["disclaimer"]

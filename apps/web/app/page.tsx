@@ -1,39 +1,48 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useCallback, useEffect } from "react"
 import enStrings from "../../../strings/en.json"
 import hiStrings from "../../../strings/hi.json"
 import knStrings from "../../../strings/kn.json"
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
 const LANGUAGES = [
-  { code: "en", name: "English" },
-  { code: "hi", name: "हिन्दी" },
-  { code: "kn", name: "ಕನ್ನಡ" },
+  { code: "en", name: "English", bcp47: "en-IN" },
+  { code: "hi", name: "हिन्दी", bcp47: "hi-IN" },
+  { code: "kn", name: "ಕನ್ನಡ", bcp47: "kn-IN" },
 ]
 const CROPS = ["rice", "wheat", "cotton", "maize", "tomato"]
 
-// The same strings the API uses, so the UI and the advice speak one language.
 const STRINGS: Record<string, Record<string, string | null>> = {
   en: enStrings,
   hi: hiStrings,
   kn: knStrings,
 }
 
-// A free API sleeps after a while, so the first request can be slow.
 const WAKE_UP_DELAY_MS = 5000
+const CONFIDENCE_LOW = 0.70
 
 type Prediction = { label: string; score: number }
 type Diagnosis = {
   case_id: string
   crop: string
   language: string
-  diagnosis: { predictions: Prediction[]; quality_ok: boolean; quality_issue?: string | null }
+  diagnosis: {
+    predictions: Prediction[]
+    top_predictions?: Prediction[]
+    confidence: number
+    confidence_is_calibrated: boolean
+    guidance_available: boolean
+    quality_ok: boolean
+    quality_issue?: string | null
+  }
   advice: string
   citations: string[]
   confidence: number
+  confidence_is_calibrated: boolean
   safe: boolean
   escalate: boolean
+  disclaimer: string
 }
 
 export default function Home() {
@@ -46,19 +55,60 @@ export default function Home() {
   const [audioUnavailable, setAudioUnavailable] = useState(false)
   const [result, setResult] = useState<Diagnosis | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const fileInput = useRef<HTMLInputElement>(null)
+
+  // TTS state
+  const [speaking, setSpeaking] = useState(false)
+  const [paused, setPaused] = useState(false)
+  const [voiceAvailable, setVoiceAvailable] = useState<boolean | null>(null)
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  const fileInput = useRef<HTMLInputElement>(null)
 
   const t = (key: string): string => {
     const table = STRINGS[language] ?? STRINGS.en
-    return table[key] || STRINGS.en[key] || key
+    return (table[key] as string) || (STRINGS.en[key] as string) || key
   }
+
+  // Check voice availability when language changes
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.speechSynthesis) {
+      setVoiceAvailable(false)
+      return
+    }
+    const checkVoices = () => {
+      const lang = LANGUAGES.find((l) => l.code === language)
+      const bcp47 = lang?.bcp47 || "en-IN"
+      const voices = window.speechSynthesis.getVoices()
+      const match = voices.some((v) => v.lang.startsWith(bcp47.split("-")[0]))
+      setVoiceAvailable(match)
+    }
+    checkVoices()
+    window.speechSynthesis.onvoiceschanged = checkVoices
+    return () => {
+      window.speechSynthesis.onvoiceschanged = null
+    }
+  }, [language])
+
+  // Cancel speech when result changes or component unmounts
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined" && window.speechSynthesis) {
+        window.speechSynthesis.cancel()
+      }
+    }
+  }, [])
 
   const handleFile = (selected?: File) => {
     if (!selected) return
     setError(null)
     setResult(null)
     setAudioUnavailable(false)
+    setSpeaking(false)
+    setPaused(false)
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel()
+    }
     setFile(selected)
     setImage(URL.createObjectURL(selected))
   }
@@ -68,7 +118,11 @@ export default function Home() {
     setLoading(true)
     setError(null)
     setSlowLoading(false)
-    // If the free API is asleep the request can take up to a minute.
+    setSpeaking(false)
+    setPaused(false)
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel()
+    }
     const wakeUpTimer = setTimeout(() => setSlowLoading(true), WAKE_UP_DELAY_MS)
     try {
       const form = new FormData()
@@ -78,7 +132,7 @@ export default function Home() {
       const response = await fetch(`${API}/advice/image`, { method: "POST", body: form })
       if (!response.ok) {
         const detail = await response.json().catch(() => null)
-        throw new Error(detail?.detail || "We couldn’t analyze that photo. Please try again.")
+        throw new Error(detail?.detail || "We couldn't analyze that photo. Please try again.")
       }
       setResult(await response.json())
     } catch (cause) {
@@ -90,28 +144,103 @@ export default function Home() {
     }
   }
 
-  const speak = async () => {
-    if (!result?.advice) return
+  const speakWithBrowser = useCallback((text: string) => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return false
+    const lang = LANGUAGES.find((l) => l.code === language)
+    const bcp47 = lang?.bcp47 || "en-IN"
+    const voices = window.speechSynthesis.getVoices()
+    const voice = voices.find((v) => v.lang === bcp47) || voices.find((v) => v.lang.startsWith(bcp47.split("-")[0]))
+    if (!voice) return false
+
+    window.speechSynthesis.cancel()
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.voice = voice
+    utterance.lang = bcp47
+    utterance.rate = 0.9
+    utterance.onstart = () => { setSpeaking(true); setPaused(false) }
+    utterance.onend = () => { setSpeaking(false); setPaused(false) }
+    utterance.onerror = () => { setSpeaking(false); setPaused(false) }
+    utteranceRef.current = utterance
+    window.speechSynthesis.speak(utterance)
+    return true
+  }, [language])
+
+  const speakWithBackend = useCallback(async (text: string) => {
     try {
       const response = await fetch(`${API}/speak`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: result.advice, language: result.language }),
+        body: JSON.stringify({ text, language: result?.language || language }),
       })
       if (response.status === 503) {
-        // No speech provider is configured. Stop offering audio.
         setAudioUnavailable(true)
         return
       }
       if (!response.ok) throw new Error(t("audio_unavailable"))
       const audioUrl = URL.createObjectURL(await response.blob())
-      if (audioRef.current) audioRef.current.src = audioUrl
-      else audioRef.current = new Audio(audioUrl)
+      if (audioRef.current) {
+        audioRef.current.src = audioUrl
+      } else {
+        audioRef.current = new Audio(audioUrl)
+      }
+      audioRef.current.onplay = () => { setSpeaking(true); setPaused(false) }
+      audioRef.current.onended = () => { setSpeaking(false); setPaused(false) }
+      audioRef.current.onpause = () => setPaused(true)
       await audioRef.current.play()
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : t("audio_unavailable"))
+    } catch {
+      setError(t("audio_unavailable"))
+      setSpeaking(false)
+      setPaused(false)
     }
-  }
+  }, [language, result, t])
+
+  const speak = useCallback(async () => {
+    if (!result?.advice) return
+    setAudioUnavailable(false)
+    // Try browser speech first, fall back to backend
+    if (!speakWithBrowser(result.advice)) {
+      await speakWithBackend(result.advice)
+    }
+  }, [result, speakWithBrowser, speakWithBackend])
+
+  const pauseResume = useCallback(() => {
+    if (typeof window !== "undefined" && window.speechSynthesis && utteranceRef.current) {
+      if (paused) {
+        window.speechSynthesis.resume()
+        setPaused(false)
+      } else {
+        window.speechSynthesis.pause()
+        setPaused(true)
+      }
+    } else if (audioRef.current) {
+      if (paused) {
+        audioRef.current.play()
+        setPaused(false)
+      } else {
+        audioRef.current.pause()
+        setPaused(true)
+      }
+    }
+  }, [paused])
+
+  const stopSpeaking = useCallback(() => {
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      window.speechSynthesis.cancel()
+    }
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+    }
+    setSpeaking(false)
+    setPaused(false)
+  }, [])
+
+  const predictions = result?.diagnosis?.predictions || []
+  const topPredictions = result?.diagnosis?.top_predictions || predictions.slice(0, 3)
+  const confidence = result?.confidence || 0
+  const isLowConfidence = confidence < CONFIDENCE_LOW
+  const qualityOk = result?.diagnosis?.quality_ok ?? true
+  const qualityIssue = result?.diagnosis?.quality_issue
 
   return (
     <main>
@@ -127,7 +256,7 @@ export default function Home() {
           </nav>
           <label className="language-control">
             <span className="sr-only">Language</span>
-            <select value={language} onChange={(event) => setLanguage(event.target.value)}>
+            <select value={language} onChange={(event) => { stopSpeaking(); setLanguage(event.target.value) }}>
               {LANGUAGES.map((item) => <option value={item.code} key={item.code}>{item.name}</option>)}
             </select>
           </label>
@@ -160,7 +289,7 @@ export default function Home() {
         <div className="section-wrap diagnosis-layout">
           <div className="diagnosis-copy">
             <p className="eyebrow"><span /> YOUR FIELD NOTE</p>
-            <h2>Let’s take<br />a closer look.</h2>
+            <h2>Let's take<br />a closer look.</h2>
             <p>Start with one leaf. A clear, well-lit photo helps us give you a more useful first read.</p>
             <div className="photo-tips"><span>PHOTO GUIDE</span><p>Use natural light · Keep the leaf in focus · Include the affected area</p></div>
           </div>
@@ -168,7 +297,7 @@ export default function Home() {
           <div className="diagnosis-panel">
             <div className="panel-heading"><span>NEW DIAGNOSIS</span><span>FIELDNOTE / 001</span></div>
             <button className={`upload-area ${image ? "has-image" : ""}`} onClick={() => fileInput.current?.click()} type="button">
-              {image ? <img src={image} alt="Selected crop leaf" /> : <span className="upload-prompt"><span className="upload-mark">＋</span><strong>Choose a leaf photo</strong><span>JPG or PNG · Tap to browse</span></span>}
+              {image ? <img src={image} alt="Selected crop leaf" /> : <span className="upload-prompt"><span className="upload-mark">＋</span><strong>Choose a leaf photo</strong><span>JPG or PNG · Tap to browse or use camera</span></span>}
               <input
                 ref={fileInput}
                 className="sr-only"
@@ -183,29 +312,119 @@ export default function Home() {
 
             <div className="form-row">
               <label>CROP<select value={crop} onChange={(event) => setCrop(event.target.value)}>{CROPS.map((item) => <option key={item} value={item}>{item[0].toUpperCase() + item.slice(1)}</option>)}</select></label>
-              <label>ADVICE LANGUAGE<select value={language} onChange={(event) => setLanguage(event.target.value)}>{LANGUAGES.map((item) => <option key={item.code} value={item.code}>{item.name}</option>)}</select></label>
+              <label>ADVICE LANGUAGE<select value={language} onChange={(event) => { stopSpeaking(); setLanguage(event.target.value) }}>{LANGUAGES.map((item) => <option key={item.code} value={item.code}>{item.name}</option>)}</select></label>
             </div>
             <button className="button button-primary diagnose-button" onClick={submit} disabled={!file || loading}>
               {loading ? "READING YOUR PHOTO…" : "ANALYZE PHOTO"}<span aria-hidden="true">↗</span>
             </button>
             {loading && slowLoading && <p className="notice notice-slow" role="status">{t("waking_up")}</p>}
-            <p className="privacy-note">Your photo is used to prepare this diagnosis.</p>
+            <p className="privacy-note">Your photo is used to prepare this diagnosis. Predictions are informational, not guaranteed diagnoses.</p>
 
             {error && <div className="notice notice-error" role="alert">{error}</div>}
 
             {result && (
               <div className="result-card" aria-live="polite">
-                <div className="result-topline"><span>FIELD NOTE / {result.case_id.slice(0, 6).toUpperCase()}</span><span className={result.safe ? "status-safe" : "status-review"}>{result.safe ? "PRELIMINARY" : "REVIEW ADVISED"}</span></div>
+                <div className="result-topline">
+                  <span>FIELD NOTE / {result.case_id.slice(0, 6).toUpperCase()}</span>
+                  <span className={result.safe ? "status-safe" : "status-review"}>{result.safe ? "PRELIMINARY" : "REVIEW ADVISED"}</span>
+                </div>
                 <h3>What we found</h3>
-                {result.diagnosis.predictions.length > 0 ? (
-                  <ul className="prediction-list">{result.diagnosis.predictions.map((prediction) => <li key={prediction.label}><span>{prediction.label.replaceAll("_", " ")}</span><strong>{Math.round(prediction.score * 100)}%</strong></li>)}</ul>
-                ) : <p className="result-muted">{result.diagnosis.quality_issue || "No clear result yet. Try a closer, brighter photo."}</p>}
-                <div className="result-advice"><p className="eyebrow"><span /> NEXT STEP</p><p>{result.advice}</p></div>
-                {result.citations.length > 0 && <p className="citation-line">GUIDANCE: {result.citations.join(" · ")}</p>}
-                {audioUnavailable ? (
-                  <button className="button button-outline" disabled>{t("audio_unavailable")}</button>
+
+                {/* Quality check */}
+                {!qualityOk && qualityIssue && (
+                  <div className="notice notice-warning" role="alert">
+                    <strong>Image quality issue:</strong> {qualityIssue}
+                  </div>
+                )}
+
+                {/* Low confidence warning */}
+                {isLowConfidence && (
+                  <div className="notice notice-warning" role="alert">
+                    <strong>Low confidence:</strong> The model is not confident in this prediction.
+                    Consider uploading a clearer photo or consulting an agricultural expert.
+                  </div>
+                )}
+
+                {/* Uncalibrated confidence disclaimer */}
+                {!result.confidence_is_calibrated && (
+                  <p className="result-muted" style={{ fontSize: "0.8rem", marginTop: "4px" }}>
+                    Confidence scores are uncalibrated model outputs, not disease probabilities.
+                  </p>
+                )}
+
+                {predictions.length > 0 ? (
+                  <>
+                    <ul className="prediction-list">
+                      {topPredictions.map((prediction, idx) => (
+                        <li key={prediction.label + idx}>
+                          <span>{idx === 0 ? "★ " : ""}{prediction.label.replaceAll("_", " ")}</span>
+                          <strong>{Math.round(prediction.score * 100)}%</strong>
+                        </li>
+                      ))}
+                    </ul>
+                    {predictions.length > 3 && (
+                      <details className="result-muted" style={{ marginTop: "8px" }}>
+                        <summary style={{ cursor: "pointer", fontSize: "0.85rem" }}>Show all {predictions.length} predictions</summary>
+                        <ul className="prediction-list" style={{ marginTop: "4px" }}>
+                          {predictions.map((prediction, idx) => (
+                            <li key={prediction.label + "_all_" + idx}>
+                              <span>{prediction.label.replaceAll("_", " ")}</span>
+                              <strong>{Math.round(prediction.score * 100)}%</strong>
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
+                  </>
                 ) : (
-                  <button className="button button-outline" onClick={speak}>LISTEN TO ADVICE <span aria-hidden="true">↗</span></button>
+                  <p className="result-muted">{result.diagnosis.quality_issue || "No clear result yet. Try a closer, brighter photo."}</p>
+                )}
+
+                <div className="result-advice"><p className="eyebrow"><span /> NEXT STEP</p><p>{result.advice}</p></div>
+
+                {result.citations.length > 0 && <p className="citation-line">GUIDANCE: {result.citations.join(" · ")}</p>}
+
+                {/* Guidance availability */}
+                {!result.diagnosis.guidance_available && (
+                  <p className="result-muted" style={{ fontSize: "0.85rem", marginTop: "4px" }}>
+                    No specific treatment guidance is available for this class. Consult a local agricultural officer.
+                  </p>
+                )}
+
+                {/* TTS Controls */}
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "12px" }}>
+                  {audioUnavailable ? (
+                    <button className="button button-outline" disabled>{t("audio_unavailable")}</button>
+                  ) : (
+                    <>
+                      <button className="button button-outline" onClick={speak} disabled={speaking && !paused}>
+                        {speaking ? (paused ? "RESUME" : "SPEAKING…") : "LISTEN TO ADVICE"} <span aria-hidden="true">↗</span>
+                      </button>
+                      {speaking && (
+                        <button className="button button-outline" onClick={pauseResume}>
+                          {paused ? "RESUME" : "PAUSE"}
+                        </button>
+                      )}
+                      {speaking && (
+                        <button className="button button-outline" onClick={stopSpeaking}>
+                          STOP
+                        </button>
+                      )}
+                      {!speaking && result.advice && (
+                        <button className="button button-outline" onClick={speak}>
+                          REPLAY <span aria-hidden="true">↻</span>
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
+
+                {/* Voice availability hint */}
+                {voiceAvailable === false && !audioUnavailable && (
+                  <p className="result-muted" style={{ fontSize: "0.8rem", marginTop: "4px" }}>
+                    No {LANGUAGES.find(l => l.code === language)?.name} voice found on this device.
+                    Speech will use the server if available.
+                  </p>
                 )}
               </div>
             )}
