@@ -136,7 +136,7 @@ def main() -> None:
             correct2.extend((pred == labels).cpu().tolist())
             labels2.extend(labels.cpu().tolist())
 
-    per_class_ece = {}
+    per_class_ece: dict = {}
     for idx, name in enumerate(classes):
         mask = [i for i, lbl in enumerate(labels2) if lbl == idx]
         if not mask:

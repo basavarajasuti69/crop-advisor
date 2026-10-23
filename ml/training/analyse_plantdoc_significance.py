@@ -108,9 +108,9 @@ def main() -> None:
     total = len(per_model[names[0]])
 
     for name in names:
-        correct = sum(per_model[name].values())
+        correct_count = sum(per_model[name].values())
         n = total
-        p = correct / n
+        p = correct_count / n
         # Wilson 95% interval.
         z = 1.96
         denominator = 1 + z * z / n

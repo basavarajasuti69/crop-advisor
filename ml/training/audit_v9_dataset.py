@@ -351,7 +351,7 @@ def main() -> None:
     # ------------------------------------------------------------------
     priority_rows = [r for r in rows if r["priority_crop"] == "yes"]
     # corn is "Corn", potato "Potato", tomato "Tomato"
-    crop_counts = Counter()
+    crop_counts: Counter = Counter()
     for r in priority_rows:
         cl = r["current_label"].lower()
         if cl.startswith("corn"):

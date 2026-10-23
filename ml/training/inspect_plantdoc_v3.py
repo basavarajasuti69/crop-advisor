@@ -102,8 +102,8 @@ with torch.no_grad():
         confidences, predictions = probabilities.max(dim=1)
 
         for i in range(len(labels)):
-            actual = labels[i].item()
-            predicted = predictions[i].item()
+            actual = int(labels[i].item())
+            predicted = int(predictions[i].item())
             confidence = confidences[i].item()
 
             confusion[actual][predicted] += 1

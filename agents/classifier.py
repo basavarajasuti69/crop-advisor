@@ -276,17 +276,19 @@ def load_torch(weights_path: str | None = None, metrics_path: str | None = None)
                 root / "ml/training/artifacts/metrics.json",
             ),
         ]
-        weights_path, metrics_path = next(
+        _w, _m = next(
             (w, m) for w, m in candidates if w.exists() and m.exists()
         )
-    w = Path(weights_path) if weights_path else root / "ml/training/artifacts/model.pt"
-    m = Path(metrics_path) if metrics_path else root / "ml/training/artifacts/metrics.json"
-    if not (w.exists() and m.exists()):
+        weights_path = str(_w)
+        metrics_path = str(_m)
+    w: Path = Path(weights_path) if weights_path else root / "ml/training/artifacts/model.pt"
+    metrics_path_obj: Path = Path(metrics_path) if metrics_path else root / "ml/training/artifacts/metrics.json"
+    if not (w.exists() and metrics_path_obj.exists()):
         raise ModelUnavailable("classifier model file missing")
     import torch
     from torchvision import models
 
-    payload = json.loads(m.read_text())
+    payload = json.loads(metrics_path_obj.read_text())
     classes = payload.get("classes") or payload
     model = models.efficientnet_b0(weights=None)
     model.classifier[1] = torch.nn.Linear(

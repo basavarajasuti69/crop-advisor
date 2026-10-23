@@ -43,6 +43,7 @@ import json
 import sys
 from collections import Counter
 from pathlib import Path
+from typing import Any
 
 import torch
 from torch import nn
@@ -377,7 +378,7 @@ def main() -> None:
             Path(args.provenance).read_text()
         ).get("experiments", {})
 
-    summary = {
+    summary: dict[str, Any] = {
         "dataset": str(data_root / "test"),
         "device": str(device),
         "classes": reference,

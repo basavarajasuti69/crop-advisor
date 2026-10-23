@@ -133,7 +133,8 @@ def contact_sheet(
         label = row.get("caption", "")
         # Wrap the caption onto two short lines.
         words = label.split()
-        line_one, line_two = [], []
+        line_one: list = []
+        line_two: list = []
         for word in words:
             if len(" ".join(line_one + [word])) <= 26:
                 line_one.append(word)
@@ -353,7 +354,7 @@ def main() -> None:
             p for p in sorted(folder.iterdir())
             if p.is_file() and p.suffix.lower() in IMAGE_SUFFIXES
         ]
-        buckets = Counter()
+        buckets: Counter = Counter()
         for image in images:
             key = str(image.resolve())
             hits = sum(
@@ -373,8 +374,8 @@ def main() -> None:
     # ---- resolution shift --------------------------------------------------
     resolution = []
     for name in classes:
-        train_px = pixels(train_folder / name) if (train_folder / name).is_dir() else []
-        test_px = pixels(test_folder / name) if (test_folder / name).is_dir() else []
+        train_px = [float(x) for x in pixels(train_folder / name)] if (train_folder / name).is_dir() else []
+        test_px = [float(x) for x in pixels(test_folder / name)] if (test_folder / name).is_dir() else []
         train_median = median(train_px)
         test_median = median(test_px)
         resolution.append({
