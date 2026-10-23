@@ -1,0 +1,53 @@
+{
+  "experiment": "plantdoc_27class_v9",
+  "metrics": {
+    "accuracy": 0.666667,
+    "macro_precision": 0.685794,
+    "macro_recall": 0.674133,
+    "macro_f1": 0.648335,
+    "weighted_f1": 0.653033,
+    "correct": 150,
+    "incorrect": 75,
+    "total": 225,
+    "mean_max_probability": 0.530953,
+    "mean_max_probability_correct": 0.591593,
+    "mean_max_probability_incorrect": 0.409673
+  },
+  "validation_metrics": {
+    "accuracy": 0.691643,
+    "macro_precision": 0.686991,
+    "macro_recall": 0.659071,
+    "macro_f1": 0.651351,
+    "weighted_f1": 0.677142,
+    "correct": 240,
+    "incorrect": 107,
+    "total": 347
+  },
+  "training": {
+    "epochs_requested": 40,
+    "epochs_completed": 32,
+    "best_epoch": 24,
+    "best_validation_accuracy": 0.6888,
+    "best_validation_macro_f1": 0.649,
+    "label_smoothing": 0.1,
+    "class_weighting": false,
+    "seed": 42,
+    "device": "mps",
+    "training_images": 1970,
+    "validation_images": 347,
+    "test_images": 225,
+    "lr": 3e-05,
+    "learning_rate": null,
+    "batch_size": 16,
+    "optimizer": "Adam",
+    "weight_decay": 0,
+    "lr_scheduler": "cosine",
+    "data": "ml/training/experiments/plantdoc_deduplicated_v3/data",
+    "validation_fraction": 0.15,
+    "stopped_early": true,
+    "elapsed_seconds": 3721.8,
+    "lr_recorded": true,
+    "batch_size_recorded": true
+  },
+  "note": "Probabilities are uncalibrated softmax outputs, not disease probabilities. The test set is reused across every experiment in this series; use the validation metrics to compare models."
+}

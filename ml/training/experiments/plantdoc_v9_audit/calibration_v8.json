@@ -1,0 +1,110 @@
+{
+  "experiment": "plantdoc_27class_v8",
+  "split": "validation (held out of train, NOT the test set)",
+  "n_samples": 347,
+  "accuracy": 0.6686,
+  "mean_confidence": 0.5631,
+  "ece_10bin": 0.1055,
+  "reliability_table": [
+    {
+      "bin": "[0.0,0.1)",
+      "n": 0,
+      "avg_confidence": null,
+      "accuracy": null,
+      "gap": null
+    },
+    {
+      "bin": "[0.1,0.2)",
+      "n": 17,
+      "avg_confidence": 0.1795,
+      "accuracy": 0.4118,
+      "gap": 0.2323
+    },
+    {
+      "bin": "[0.2,0.3)",
+      "n": 40,
+      "avg_confidence": 0.2536,
+      "accuracy": 0.35,
+      "gap": 0.0964
+    },
+    {
+      "bin": "[0.3,0.4)",
+      "n": 49,
+      "avg_confidence": 0.3471,
+      "accuracy": 0.4694,
+      "gap": 0.1222
+    },
+    {
+      "bin": "[0.4,0.5)",
+      "n": 41,
+      "avg_confidence": 0.452,
+      "accuracy": 0.4634,
+      "gap": 0.0114
+    },
+    {
+      "bin": "[0.5,0.6)",
+      "n": 37,
+      "avg_confidence": 0.55,
+      "accuracy": 0.7027,
+      "gap": 0.1527
+    },
+    {
+      "bin": "[0.6,0.7)",
+      "n": 42,
+      "avg_confidence": 0.6541,
+      "accuracy": 0.7857,
+      "gap": 0.1316
+    },
+    {
+      "bin": "[0.7,0.8)",
+      "n": 55,
+      "avg_confidence": 0.7481,
+      "accuracy": 0.8727,
+      "gap": 0.1247
+    },
+    {
+      "bin": "[0.8,0.9)",
+      "n": 46,
+      "avg_confidence": 0.8473,
+      "accuracy": 0.9348,
+      "gap": 0.0875
+    },
+    {
+      "bin": "[0.9,1.0)",
+      "n": 20,
+      "avg_confidence": 0.9354,
+      "accuracy": 0.95,
+      "gap": 0.0146
+    }
+  ],
+  "per_class_ece_5bin": {
+    "Apple Scab Leaf": 0.2145,
+    "Apple leaf": 0.166,
+    "Apple rust leaf": 0.2912,
+    "Bell_pepper leaf": 0.2379,
+    "Bell_pepper leaf spot": 0.2538,
+    "Blueberry leaf": 0.2483,
+    "Cherry leaf": 0.2504,
+    "Corn Gray leaf spot": 0.4397,
+    "Corn leaf blight": 0.209,
+    "Corn rust leaf": 0.2208,
+    "Peach leaf": 0.2,
+    "Potato leaf early blight": 0.3997,
+    "Potato leaf late blight": 0.251,
+    "Raspberry leaf": 0.2035,
+    "Soyabean leaf": 0.2965,
+    "Squash Powdery mildew leaf": 0.2596,
+    "Strawberry leaf": 0.266,
+    "Tomato Early blight leaf": 0.2171,
+    "Tomato Septoria leaf spot": 0.3536,
+    "Tomato leaf": 0.2567,
+    "Tomato leaf bacterial spot": 0.2042,
+    "Tomato leaf late blight": 0.3231,
+    "Tomato leaf mosaic virus": 0.3817,
+    "Tomato leaf yellow virus": 0.3301,
+    "Tomato mold leaf": 0.1277,
+    "grape leaf": 0.2325,
+    "grape leaf black rot": 0.3182
+  },
+  "interpretation": "ECE measures how much the stated confidence differs from the empirical accuracy in each confidence bin. A well-calibrated model has ECE near 0. This model has NOT been calibrated (no temperature scaling), so confidence thresholds in the API (0.70 / 0.85) are engineering cut-offs, not calibrated probabilities of disease."
+}

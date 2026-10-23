@@ -1,0 +1,157 @@
+source_path,actual_label,predicted_label,confidence,confidence_percent
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple Scab Leaf/1b321015-6e33-4f18-aade-888f4383fe92.jpeg.jpg,Apple Scab Leaf,Apple Scab Leaf,0.245764,24.58
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple Scab Leaf/28-500x375.jpg,Apple Scab Leaf,Apple Scab Leaf,0.425407,42.54
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple Scab Leaf/816.jpg,Apple Scab Leaf,Apple Scab Leaf,0.60618,60.62
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple Scab Leaf/apple%20scab%20leaf.jpg,Apple Scab Leaf,Apple Scab Leaf,0.324634,32.46
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple Scab Leaf/apple-scab-5366820.jpg,Apple Scab Leaf,Apple Scab Leaf,0.749897,74.99
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple Scab Leaf/apples_apple-scab_01_zoom.jpg,Apple Scab Leaf,Apple Scab Leaf,0.541622,54.16
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple Scab Leaf/apples_apple-scab_02_thm.jpg,Apple Scab Leaf,Apple Scab Leaf,0.230613,23.06
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple leaf/20180511_090912-14gtw8a-e1526047952754.jpg,Apple leaf,Apple leaf,0.314586,31.46
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple leaf/20180511_091133-24l1vhg-e1526047988236.jpg,Apple leaf,Apple leaf,0.474588,47.46
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple leaf/20180511_091252-1gy5xf5-e1526048000596.jpg,Apple leaf,Apple leaf,0.956105,95.61
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple leaf/4120978-single-green-leaf-of-apple-tree.jpg,Apple leaf,Apple leaf,0.886786,88.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple leaf/apple-leaf-14319997.jpg,Apple leaf,Apple leaf,0.623439,62.34
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple leaf/apple-leaf-9834637.jpg,Apple leaf,Apple leaf,0.350927,35.09
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple leaf/apple-leaf-closeup-37636177.jpg,Apple leaf,Apple leaf,0.855176,85.52
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple leaf/apple-leaf-isolated-white-background-56631026.jpg,Apple leaf,Apple leaf,0.899369,89.94
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple rust leaf/0605_Rust-induced_leafspot.jpg,Apple rust leaf,Apple rust leaf,0.517946,51.79
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple rust leaf/185161-004-EAF28842.jpg,Apple rust leaf,Apple rust leaf,0.451006,45.1
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple rust leaf/20130519cedarapplerust.jpg,Apple rust leaf,Apple rust leaf,0.506802,50.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple rust leaf/20130610_110514.jpg,Apple rust leaf,Apple rust leaf,0.256882,25.69
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple rust leaf/4-apple-rust2_19011_matt-bertone.jpg,Apple rust leaf,Apple rust leaf,0.443143,44.31
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple rust leaf/9343310-small.jpg,Apple rust leaf,Apple rust leaf,0.717087,71.71
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Apple rust leaf/99e886623c2080c22f6519b0e708c531.jpg,Apple rust leaf,Apple rust leaf,0.736843,73.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/10148582-green-leaf-of-pepper.jpg,Bell_pepper leaf,Bell_pepper leaf,0.286574,28.66
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/4825902504_5fa80b65b8_z.jpg,Bell_pepper leaf,Bell_pepper leaf,0.28692,28.69
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/GREEN%20BELL%20PLANT%20YELLOW%20LEAF.JPG.jpg,Bell_pepper leaf,Bell_pepper leaf,0.264003,26.4
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf/RnGnC.jpg,Bell_pepper leaf,Bell_pepper leaf,0.318905,31.89
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/00.jpg,Bell_pepper leaf spot,Bell_pepper leaf spot,0.822557,82.26
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/01.jpg,Bell_pepper leaf spot,Bell_pepper leaf spot,0.278125,27.81
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/Bacterial-spot-pepper2.jpg,Bell_pepper leaf spot,Bell_pepper leaf spot,0.356011,35.6
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/H5w92.jpg,Bell_pepper leaf spot,Bell_pepper leaf spot,0.513383,51.34
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/bacterial_leaf_spot_pepper_l.jpg,Bell_pepper leaf spot,Bell_pepper leaf spot,0.699188,69.92
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/pepper-spot.jpg,Bell_pepper leaf spot,Bell_pepper leaf spot,0.227208,22.72
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Bell_pepper leaf spot/pepper_bacterial-spot_03_zoom.jpg,Bell_pepper leaf spot,Bell_pepper leaf spot,0.446478,44.65
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/P1200665+Vaccinium+alaskaense+vs+ovalifolium+leaf+and++twig+cr.jpg,Blueberry leaf,Blueberry leaf,0.437636,43.76
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/blueberrysilverleaf16-1372b.jpg,Blueberry leaf,Blueberry leaf,0.504444,50.44
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/northern-highbush-blueberry-blue-huckleberry-vaccinium-corymbosum-EHNXRR.jpg,Blueberry leaf,Blueberry leaf,0.680563,68.06
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/stock-photo-blueberry-leaf-closeup-isolated-on-white-306486470.jpg,Blueberry leaf,Blueberry leaf,0.569578,56.96
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/stock-photo-green-blueberry-leaf-isolated-with-clipping-path-550344304.jpg,Blueberry leaf,Blueberry leaf,0.251272,25.13
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/stock-photo-two-sides-of-blueberry-leaf-isolated-on-white-15582232.jpg,Blueberry leaf,Blueberry leaf,0.727519,72.75
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Blueberry leaf/vaccinium-angustifolium-low-bush-blueberry_0830_124221.jpg,Blueberry leaf,Blueberry leaf,0.385356,38.54
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/d7b79dbc0bca0eb3e63fbe5dfb256ccd53d90a4eb1413_1260x1260.jpg,Cherry leaf,Cherry leaf,0.517425,51.74
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/e52bbb9a08ede2948ba0c006f02fe7b053ad7831d1df6_1260x1260.jpg,Cherry leaf,Cherry leaf,0.533443,53.34
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Cherry leaf/ed12ff77ce021883de241830dee55e2e53d2c93231699_1260x1260.jpg,Cherry leaf,Cherry leaf,0.327048,32.7
+"/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn Gray leaf spot/show_picture.asp?id=aaaaaaaaaaogcqq&w2=420&h2=378&clip=center,420,378&meta=0.jpg",Corn Gray leaf spot,Corn Gray leaf spot,0.746811,74.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn Gray leaf spot/strom5.jpg,Corn Gray leaf spot,Corn Gray leaf spot,0.571955,57.2
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/02c.jpg,Corn leaf blight,Corn leaf blight,0.634175,63.42
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/0c.jpg,Corn leaf blight,Corn leaf blight,0.821752,82.18
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/160314_web.jpg,Corn leaf blight,Corn leaf blight,0.300411,30.04
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/Common%20Diseases%20Figure%201.JPG.jpg,Corn leaf blight,Corn leaf blight,0.928865,92.89
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn leaf blight/Corn-SCLB-2017-1.jpg,Corn leaf blight,Corn leaf blight,0.383448,38.34
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/0796.39maizerust.jpg,Corn rust leaf,Corn rust leaf,0.819732,81.97
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/0796.40comrust.jpg,Corn rust leaf,Corn rust leaf,0.74822,74.82
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/0796.47southrust.jpg,Corn rust leaf,Corn rust leaf,0.834972,83.5
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/12-19striprustJIM.jpg,Corn rust leaf,Corn rust leaf,0.334112,33.41
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/1355.50commonrust.jpg,Corn rust leaf,Corn rust leaf,0.748827,74.88
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/2256-body-1501555581-1.jpg,Corn rust leaf,Corn rust leaf,0.703201,70.32
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/393.jpg,Corn rust leaf,Corn rust leaf,0.923576,92.36
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Corn rust leaf/5496239405_d95bdb97d1_z.jpg,Corn rust leaf,Corn rust leaf,0.620662,62.07
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Peach leaf/7190f27ead55c0f6e3ff8b982972810a5446a9713a49d_1260x1260.jpg,Peach leaf,Peach leaf,0.766998,76.7
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Peach leaf/depositphotos_3786198-Peach-leaf.jpg,Peach leaf,Peach leaf,0.842258,84.23
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Peach leaf/peach-leaf-10223898.jpg,Peach leaf,Peach leaf,0.596947,59.69
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Peach leaf/peach-leaf-16690421.jpg,Peach leaf,Peach leaf,0.374707,37.47
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Peach leaf/peach-leaf-isolated-white-background-42295220.jpg,Peach leaf,Peach leaf,0.726814,72.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Peach leaf/stock-photo-peach-leaf-isolated-on-white-background-281097503.jpg,Peach leaf,Peach leaf,0.564206,56.42
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Peach leaf/stock-photo-peach-tree-leaf-isolated-over-white-background-back-side-64472731.jpg,Peach leaf,Peach leaf,0.722498,72.25
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/early-blight-alternaria-alternata-leaf-spotting-on-potato-leaf-X91XJE.jpg,Potato leaf early blight,Potato leaf early blight,0.803697,80.37
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/earlyblightpotato.jpg,Potato leaf early blight,Potato leaf early blight,0.670671,67.07
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/potato-blight-phytophthora-infestans-close-up-of-upper-surface-of-BMMRXC.jpg,Potato leaf early blight,Potato leaf early blight,0.293452,29.35
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/potato-early-blight-alternaria-alternata-lesion-on-a-potato-leaf-a1w1em.jpg,Potato leaf early blight,Potato leaf early blight,0.891028,89.1
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf early blight/potatobd001.jpg,Potato leaf early blight,Potato leaf early blight,0.203308,20.33
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/2540_600.jpg,Potato leaf late blight,Potato leaf late blight,0.440069,44.01
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/B2750109-Late_blight_on_a_potato_plant-SPL.jpg,Potato leaf late blight,Potato leaf late blight,0.443692,44.37
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Potato leaf late blight/LateBlight04.jpg,Potato leaf late blight,Potato leaf late blight,0.514832,51.48
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Raspberry leaf/Raspberry-leaf.jpg,Raspberry leaf,Raspberry leaf,0.822307,82.23
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Raspberry leaf/depositphotos_1323264-Raspberry-leaf-on-white.jpg,Raspberry leaf,Raspberry leaf,0.597712,59.77
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Raspberry leaf/depositphotos_1323551-stock-photo-raspberry-leaves.jpg,Raspberry leaf,Raspberry leaf,0.827861,82.79
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Raspberry leaf/depositphotos_2795312-stock-photo-green-raspberry-leaf.jpg,Raspberry leaf,Raspberry leaf,0.80274,80.27
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Raspberry leaf/iron-deficiency-raspberry-leaf-chlorosis-isolated-32457798.jpg,Raspberry leaf,Raspberry leaf,0.691317,69.13
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Raspberry leaf/leaves-of-raspberry-stock-picture-2529053.jpg,Raspberry leaf,Raspberry leaf,0.716277,71.63
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Raspberry leaf/three-raspberry-green-leaves-isolated-white-background-62022932.jpg,Raspberry leaf,Raspberry leaf,0.453334,45.33
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Soyabean leaf/Soybean%20edamame%20leaf1.JPG.jpg,Soyabean leaf,Soyabean leaf,0.739566,73.96
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Soyabean leaf/stock-photo-fresh-soy-leaves-isolated-on-white-94266130.jpg,Soyabean leaf,Soyabean leaf,0.574613,57.46
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Soyabean leaf/stock-photo-fresh-soy-leaves-isolated-on-white-94700095.jpg,Soyabean leaf,Soyabean leaf,0.66334,66.33
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Soyabean leaf/stock-photo-soy-leaf-isolated-on-white-background-120961801.jpg,Soyabean leaf,Soyabean leaf,0.818745,81.87
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Squash Powdery mildew leaf/Powdery-Mildew-on-squash.jpg,Squash Powdery mildew leaf,Squash Powdery mildew leaf,0.749164,74.92
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Squash Powdery mildew leaf/powdery-mildew-erysiphe-plantani-on-young-sycamore-leaves-b774tm.jpg,Squash Powdery mildew leaf,Squash Powdery mildew leaf,0.245341,24.53
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Squash Powdery mildew leaf/powdery-mildew-on-pumpkin-leaves-close-up-2.jpg,Squash Powdery mildew leaf,Squash Powdery mildew leaf,0.882187,88.22
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Squash Powdery mildew leaf/powdery-mildew-sphaerotheca-fuliginea-infection-on-pumpkin-leaves-ajdkkx.jpg,Squash Powdery mildew leaf,Squash Powdery mildew leaf,0.886287,88.63
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Squash Powdery mildew leaf/squash-leave-w-powd-mild.jpg,Squash Powdery mildew leaf,Squash Powdery mildew leaf,0.844555,84.46
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Squash Powdery mildew leaf/surface.jpg,Squash Powdery mildew leaf,Squash Powdery mildew leaf,0.563898,56.39
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Strawberry leaf/strawberry-leaf--stock-photo-1431216.jpg,Strawberry leaf,Strawberry leaf,0.728113,72.81
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Strawberry leaf/strawberry-leaf-22360816.jpg,Strawberry leaf,Strawberry leaf,0.873197,87.32
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Strawberry leaf/strawberry-leaves-collection-white-background-36684676.jpg,Strawberry leaf,Strawberry leaf,0.77144,77.14
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Strawberry leaf/strawberry-leaves-isolated-white-17473157.jpg,Strawberry leaf,Strawberry leaf,0.678896,67.89
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Strawberry leaf/strawberry-leaves-isolated-white-34722259.jpg,Strawberry leaf,Strawberry leaf,0.756993,75.7
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Strawberry leaf/strawberry-leaves-stock-image-948674.jpg,Strawberry leaf,Strawberry leaf,0.719938,71.99
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Strawberry leaf/strawberry-leaves-stock-picture-948708.jpg,Strawberry leaf,Strawberry leaf,0.737939,73.79
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Strawberry leaf/wild-strawberry-leaf-top-view-rotated-KTBXCY.jpg,Strawberry leaf,Strawberry leaf,0.856632,85.66
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Early blight leaf/100983448.jpg,Tomato Early blight leaf,Tomato Early blight leaf,0.336747,33.67
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Early blight leaf/1234080-Early-Blight.jpg,Tomato Early blight leaf,Tomato Early blight leaf,0.547823,54.78
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Early blight leaf/Shoemaker_7068.JPG.jpg,Tomato Early blight leaf,Tomato Early blight leaf,0.302086,30.21
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Early blight leaf/bugs-and-blight-061.jpg,Tomato Early blight leaf,Tomato Early blight leaf,0.172335,17.23
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Early blight leaf/dscn3175.jpg,Tomato Early blight leaf,Tomato Early blight leaf,0.718843,71.88
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Early blight leaf/earlyblight21_.jpg,Tomato Early blight leaf,Tomato Early blight leaf,0.49342,49.34
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Early blight leaf/tomato_early-blight_01_zoom.jpg,Tomato Early blight leaf,Tomato Early blight leaf,0.320368,32.04
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Septoria leaf spot/0.jpg,Tomato Septoria leaf spot,Tomato Septoria leaf spot,0.561923,56.19
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Septoria leaf spot/2STEM.jpg,Tomato Septoria leaf spot,Tomato Septoria leaf spot,0.643206,64.32
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Septoria leaf spot/2septoria-tomato.jpg,Tomato Septoria leaf spot,Tomato Septoria leaf spot,0.496965,49.7
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Septoria leaf spot/55830b60a7cf2.image.jpg,Tomato Septoria leaf spot,Tomato Septoria leaf spot,0.26864,26.86
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Septoria leaf spot/6134794031202304.jpeg.jpg,Tomato Septoria leaf spot,Tomato Septoria leaf spot,0.636758,63.68
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Septoria leaf spot/636227737977191231-septoria-leaf-spot-VT.jpg,Tomato Septoria leaf spot,Tomato Septoria leaf spot,0.405741,40.57
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Septoria leaf spot/6447731_orig.jpg,Tomato Septoria leaf spot,Tomato Septoria leaf spot,0.791484,79.15
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Septoria leaf spot/7-17-Photo3_Septoria-MARY.jpg,Tomato Septoria leaf spot,Tomato Septoria leaf spot,0.347662,34.77
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Septoria leaf spot/RARZ4.jpg,Tomato Septoria leaf spot,Tomato Septoria leaf spot,0.525079,52.51
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato Septoria leaf spot/sept4disease-019.jpg,Tomato Septoria leaf spot,Tomato Septoria leaf spot,0.428588,42.86
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf/1684.jpg,Tomato leaf,Tomato leaf,0.780212,78.02
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf/90e2c0.jpg,Tomato leaf,Tomato leaf,0.26031,26.03
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf/Tomato_leaf.jpg,Tomato leaf,Tomato leaf,0.335388,33.54
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf/main-qimg-d9c2a93f60568485c989670d9bbf703b.jpg,Tomato leaf,Tomato leaf,0.5563,55.63
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/%2320+Bacterial+Spot+and+Speck.jpg,Tomato leaf bacterial spot,Tomato leaf bacterial spot,0.210113,21.01
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/Tomato%2BBacterial%2BSpot%2Bon%2BLeaves.jpg,Tomato leaf bacterial spot,Tomato leaf bacterial spot,0.300413,30.04
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf bacterial spot/tomato_bacterial-speck_01_zoom.jpg,Tomato leaf bacterial spot,Tomato leaf bacterial spot,0.4086,40.86
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/110822-206-Tomato-blight.jpg,Tomato leaf late blight,Tomato leaf late blight,0.817319,81.73
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/18c.jpg,Tomato leaf late blight,Tomato leaf late blight,0.600371,60.04
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/636368370164094909-late-blight-15-.jpg,Tomato leaf late blight,Tomato leaf late blight,0.71877,71.88
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/70.jpg,Tomato leaf late blight,Tomato leaf late blight,0.331452,33.15
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/E%29Tomato-late-blight-foliar.jpg,Tomato leaf late blight,Tomato leaf late blight,0.448408,44.84
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/IMG_5808.jpg,Tomato leaf late blight,Tomato leaf late blight,0.575486,57.55
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/LateBlt09_06.jpg,Tomato leaf late blight,Tomato leaf late blight,0.341925,34.19
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/dsc_8148cs.jpg,Tomato leaf late blight,Tomato leaf late blight,0.567344,56.73
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/image.jpg,Tomato leaf late blight,Tomato leaf late blight,0.659492,65.95
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf late blight/late_blight_tomato_leaf_spore1x1200.jpg,Tomato leaf late blight,Tomato leaf late blight,0.800221,80.02
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/9511.img.jpg,Tomato leaf mosaic virus,Tomato leaf mosaic virus,0.297299,29.73
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf mosaic virus/tmv-tomato-34.jpg,Tomato leaf mosaic virus,Tomato leaf mosaic virus,0.266462,26.65
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf yellow virus/11-40580_5.jpg,Tomato leaf yellow virus,Tomato leaf yellow virus,0.251999,25.2
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf yellow virus/8226402877_9abf151b5b_b.jpg,Tomato leaf yellow virus,Tomato leaf yellow virus,0.725355,72.54
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf yellow virus/fwa2013313115151.jpg,Tomato leaf yellow virus,Tomato leaf yellow virus,0.763563,76.36
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato leaf yellow virus/glyphosate.jpg,Tomato leaf yellow virus,Tomato leaf yellow virus,0.533601,53.36
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/49%20Leafmold%20Bottom.jpg,Tomato mold leaf,Tomato mold leaf,0.227493,22.75
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/Tomato mold leaf/50%20Leafmold%20Top.jpg,Tomato mold leaf,Tomato mold leaf,0.392304,39.23
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/0000.jpg,grape leaf,grape leaf,0.899911,89.99
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/730-grape-leaf-2560x1600-nature-wallpaper.jpg,grape leaf,grape leaf,0.810146,81.01
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/depositphotos_3443387-stock-photo-the-green-grape-leaf-on.jpg,grape leaf,grape leaf,0.925881,92.59
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/depositphotos_6898486-stock-photo-grape-leaves.jpg,grape leaf,grape leaf,0.923051,92.31
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/grape-leaf-14309623.jpg,grape leaf,grape leaf,0.913425,91.34
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/grape-leaf-picture-id119212425?k=6&m=119212425&s=612x612&w=0&h=8RZBWGcvXe4tAwhhvYZVFzWyRyiN5iTxKfWBpPT1FcU=.jpg,grape leaf,grape leaf,0.877136,87.71
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/grapes-leaves.jpg,grape leaf,grape leaf,0.864694,86.47
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/grapevine-leaf-7466071.jpg,grape leaf,grape leaf,0.923287,92.33
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/latest?cb=20100621160325.jpg,grape leaf,grape leaf,0.917783,91.78
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf/vitis-riparia-le-ahaines-b.jpg,grape leaf,grape leaf,0.811054,81.11
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf black rot/03gb.jpg,grape leaf black rot,grape leaf black rot,0.389735,38.97
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf black rot/35589125035_662dd5b258_b.jpg,grape leaf black rot,grape leaf black rot,0.367301,36.73
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf black rot/Black%20rot%20on%20foliage.jpg,grape leaf black rot,grape leaf black rot,0.286857,28.69
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf black rot/Black%20rot%20on%20foliage2.jpg,grape leaf black rot,grape leaf black rot,0.618472,61.85
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf black rot/brleaf2_zoom.jpg,grape leaf black rot,grape leaf black rot,0.685966,68.6
+/Users/basavarajasuti/crop-advisor/ml/training/experiments/plantdoc_deduplicated_v2/data/test/grape leaf black rot/piano%20gully%20spray%20seed%20damage%2006%20%289%29.JPG.jpg,grape leaf black rot,grape leaf black rot,0.581203,58.12

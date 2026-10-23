@@ -1,0 +1,23 @@
+{
+  "exact_hash_train_test_overlap": 0,
+  "exact_hash_train_test_pairs": [],
+  "exact_duplicates_within_train_groups": 1,
+  "exact_duplicates_within_train": [
+    [
+      {
+        "label": "Potato leaf early blight",
+        "file": "train/Potato leaf early blight/18028_1.jpg"
+      },
+      {
+        "label": "Potato leaf late blight",
+        "file": "train/Potato leaf late blight/24064_1.jpg"
+      }
+    ]
+  ],
+  "exact_duplicates_within_test_groups": 0,
+  "exact_duplicates_within_test": [],
+  "perceptual_near_duplicates_across_splits": 0,
+  "perceptual_near_duplicate_pairs": [],
+  "test_images_grouped_by_filename_stem_clusters": 11,
+  "note": "Near-duplicate pairs are candidates only; a low Hamming distance can be a real similarity or a re-saved copy. Verify visually before removing anything."
+}
