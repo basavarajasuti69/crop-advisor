@@ -202,6 +202,20 @@ class SpeakRequest(BaseModel):
     text: str
     language: str = "en"
 
+    @field_validator("text")
+    @classmethod
+    def _text_must_not_be_empty(cls, value: str) -> str:
+        if not value or not value.strip():
+            raise ValueError("text must not be empty")
+        return value.strip()
+
+    @field_validator("language")
+    @classmethod
+    def _language_must_be_supported(cls, value: str) -> str:
+        if value not in ("en", "hi", "kn"):
+            raise ValueError("language must be one of: en, hi, kn")
+        return value
+
 
 @app.post("/speak")
 async def speak(req: SpeakRequest):

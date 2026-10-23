@@ -175,3 +175,42 @@ def test_model_endpoint_reports_uncalibrated_confidence():
     body = response.json()
     assert body["confidence_is_calibrated"] is False
     assert body["disclaimer"]
+
+
+def test_speak_rejects_empty_text():
+    response = client.post("/speak", json={"text": "", "language": "en"})
+    assert response.status_code == 422
+
+
+def test_speak_rejects_invalid_language():
+    response = client.post("/speak", json={"text": "hello", "language": "fr"})
+    assert response.status_code == 422
+
+
+def test_speak_returns_audio_content_type_when_available():
+    """When a provider succeeds, the response must be audio/mpeg."""
+    import base64
+    from unittest.mock import MagicMock, patch
+
+    fake_audio = b"fake-mp3-bytes"
+    adapter = MagicMock()
+    adapter.synthesize.return_value = fake_audio
+    adapter.configured_providers.return_value = ["sarvam"]
+    with patch("apps.api.main.tts_adapter", adapter):
+        response = client.post("/speak", json={"text": "hello", "language": "en"})
+    assert response.status_code == 200
+    assert response.headers["content-type"] == "audio/mpeg"
+    assert response.content == fake_audio
+
+
+def test_speak_trims_whitespace():
+    from unittest.mock import MagicMock, patch
+
+    adapter = MagicMock()
+    adapter.synthesize.return_value = None
+    adapter.configured_providers.return_value = []
+    with patch("apps.api.main.tts_adapter", adapter):
+        response = client.post("/speak", json={"text": "  hello  ", "language": "en"})
+    # synthesize should receive trimmed text
+    assert adapter.synthesize.called
+    assert adapter.synthesize.call_args[0][0] == "hello"
