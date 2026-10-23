@@ -36,6 +36,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from agents.graph import CONFIDENCE_MIN, HEALTHY_MIN  # noqa: E402
+from agents.classifier import is_healthy_label  # noqa: E402
 
 IMAGE_SUFFIXES = (".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff")
 
@@ -175,7 +176,7 @@ def main() -> None:
     def meets_api_threshold(label: str, score: float) -> bool:
         threshold = (
             HEALTHY_MIN
-            if label == "healthy" or label.endswith("_healthy")
+            if is_healthy_label(label)
             else args.threshold
         )
         return score >= threshold
