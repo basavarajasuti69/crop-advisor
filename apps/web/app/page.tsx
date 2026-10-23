@@ -11,7 +11,9 @@ const LANGUAGES = [
   { code: "hi", name: "हिन्दी", bcp47: "hi-IN" },
   { code: "kn", name: "ಕನ್ನಡ", bcp47: "kn-IN" },
 ]
-const CROPS = ["rice", "wheat", "cotton", "maize", "tomato"]
+// Crops are loaded from the backend /model endpoint so the selector
+// always matches the deployed classifier's trained classes.
+const DEFAULT_CROPS = ["tomato"]
 
 const STRINGS: Record<string, Record<string, string | null>> = {
   en: enStrings,
@@ -49,7 +51,9 @@ export default function Home() {
   const [image, setImage] = useState<string | null>(null)
   const [file, setFile] = useState<File | null>(null)
   const [language, setLanguage] = useState("en")
-  const [crop, setCrop] = useState("rice")
+  const [crop, setCrop] = useState("tomato")
+  const [crops, setCrops] = useState<string[]>(DEFAULT_CROPS)
+  const [cropsLoading, setCropsLoading] = useState(true)
   const [loading, setLoading] = useState(false)
   const [slowLoading, setSlowLoading] = useState(false)
   const [audioUnavailable, setAudioUnavailable] = useState(false)
@@ -64,6 +68,20 @@ export default function Home() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   const fileInput = useRef<HTMLInputElement>(null)
+
+  // Load supported crops from the backend so the selector matches the model.
+  useEffect(() => {
+    fetch(`${API}/model`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data.crops) && data.crops.length > 0) {
+          setCrops(data.crops)
+          if (!data.crops.includes(crop)) setCrop(data.crops[0])
+        }
+      })
+      .catch(() => { /* keep defaults */ })
+      .finally(() => setCropsLoading(false))
+  }, [])
 
   const t = (key: string): string => {
     const table = STRINGS[language] ?? STRINGS.en
@@ -311,7 +329,7 @@ export default function Home() {
             </button>
 
             <div className="form-row">
-              <label>CROP<select value={crop} onChange={(event) => setCrop(event.target.value)}>{CROPS.map((item) => <option key={item} value={item}>{item[0].toUpperCase() + item.slice(1)}</option>)}</select></label>
+              <label>CROP<select value={crop} onChange={(event) => setCrop(event.target.value)} disabled={cropsLoading}>{crops.map((item) => <option key={item} value={item}>{item.replace("_", " ").replace(/\b\w/g, (c: string) => c.toUpperCase())}</option>)}</select></label>
               <label>ADVICE LANGUAGE<select value={language} onChange={(event) => { stopSpeaking(); setLanguage(event.target.value) }}>{LANGUAGES.map((item) => <option key={item.code} value={item.code}>{item.name}</option>)}</select></label>
             </div>
             <button className="button button-primary diagnose-button" onClick={submit} disabled={!file || loading}>

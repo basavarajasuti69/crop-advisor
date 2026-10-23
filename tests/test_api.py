@@ -71,7 +71,7 @@ def test_advice_endpoint_reads_base64_image():
             "/advice",
             json={
                 "image_bytes": base64.b64encode(_png_bytes()).decode(),
-                "crop": "rice",
+                "crop": "tomato",
                 "language": "en",
             },
         )
@@ -92,7 +92,7 @@ def test_advice_image_endpoint_accepts_multipart_upload():
         response = client.post(
             "/advice/image",
             files={"file": ("leaf.png", _png_bytes(), "image/png")},
-            data={"crop": "rice", "language": "en"},
+            data={"crop": "tomato", "language": "en"},
         )
     assert response.status_code == 200
     assert len(calls) == 1
@@ -102,7 +102,7 @@ def test_advice_image_endpoint_accepts_multipart_upload():
 
 def test_advice_endpoint_without_image_returns_readable_message():
     """No photo at all must not produce an empty advice string."""
-    response = client.post("/advice", json={"crop": "rice", "language": "en"})
+    response = client.post("/advice", json={"crop": "tomato", "language": "en"})
     assert response.status_code == 200
     body = response.json()
     assert body["advice"], "advice must not be empty"
@@ -114,7 +114,7 @@ def test_advice_endpoint_without_image_returns_readable_message():
 
 def test_advice_endpoint_without_image_is_localized():
     for language, marker in (("hi", "फोटो"), ("kn", "ಫೋಟೊ")):
-        response = client.post("/advice", json={"crop": "rice", "language": language})
+        response = client.post("/advice", json={"crop": "tomato", "language": language})
         assert response.status_code == 200
         advice = response.json()["advice"]
         assert advice, f"{language} advice must not be empty"

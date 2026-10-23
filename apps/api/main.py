@@ -174,6 +174,14 @@ async def model_info() -> dict[str, Any]:
 
 @app.post("/advice", response_model=AdviceResponse)
 async def advice(req: AdviceRequest) -> AdviceResponse:
+    # Validate crop against the model's supported crops.
+    if req.crop and req.crop not in (crop_from_label(n) for n in (load_class_names())):
+        # Allow empty/unset crop; reject explicitly unsupported ones.
+        supported = sorted({c for c in (crop_from_label(n) for n in load_class_names()) if c})
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported crop '{req.crop}'. Supported: {', '.join(supported)}.",
+        )
     state = await run_advice(req)
     return AdviceResponse(
         case_id=state.case_id,
@@ -252,6 +260,12 @@ async def advice_image(
     crop: str = Form(""),
 ) -> AdviceResponse:
     contents = await file.read()
+    if crop and crop not in (c for c in (crop_from_label(n) for n in load_class_names()) if c):
+        supported = sorted({c for c in (crop_from_label(n) for n in load_class_names()) if c})
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported crop '{crop}'. Supported: {', '.join(supported)}.",
+        )
     state = await run_advice(
         AdviceRequest(image_url=file.filename, image_bytes=contents, language=language, crop=crop or None)
     )
