@@ -1,0 +1,156 @@
+{
+  "v3_train": 2319,
+  "v3_test": 225,
+  "v5_train": 2318,
+  "v5_test": 225,
+  "checks": [
+    {
+      "name": "Train count (V5 = V3 - 1 removed)",
+      "result": true
+    },
+    {
+      "name": "Test count (V5 = V3 = 225)",
+      "result": true
+    },
+    {
+      "name": "Test paths identical",
+      "result": true
+    },
+    {
+      "name": "Test hashes identical",
+      "result": true
+    },
+    {
+      "name": "RELABEL source exists in V3",
+      "result": true
+    },
+    {
+      "name": "RELABEL old path absent in V5",
+      "result": true
+    },
+    {
+      "name": "RELABEL new path present in V5",
+      "result": true
+    },
+    {
+      "name": "RELABEL content hash preserved",
+      "result": true
+    },
+    {
+      "name": "REMOVE file absent from V5",
+      "result": true
+    },
+    {
+      "name": "Duplicate pair absent from V3",
+      "result": true
+    },
+    {
+      "name": "Duplicate pair absent from V5",
+      "result": true
+    },
+    {
+      "name": "No conflicting-label byte-identical duplicates in V5",
+      "result": true
+    },
+    {
+      "name": "27 shared classes",
+      "result": true
+    },
+    {
+      "name": "Spider mites only in train (excluded from eval)",
+      "result": true
+    },
+    {
+      "name": "No empty training classes",
+      "result": true
+    },
+    {
+      "name": "No unexpected train folders",
+      "result": true
+    },
+    {
+      "name": "V5 file set matches expected",
+      "result": true
+    },
+    {
+      "name": "No hash mismatches on common files",
+      "result": true
+    },
+    {
+      "name": "Relabeled file hash preserved",
+      "result": true
+    },
+    {
+      "name": "V3 train count unchanged",
+      "result": true
+    },
+    {
+      "name": "V3 test count unchanged",
+      "result": true
+    }
+  ],
+  "all_pass": true,
+  "duplicate_groups": 0,
+  "empty_classes": [],
+  "unexpected_folders": [],
+  "hash_mismatches": 0,
+  "class_counts_train": {
+    "Apple Scab Leaf": 83,
+    "Apple leaf": 82,
+    "Apple rust leaf": 78,
+    "Bell_pepper leaf": 53,
+    "Bell_pepper leaf spot": 62,
+    "Blueberry leaf": 103,
+    "Cherry leaf": 47,
+    "Corn Gray leaf spot": 62,
+    "Corn leaf blight": 178,
+    "Corn rust leaf": 106,
+    "Peach leaf": 102,
+    "Potato leaf early blight": 103,
+    "Potato leaf late blight": 94,
+    "Raspberry leaf": 112,
+    "Soyabean leaf": 57,
+    "Squash Powdery mildew leaf": 124,
+    "Strawberry leaf": 88,
+    "Tomato Early blight leaf": 79,
+    "Tomato Septoria leaf spot": 138,
+    "Tomato leaf": 55,
+    "Tomato leaf bacterial spot": 100,
+    "Tomato leaf late blight": 100,
+    "Tomato leaf mosaic virus": 44,
+    "Tomato leaf yellow virus": 69,
+    "Tomato mold leaf": 85,
+    "Tomato two spotted spider mites leaf": 2,
+    "grape leaf": 56,
+    "grape leaf black rot": 56
+  },
+  "class_counts_test": {
+    "Apple Scab Leaf": 10,
+    "Apple leaf": 9,
+    "Apple rust leaf": 10,
+    "Bell_pepper leaf": 8,
+    "Bell_pepper leaf spot": 9,
+    "Blueberry leaf": 10,
+    "Cherry leaf": 10,
+    "Corn Gray leaf spot": 3,
+    "Corn leaf blight": 10,
+    "Corn rust leaf": 10,
+    "Peach leaf": 9,
+    "Potato leaf early blight": 7,
+    "Potato leaf late blight": 5,
+    "Raspberry leaf": 7,
+    "Soyabean leaf": 8,
+    "Squash Powdery mildew leaf": 6,
+    "Strawberry leaf": 8,
+    "Tomato Early blight leaf": 9,
+    "Tomato Septoria leaf spot": 10,
+    "Tomato leaf": 8,
+    "Tomato leaf bacterial spot": 8,
+    "Tomato leaf late blight": 10,
+    "Tomato leaf mosaic virus": 10,
+    "Tomato leaf yellow virus": 5,
+    "Tomato mold leaf": 6,
+    "grape leaf": 12,
+    "grape leaf black rot": 8
+  }
+}
