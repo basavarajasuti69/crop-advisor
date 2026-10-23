@@ -148,20 +148,33 @@ def test_kb_section_for_label():
 
 # ---------- the deployed model describes itself ----------
 
-def test_the_shipped_manifest_does_not_claim_plantdoc():
-    """The shipped export is the 2-class placeholder, not the PlantDoc model."""
+def test_the_shipped_manifest_describes_the_plantdoc_v8_model():
+    """The shipped export is the 27-class PlantDoc V8 model.
+
+    The manifest is the source of truth for what the deployed model
+    actually is; the service reads it rather than hard-coding a dataset
+    name.
+    """
     manifest = json.loads(SHIPPED_MANIFEST.read_text())
-    assert manifest["num_classes"] == 2
-    assert "plantdoc" not in (manifest.get("dataset") or "").lower()
+    classes = json.loads((SHIPPED_MANIFEST.parent / "classes.json").read_text())["classes"]
+    assert manifest["num_classes"] == 27
+    assert manifest["num_classes"] == len(classes)
+    assert manifest["classes"] == classes
+    assert manifest.get("dataset") == "PlantDoc"
+    assert "plantdoc" in (manifest.get("dataset") or "").lower()
+    # Confidence is not calibrated until temperature scaling is performed.
     assert manifest.get("confidence_is_calibrated") is False
+    # The class ordering must be consistent between manifest and classes.json.
+    assert manifest["classes"] == classes
 
 
 def test_load_model_metadata_reads_the_manifest():
     metadata = load_model_metadata()
-    assert metadata["num_classes"] == 2
-    assert metadata["classes"] == ["healthy", "leaf_blight"]
+    classes = json.loads((SHIPPED_MANIFEST.parent / "classes.json").read_text())["classes"]
+    assert metadata["num_classes"] == 27
+    assert metadata["classes"] == classes
     assert metadata["confidence_is_calibrated"] is False
-    assert metadata["dataset"]
+    assert metadata["dataset"] == "PlantDoc"
 
 
 def test_load_model_metadata_survives_a_missing_manifest(tmp_path):

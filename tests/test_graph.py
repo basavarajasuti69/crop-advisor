@@ -117,10 +117,19 @@ def test_onnx_preprocess_matches_torch_transform():
 )
 def test_onnx_backend_matches_torch_backend():
     """ONNX Runtime and PyTorch must give the same prediction for the same photo."""
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    classes = json.loads(
+        (root / "ml/export_edge/artifacts/classes.json").read_text()
+    )["classes"]
+
     raw = _make_image_bytes()
     onnx_preds = graph_agent._predict_onnx(raw)
     assert onnx_preds
-    assert onnx_preds[0]["label"] in ("healthy", "leaf_blight")
+    # The label must come from the configured model's class list.
+    assert onnx_preds[0]["label"] in classes
     assert 0.0 <= onnx_preds[0]["score"] <= 1.0
     # The order must be descending.
     scores = [p["score"] for p in onnx_preds]
@@ -131,12 +140,26 @@ def test_onnx_backend_matches_torch_backend():
     not (Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts/classifier.onnx").exists(),
     reason="the ONNX export is a build artifact and is not in git",
 )
-def test_predict_image_prefers_onnx_when_available():
+def test_predict_image_prefers_onnx_when_available(monkeypatch):
     """_predict_image uses the ONNX backend when the export is present."""
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    classes = json.loads(
+        (root / "ml/export_edge/artifacts/classes.json").read_text()
+    )["classes"]
+
+    # Force the torch backend to be unavailable: if _predict_image still
+    # succeeds, it must have used ONNX.
+    monkeypatch.setattr(
+        graph_agent, "_load_classifier", lambda *a, **k: (_ for _ in ()).throw(graph_agent.ModelUnavailable("forced"))
+    )
+
     raw = _make_image_bytes()
     preds = graph_agent._predict_image(raw)
     assert preds
-    assert preds[0]["label"] in ("healthy", "leaf_blight")
+    assert preds[0]["label"] in classes
 
 
 # ---------- model evaluation tool ----------
@@ -153,9 +176,9 @@ def test_evaluate_model_reports_what_the_api_would_do(tmp_path, monkeypatch, cap
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
 
-    # A tiny dataset: one image per class.
+    # A tiny dataset: one image per class, using real PlantDoc labels.
     data = tmp_path / "test"
-    for name in ("healthy", "leaf_blight"):
+    for name in ("Tomato leaf", "Tomato leaf late blight"):
         (data / name).mkdir(parents=True)
         (data / name / "a.png").write_bytes(_make_image_bytes())
 
@@ -179,9 +202,14 @@ def test_evaluate_model_reports_what_the_api_would_do(tmp_path, monkeypatch, cap
     module.main()
     report = json.loads(report_path.read_text())
 
-    assert report["classes"] == ["healthy", "leaf_blight"]
+    import json as _json
+    from pathlib import Path as _Path
+    expected_classes = _json.loads(
+        (_Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts/classes.json").read_text()
+    )["classes"]
+    assert report["classes"] == expected_classes
     assert report["metrics"]["total_images"] == 2
-    assert set(report["confusion_matrix"]) == {"healthy", "leaf_blight"}
+    assert set(report["confusion_matrix"]) == set(expected_classes)
     # The share the API would answer for rather than ask for a retake.
     assert 0.0 <= report["metrics"]["would_diagnose_rate"] <= 1.0
 
@@ -222,12 +250,12 @@ def _evaluation_report(tmp_path, monkeypatch, truth, predicted, scores):
             "--output", str(report_path),
         ],
     )
-    # The tool reads the class list from classes.json next to the model.
-    classes_path = Path("ml/export_edge/artifacts/classes.json")
-    if not classes_path.exists():
-        pytest.skip("the ONNX export is a build artifact and is not in git")
+    # The tool reads the class list from the (stubbed) model. Use the
+    # test's own class list so the stubbed indices map 1:1 to labels
+    # instead of being re-interpreted through the production model's
+    # 27-class ordering.
     monkeypatch.setattr(
-        module, "_classes_from_onnx", lambda path: json.loads(classes_path.read_text())["classes"]
+        module, "_classes_from_onnx", lambda path: classes
     )
     module.main()
     return json.loads(report_path.read_text())
@@ -239,8 +267,8 @@ def test_evaluation_separates_correct_answers_from_all_answers(tmp_path, monkeyp
     report = _evaluation_report(
         tmp_path,
         monkeypatch,
-        truth=["healthy", "leaf_blight"],
-        predicted=["healthy", "leaf_blight"],
+        truth=["Tomato leaf", "Tomato leaf late blight"],
+        predicted=["Tomato leaf", "Tomato leaf late blight"],
         scores=[0.86, 0.72],
     )
     metrics = report["metrics"]
@@ -254,8 +282,8 @@ def test_evaluation_counts_wrong_answers_in_would_diagnose(tmp_path, monkeypatch
     report = _evaluation_report(
         tmp_path,
         monkeypatch,
-        truth=["healthy", "leaf_blight"],
-        predicted=["leaf_blight", "healthy"],
+        truth=["Tomato leaf", "Tomato leaf late blight"],
+        predicted=["Tomato leaf late blight", "Tomato leaf"],
         scores=[0.72, 0.86],
     )
     metrics = report["metrics"]
@@ -270,8 +298,8 @@ def test_evaluation_applies_the_stricter_threshold_to_healthy(tmp_path, monkeypa
     report = _evaluation_report(
         tmp_path,
         monkeypatch,
-        truth=["healthy"],
-        predicted=["healthy"],
+        truth=["Tomato leaf"],
+        predicted=["Tomato leaf"],
         scores=[0.80],
     )
     metrics = report["metrics"]

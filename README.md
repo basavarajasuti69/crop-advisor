@@ -238,15 +238,13 @@ agriculture officer rather than another crop's advice.
 
 ## Known limitations
 
-- **The shipped model is a placeholder.** The export in
-  `ml/export_edge/artifacts/` is a 2-class `healthy` / `leaf_blight`
-  model trained on 40 solid-colour squares (verified: one unique colour
-  per image). Real photos score below the 0.70 confidence threshold, so
-  the app answers "retake the photo" instead of naming a disease. That
-  is the intended behaviour for a low-confidence result, not a crash -
-  but it means the app mostly asks for a better photo. See
-  [ml/training/DATASETS.md](ml/training/DATASETS.md) and
-  [ml/training/MODEL_CARD.md](ml/training/MODEL_CARD.md).
+- **The shipped model is now the 27-class PlantDoc V8 model.** The
+  export in `ml/export_edge/artifacts/` is an EfficientNet-B0 trained on
+  the PlantDoc field photographs (27 classes, 69.33% test accuracy on 225
+  images). It is **not** production-ready: the test set is small and
+  reused, the confidence is uncalibrated, several classes are limited by
+  mislabeled training images, and the knowledge base only covers 5 of the
+  13 crops. See [ml/training/MODEL_CARD.md](ml/training/MODEL_CARD.md).
 - **The 27-class PlantDoc model is not production-ready.** It reaches
   0.69 validation accuracy and 0.65 test accuracy on PlantDoc, which
   is a dataset of 2,546 field photographs with noisy folder labels. It
