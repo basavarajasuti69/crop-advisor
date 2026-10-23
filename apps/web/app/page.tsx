@@ -68,6 +68,11 @@ export default function Home() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   const fileInput = useRef<HTMLInputElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const streamRef = useRef<MediaStream | null>(null)
+  const [cameraOpen, setCameraOpen] = useState(false)
+  const [cameraError, setCameraError] = useState<string | null>(null)
 
   // Load supported crops from the backend so the selector matches the model.
   useEffect(() => {
@@ -114,6 +119,9 @@ export default function Home() {
       if (typeof window !== "undefined" && window.speechSynthesis) {
         window.speechSynthesis.cancel()
       }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((t) => t.stop())
+      }
     }
   }, [])
 
@@ -129,6 +137,60 @@ export default function Home() {
     }
     setFile(selected)
     setImage(URL.createObjectURL(selected))
+  }
+
+  const openCamera = async () => {
+    setCameraError(null)
+    if (!navigator.mediaDevices?.getUserMedia) {
+      setCameraError("Camera is not supported on this device.")
+      return
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false,
+      })
+      streamRef.current = stream
+      setCameraOpen(true)
+      // Attach stream after state update
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream
+          videoRef.current.play().catch(() => {})
+        }
+      }, 100)
+    } catch (err) {
+      setCameraError("Could not access camera. Please check permissions.")
+    }
+  }
+
+  const capturePhoto = () => {
+    const video = videoRef.current
+    const canvas = canvasRef.current
+    if (!video || !canvas) return
+    canvas.width = video.videoWidth || 640
+    canvas.height = video.videoHeight || 480
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+    canvas.toBlob((blob) => {
+      if (!blob) return
+      const capturedFile = new File([blob], "camera-capture.jpg", { type: "image/jpeg" })
+      handleFile(capturedFile)
+      closeCamera()
+    }, "image/jpeg", 0.92)
+  }
+
+  const closeCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((t) => t.stop())
+      streamRef.current = null
+    }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null
+    }
+    setCameraOpen(false)
+    setCameraError(null)
   }
 
   const submit = async () => {
@@ -314,7 +376,23 @@ export default function Home() {
 
           <div className="diagnosis-panel">
             <div className="panel-heading"><span>NEW DIAGNOSIS</span><span>FIELDNOTE / 001</span></div>
-            <button className={`upload-area ${image ? "has-image" : ""}`} onClick={() => fileInput.current?.click()} type="button">
+            {cameraOpen ? (
+              <div className="camera-container" style={{ position: "relative", width: "100%", marginBottom: "12px" }}>
+                <video ref={videoRef} autoPlay playsInline muted style={{ width: "100%", borderRadius: "8px", background: "#000" }} />
+                <canvas ref={canvasRef} style={{ display: "none" }} />
+                <div style={{ display: "flex", gap: "8px", marginTop: "8px", justifyContent: "center" }}>
+                  <button className="button button-primary" onClick={capturePhoto} type="button">CAPTURE PHOTO</button>
+                  <button className="button button-outline" onClick={closeCamera} type="button">CLOSE CAMERA</button>
+                </div>
+              </div>
+            ) : (
+              <div style={{ display: "flex", gap: "8px", marginBottom: "12px", justifyContent: "center" }}>
+                <button className="button button-outline" onClick={() => fileInput.current?.click()} type="button">UPLOAD PHOTO</button>
+                <button className="button button-outline" onClick={openCamera} type="button">USE CAMERA</button>
+              </div>
+            )}
+            {cameraError && <div className="notice notice-error" role="alert">{cameraError}</div>}
+            <button className={`upload-area ${image ? "has-image" : ""}`} onClick={() => fileInput.current?.click()} type="button" style={{ display: cameraOpen ? "none" : undefined }}>
               {image ? <img src={image} alt="Selected crop leaf" /> : <span className="upload-prompt"><span className="upload-mark">＋</span><strong>Choose a leaf photo</strong><span>JPG or PNG · Tap to browse or use camera</span></span>}
               <input
                 ref={fileInput}
