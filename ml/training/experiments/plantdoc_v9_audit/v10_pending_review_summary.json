@@ -1,0 +1,13 @@
+{
+  "total": 47,
+  "missing": 2,
+  "unreadable": 0,
+  "categories": {
+    "POSSIBLE_LABEL_MISMATCH": 45,
+    "POSSIBLE_DUPLICATE": 5,
+    "MULTI_PANEL_OR_UNSUITABLE": 1,
+    "LOW_QUALITY_OR_AMBIGUOUS": 1,
+    "MISSING_FILE": 2
+  },
+  "unique_near_dup_entries": 5
+}
