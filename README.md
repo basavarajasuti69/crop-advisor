@@ -59,6 +59,8 @@ processed in memory and nothing is stored.
 
 ![Crop Disease Advisor](docs/screenshots/app.png)
 
+![Crop Disease Advisor - Results](docs/screenshots/app2.png)
+
 The application provides a clean, mobile-friendly interface for farmers to
 upload leaf photos, get disease predictions with confidence scores, and
 listen to advice in English, Hindi, or Kannada.
