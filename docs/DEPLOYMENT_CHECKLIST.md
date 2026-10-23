@@ -30,7 +30,7 @@
 
 ### Required environment variables
 - `CA_CORS_ORIGINS` — comma-separated frontend origins (e.g. `https://crop-adviser.netlify.app`)
-- `CA_REGION` — AWS region (default: `ap-south-1`)
+- `CA_REGION — region (default: ap-south-1) (default: `ap-south-1`)
 - `CA_SARVAM_API_KEY` — Sarvam TTS API key (for Hindi/Kannada speech)
 - `GOOGLE_APPLICATION_CREDENTIALS` — path to Google Cloud service account JSON (optional)
 - `CA_LLM_BASE_URL` — LLM endpoint (optional, for advice generation)

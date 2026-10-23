@@ -60,7 +60,6 @@ def test_search_does_not_match_a_different_crop():
 def _sarvam_adapter() -> TTSAdapter:
     adapter = TTSAdapter()
     adapter._sarvam_key = "test-key"
-    adapter._polly = None
     adapter._google_creds = None
     return adapter
 

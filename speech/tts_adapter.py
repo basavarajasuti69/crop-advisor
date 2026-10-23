@@ -1,23 +1,14 @@
-"""Text-to-speech adapter with provider fallback: Polly -> Sarvam -> Google."""
+"""Text-to-speech adapter with provider fallback: Sarvam -> Google."""
 
 from __future__ import annotations
 
 import os
 from typing import Optional
 
-from apps.api.config import settings  # noqa: E402
 
 
 class TTSAdapter:
     """Speak text in the farmer's language, falling across providers."""
-
-    # Language -> Polly voice mapping (neural voices where available).
-    # Polly has no Kannada voice, so "kn" is deliberately absent: sending
-    # Kannada text to Polly would read it out with an English voice.
-    POLLY_VOICES = {
-        "en": "Joanna",
-        "hi": "Aditi",
-    }
 
     # Language -> Sarvam target_language_code (Indian-language provider).
     SARVAM_LANGUAGES = {
@@ -43,21 +34,12 @@ class TTSAdapter:
     }
 
     def __init__(self) -> None:
-        self._polly = None
         self._sarvam_key = os.getenv("CA_SARVAM_API_KEY")
         self._google_creds = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-
-    def _polly_client(self):
-        if self._polly is None:
-            import boto3
-            self._polly = boto3.client("polly", region=settings.region)
-        return self._polly
 
     def configured_providers(self, language: str = "en") -> list[str]:
         """Speech providers that can serve this language and have credentials."""
         providers = []
-        if language in self.POLLY_VOICES:
-            providers.append("aws_polly")
         if self._sarvam_key and language in self.SARVAM_LANGUAGES:
             providers.append("sarvam")
         if self._google_creds and language in self.GOOGLE_LANGUAGES:
@@ -66,22 +48,7 @@ class TTSAdapter:
 
     def synthesize(self, text: str, language: str = "en") -> Optional[bytes]:
         """Return MP3 audio bytes, or None if all providers fail."""
-        # 1. Amazon Polly (skipped for languages Polly cannot speak)
-        voice = self.POLLY_VOICES.get(language)
-        if voice:
-            try:
-                client = self._polly_client()
-                resp = client.synthesize_speech(
-                    Text=text,
-                    OutputFormat="mp3",
-                    VoiceId=voice,
-                    Engine="neural",
-                )
-                return resp["AudioStream"].read()
-            except Exception:
-                pass
-
-        # 2. Sarvam (Indian-language focused)
+        # 1. Sarvam (Indian-language focused)
         target_language = self.SARVAM_LANGUAGES.get(language)
         speaker = self.SARVAM_SPEAKERS.get(language)
         if self._sarvam_key and target_language and speaker:
@@ -126,7 +93,7 @@ class TTSAdapter:
                 resp = client.synthesize_speech(
                     input=synthesis_input, voice=voice, audio_config=audio_config
                 )
-                return resp.audio_content
+                return resp.audio_content  # type: ignore[attr-defined]
             except Exception:
                 pass
 

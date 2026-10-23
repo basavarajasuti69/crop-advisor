@@ -64,7 +64,7 @@ def test_advice_request_accepts_raw_bytes():
 def test_advice_endpoint_reads_base64_image():
     """A base64 image must reach the classifier intact, not as UTF-8 garbage."""
     calls: list[bytes] = []
-    with patch("agents.graph._predict_sagemaker", return_value=[]), patch(
+    with patch(
         "agents.graph._predict_image", side_effect=_fake_predictor(calls)
     ):
         response = client.post(
@@ -86,7 +86,7 @@ def test_advice_endpoint_reads_base64_image():
 
 def test_advice_image_endpoint_accepts_multipart_upload():
     calls: list[bytes] = []
-    with patch("agents.graph._predict_sagemaker", return_value=[]), patch(
+    with patch(
         "agents.graph._predict_image", side_effect=_fake_predictor(calls)
     ):
         response = client.post(

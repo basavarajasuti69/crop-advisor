@@ -43,9 +43,6 @@ cd apps/web
 npm install && npm run dev
 ```
 
-The old AWS infrastructure is archived in `archive/aws/` and is not
-installed here. See [archive/aws/README.md](archive/aws/README.md).
-
 ## Architecture
 
 ```
@@ -280,17 +277,9 @@ agriculture officer rather than another crop's advice.
   knowledge base has sections for five of them, so the other classes
   are answered with an officer referral rather than treatment advice.
 
-## Legacy
+## Deployment
 
-The AWS deployment path is archived in [`archive/aws/`](archive/aws/)
-and is no longer the target:
-
-- `archive/aws/terraform/` - ECS, ECR, VPC, SageMaker, Bedrock, Athena
-- `archive/aws/ml/` - the SageMaker training pipeline and the S3 export
-- `archive/aws/workflows/ml-pipeline.yml` - the workflow that ran it
-
-The AWS code paths in the application itself are still there, guarded by
-environment variables (`CA_SAGEMAKER_ENDPOINT`, `CA_GUARDRAIL_ID`,
-`CA_SARVAM_API_KEY`), so they can be switched on again without a
-rewrite.
+The application runs on Render (backend) and Netlify (frontend).
+See [docs/DEPLOYMENT_CHECKLIST.md](docs/DEPLOYMENT_CHECKLIST.md) for
+exact deployment steps.
 

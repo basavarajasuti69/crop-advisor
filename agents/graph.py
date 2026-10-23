@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import asyncio
 import importlib
-import io
 import json
 import os
 import uuid
@@ -24,25 +23,12 @@ from pydantic import BaseModel, Field
 from rag.glossary import hi as glossary_hi  # noqa: E402
 from rag.glossary import kn as glossary_kn  # noqa: E402
 
-from apps.api.config import settings  # noqa: E402
 
 from agents.llm import explain, llm_configured, vision_opinion  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Classifier: SageMaker endpoint first, local PyTorch fallback
 # ---------------------------------------------------------------------------
-
-_SAGEMAKER_CLIENT = None
-
-
-def _sagemaker_client():
-    global _SAGEMAKER_CLIENT
-    if _SAGEMAKER_CLIENT is None:
-        import boto3
-
-        _SAGEMAKER_CLIENT = boto3.client("sagemaker-runtime", region_name=settings.sagemaker_region)
-    return _SAGEMAKER_CLIENT
-
 
 # ---------------------------------------------------------------------------
 # Confidence thresholds (named constants; no raw numbers in logic)
@@ -78,28 +64,6 @@ def _torch_transform():
     from agents.classifier import _torch_transform as transform
 
     return transform()
-
-
-def _predict_sagemaker(image_bytes: bytes) -> list[dict[str, Any]]:
-    """Invoke SageMaker endpoint for classification (production path)."""
-    if not settings.sagemaker_endpoint:
-        return []
-    try:
-        client = _sagemaker_client()
-        buf = io.BytesIO(image_bytes)
-        response = client.invoke_endpoint(
-            EndpointName=settings.sagemaker_endpoint,
-            ContentType="application/x-image",
-            Body=buf.read(),
-        )
-        body = json.loads(response["Body"].read().decode())
-        if isinstance(body, dict) and "predictions" in body:
-            return body["predictions"]
-        if isinstance(body, list):
-            return body
-        return [{"label": str(body.get("label", "healthy")), "score": float(body.get("score", 0.0))}]
-    except Exception:
-        return []
 
 
 # ---------------------------------------------------------------------------
@@ -322,33 +286,28 @@ async def classify(state: AgentState) -> AgentState:
         strings = load_strings(state.language)
         state.answer = strings.get("cannot_read", "Cannot read this photo. Please retake it.")
         return state
-    # Try SageMaker endpoint first (production), fall back to local PyTorch.
+    # Classify using the local ONNX/PyTorch model.
     predictions = None
     try:
-        predictions = _predict_sagemaker(image_bytes)
-    except Exception:
-        predictions = []
-    if not predictions:
-        try:
-            predictions = _predict_image(image_bytes)
-        except ModelUnavailable:
-            state.error = "model_unavailable"
-            state.safe = False
-            state.escalate = True
-            state.escalate_reason = "model_unavailable"
-            state.retake_requested = True
-            strings = load_strings(state.language)
-            state.answer = strings.get("service_problem", "Service problem, please try again later.")
-            return state
-        except ImageUnreadable:
-            state.error = "image_unreadable"
-            state.safe = False
-            state.escalate = True
-            state.escalate_reason = "image_unreadable"
-            state.retake_requested = True
-            strings = load_strings(state.language)
-            state.answer = strings.get("cannot_read", "Cannot read this photo. Please retake it.")
-            return state
+        predictions = _predict_image(image_bytes)
+    except ModelUnavailable:
+        state.error = "model_unavailable"
+        state.safe = False
+        state.escalate = True
+        state.escalate_reason = "model_unavailable"
+        state.retake_requested = True
+        strings = load_strings(state.language)
+        state.answer = strings.get("service_problem", "Service problem, please try again later.")
+        return state
+    except ImageUnreadable:
+        state.error = "image_unreadable"
+        state.safe = False
+        state.escalate = True
+        state.escalate_reason = "image_unreadable"
+        state.retake_requested = True
+        strings = load_strings(state.language)
+        state.answer = strings.get("cannot_read", "Cannot read this photo. Please retake it.")
+        return state
     if not predictions:
         state.error = "no_predictions"
         state.safe = False
@@ -635,28 +594,6 @@ async def critic_safety(state: AgentState) -> AgentState:
         intro = strings.get("intro", "").format(crop=crop_local, label=disease_local)
         confirm = strings.get("confirm", "")
         state.answer = f"{intro} {confirm}"
-
-    # Bedrock Guardrails check (production): screen the advice text
-    if state.safe and settings.guardrail_id and state.answer:
-        try:
-            import boto3
-            br = boto3.client("bedrock-runtime", region_name=settings.region)
-            br.apply_guardrail(
-                guardrailIdentifier=settings.guardrail_id,
-                guardrailVersion=settings.guardrail_version,
-                source={
-                    "text": [
-                        {
-                            "text": {"content": state.answer},
-                        }
-                    ]
-                },
-            )
-        except Exception:
-            # Guardrail service unavailable - fail closed
-            state.safe = False
-            state.escalate = True
-            state.escalate_reason = "guardrail_error"
 
     return state
 
