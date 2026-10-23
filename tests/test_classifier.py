@@ -7,6 +7,7 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from conftest import onnx_available
 from PIL import Image
 
 sys.path.insert(0, ".")
@@ -146,7 +147,7 @@ def test_predict_requires_both_model_and_classes():
         predict(_leaf_image_bytes(), model=_FakeModel())
 
 
-@pytest.mark.skipif(not ONNX_PATH.exists(), reason="the ONNX export is not in git")
+@pytest.mark.skipif(not onnx_available(), reason="ONNX model not available or invalid")
 def test_predict_onnx_returns_a_valid_ranking():
     predictions = predict_onnx(_leaf_image_bytes(), top_k=2)
     assert len(predictions) == 2

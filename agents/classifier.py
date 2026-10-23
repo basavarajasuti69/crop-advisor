@@ -248,10 +248,20 @@ def load_onnx():
         import onnxruntime as ort
     except ImportError:
         return None
-    _ONNX_CLASSES = json.loads(classes_path.read_text())["classes"]
-    _ONNX_SESSION = ort.InferenceSession(
-        str(model_path), providers=["CPUExecutionProvider"]
-    )
+    try:
+        _ONNX_CLASSES = json.loads(classes_path.read_text())["classes"]
+        _ONNX_SESSION = ort.InferenceSession(
+            str(model_path), providers=["CPUExecutionProvider"]
+        )
+    except Exception as exc:
+        # The file may be an LFS pointer, truncated, or corrupted.
+        # Log and fall back to the torch backend instead of crashing.
+        import logging
+
+        logging.getLogger(__name__).warning(
+            "ONNX model could not be loaded from %s: %s", model_path, exc
+        )
+        return None
     return _ONNX_SESSION, _ONNX_CLASSES
 
 

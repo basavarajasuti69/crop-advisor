@@ -9,6 +9,7 @@ from unittest.mock import AsyncMock, patch
 from PIL import Image
 
 import pytest
+from conftest import onnx_available
 
 sys.path.insert(0, ".")
 
@@ -112,8 +113,8 @@ def test_onnx_preprocess_matches_torch_transform():
 
 
 @pytest.mark.skipif(
-    not (Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts/classifier.onnx").exists(),
-    reason="the ONNX export is a build artifact and is not in git",
+    not onnx_available(),
+    reason="ONNX model not available or invalid",
 )
 def test_onnx_backend_matches_torch_backend():
     """ONNX Runtime and PyTorch must give the same prediction for the same photo."""
@@ -137,8 +138,8 @@ def test_onnx_backend_matches_torch_backend():
 
 
 @pytest.mark.skipif(
-    not (Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts/classifier.onnx").exists(),
-    reason="the ONNX export is a build artifact and is not in git",
+    not onnx_available(),
+    reason="ONNX model not available or invalid",
 )
 def test_predict_image_prefers_onnx_when_available(monkeypatch):
     """_predict_image uses the ONNX backend when the export is present."""
@@ -182,12 +183,13 @@ def test_evaluate_model_reports_what_the_api_would_do(tmp_path, monkeypatch, cap
         (data / name).mkdir(parents=True)
         (data / name / "a.png").write_bytes(_make_image_bytes())
 
+    from conftest import onnx_available
+    if not onnx_available():
+        pytest.skip("ONNX model not available or invalid")
+
     onnx = (
         Path(__file__).resolve().parent.parent / "ml/export_edge/artifacts/classifier.onnx"
     )
-    if not onnx.exists():
-        pytest.skip("the ONNX export is a build artifact and is not in git")
-
     report_path = tmp_path / "report.json"
     monkeypatch.setattr(
         sys,
