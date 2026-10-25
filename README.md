@@ -1,4 +1,6 @@
 # Crop Disease Advisor
+![Crop Disease Advisor - Results](docs/screenshots/app2.png)
+
 
 AI crop-disease advisor — languages **English, Hindi, Kannada**, crops **13 crops, 27 disease classes** (PlantDoc).
 
@@ -55,8 +57,6 @@ Next.js (static export)  ->  FastAPI  ->  ONNX classifier (V11, 27 classes)
 The browser talks to the API directly. The API is stateless: photos are
 processed in memory and nothing is stored.
 
-## Screenshots
-![Crop Disease Advisor - Results](docs/screenshots/app2.png)
 
 The application provides a clean, mobile-friendly interface for farmers to
 upload leaf photos, get disease predictions with confidence scores, and
